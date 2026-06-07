@@ -1,0 +1,5 @@
+{
+  "title": "Godot Benchmark",
+  "description": "Performance results of AI coding models on Godot tasks, measuring success rate and execution time with high precision.",
+  "github_repo": "https://github.com/kweizh/godot-benchmark"
+}
