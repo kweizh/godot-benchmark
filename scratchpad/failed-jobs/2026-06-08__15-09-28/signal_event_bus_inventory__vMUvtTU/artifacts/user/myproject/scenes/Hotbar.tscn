@@ -1,0 +1,39 @@
+[gd_scene load_steps=2 format=3 uid="uid://hotbar_scene"]
+
+[ext_resource type="Script" path="res://scripts/Hotbar.gd" id="1_hotbar"]
+
+[node name="Hotbar" type="Control"]
+script = ExtResource("1_hotbar")
+max_slots = 8
+
+[node name="Slot0" type="Label" parent="."]
+visible = false
+text = ""
+
+[node name="Slot1" type="Label" parent="."]
+visible = false
+text = ""
+
+[node name="Slot2" type="Label" parent="."]
+visible = false
+text = ""
+
+[node name="Slot3" type="Label" parent="."]
+visible = false
+text = ""
+
+[node name="Slot4" type="Label" parent="."]
+visible = false
+text = ""
+
+[node name="Slot5" type="Label" parent="."]
+visible = false
+text = ""
+
+[node name="Slot6" type="Label" parent="."]
+visible = false
+text = ""
+
+[node name="Slot7" type="Label" parent="."]
+visible = false
+text = ""

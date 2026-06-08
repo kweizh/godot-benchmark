@@ -1,0 +1,10 @@
+; Engine configuration file.
+;
+; Initial project skeleton for the quest_system_custom_resource Harbor task.
+
+config_version=5
+
+[application]
+
+config/name="quest_project"
+config/features=PackedStringArray("4.3")

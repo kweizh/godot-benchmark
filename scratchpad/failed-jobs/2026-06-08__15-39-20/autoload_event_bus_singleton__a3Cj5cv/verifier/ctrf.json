@@ -1,0 +1,145 @@
+{
+    "results": {
+        "tool": {
+            "name": "pytest",
+            "version": "7.4.4"
+        },
+        "summary": {
+            "tests": 13,
+            "passed": 12,
+            "failed": 1,
+            "skipped": 0,
+            "pending": 0,
+            "other": 0,
+            "start": 1780934424698,
+            "stop": 1780934426109
+        },
+        "environment": {
+            "buildName": "Pytest JSON CTRF Report",
+            "buildNumber": "000",
+            "buildUrl": "https://ctrf.io"
+        },
+        "tests": [
+            {
+                "name": "test_final_state.py::test_project_godot_exists",
+                "status": "passed",
+                "duration": 4,
+                "start": 1780934424752,
+                "stop": 1780934424756,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_bus_script_exists",
+                "status": "passed",
+                "duration": 0,
+                "start": 1780934424757,
+                "stop": 1780934424757,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_bus_declares_class_name",
+                "status": "passed",
+                "duration": 1,
+                "start": 1780934424758,
+                "stop": 1780934424759,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_autoload_registered_in_project_godot",
+                "status": "passed",
+                "duration": 3,
+                "start": 1780934424759,
+                "stop": 1780934424762,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_project_loads_without_errors",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 615,
+                "start": 1780934424763,
+                "stop": 1780934425378,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "def test_project_loads_without_errors():\n        _reset_user_data()\n        result = subprocess.run(\n            [\"godot\", \"--headless\", \"--path\", PROJECT_DIR, \"--quit\"],\n            capture_output=True,\n            text=True,\n            timeout=120,\n            env=_godot_env(),\n        )\n        combined = (result.stdout or \"\") + (result.stderr or \"\")\n        assert result.returncode == 0, (\n            f\"`godot --quit` exited with code {result.returncode}:\\n\"\n            f\"stdout:\\n{result.stdout}\\nstderr:\\n{result.stderr}\"\n        )\n        forbidden = [\"SCRIPT ERROR\", \"Parse Error\", \"Failed to load\"]\n        for marker in forbidden:\n>           assert marker not in combined, (\n                f\"Godot reported '{marker}' while loading the project:\\n{combined}\"\n            )\nE           AssertionError: Godot reported 'SCRIPT ERROR' while loading the project:\nE             Godot Engine v4.3.stable.official.77dcf97d8 - https://godotengine.org\nE             \nE             SCRIPT ERROR: Assertion failed: Payload should be modified\nE                       at: _ready (res://main.gd:45)\nE             \nE           assert 'SCRIPT ERROR' not in 'Godot Engin...ain.gd:45)\\n'\nE             'SCRIPT ERROR' is contained here:\nE               gine.org\nE               \nE               SCRIPT ERROR: Assertion failed: Payload should be modified\nE             ? ++++++++++++\nE                         at: _ready (res://main.gd:45)\n\ntests/test_final_state.py:125: AssertionError",
+                "message": "The test failed in the call phase due to an assertion error"
+            },
+            {
+                "name": "test_final_state.py::test_harness_autoload",
+                "status": "passed",
+                "duration": 712,
+                "start": 1780934425378,
+                "stop": 1780934426090,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_harness_multi_subs",
+                "status": "passed",
+                "duration": 3,
+                "start": 1780934426090,
+                "stop": 1780934426093,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_harness_unsubscribe",
+                "status": "passed",
+                "duration": 1,
+                "start": 1780934426093,
+                "stop": 1780934426094,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_harness_publish_once",
+                "status": "passed",
+                "duration": 3,
+                "start": 1780934426094,
+                "stop": 1780934426097,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_harness_middleware_drop",
+                "status": "passed",
+                "duration": 1,
+                "start": 1780934426098,
+                "stop": 1780934426099,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_harness_middleware_transform",
+                "status": "passed",
+                "duration": 3,
+                "start": 1780934426100,
+                "stop": 1780934426103,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_harness_freed_autoprune",
+                "status": "passed",
+                "duration": 4,
+                "start": 1780934426103,
+                "stop": 1780934426107,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_harness_clear_channel",
+                "status": "passed",
+                "duration": 1,
+                "start": 1780934426107,
+                "stop": 1780934426108,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            }
+        ]
+    }
+}

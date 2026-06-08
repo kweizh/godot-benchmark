@@ -1,0 +1,15 @@
+[gd_scene format=3]
+
+[node name="World" type="Node2D"]
+
+[node name="Player" type="CharacterBody2D" parent="."]
+position = Vector2(0, 0)
+
+[node name="Poi1" type="Node2D" parent="." groups=["poi"]]
+position = Vector2(200, 150)
+
+[node name="Poi2" type="Node2D" parent="." groups=["poi"]]
+position = Vector2(-300, 400)
+
+[node name="Poi3" type="Node2D" parent="." groups=["poi"]]
+position = Vector2(500, -250)

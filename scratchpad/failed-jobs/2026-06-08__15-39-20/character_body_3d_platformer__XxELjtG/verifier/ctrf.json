@@ -1,0 +1,115 @@
+{
+    "results": {
+        "tool": {
+            "name": "pytest",
+            "version": "7.4.4"
+        },
+        "summary": {
+            "tests": 9,
+            "passed": 6,
+            "failed": 3,
+            "skipped": 0,
+            "pending": 0,
+            "other": 0,
+            "start": 1780933833505,
+            "stop": 1780934134600
+        },
+        "environment": {
+            "buildName": "Pytest JSON CTRF Report",
+            "buildNumber": "000",
+            "buildUrl": "https://ctrf.io"
+        },
+        "tests": [
+            {
+                "name": "test_final_state.py::test_required_files_exist",
+                "status": "passed",
+                "duration": 2,
+                "start": 1780933833550,
+                "stop": 1780933833552,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_player_script_declares_exports_with_defaults",
+                "status": "passed",
+                "duration": 2,
+                "start": 1780933833552,
+                "stop": 1780933833554,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_player_script_declares_jumped_signal",
+                "status": "passed",
+                "duration": 1,
+                "start": 1780933833555,
+                "stop": 1780933833556,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_player_script_defines_required_methods",
+                "status": "passed",
+                "duration": 1,
+                "start": 1780933833556,
+                "stop": 1780933833557,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_player_scene_root_is_character_body_3d",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 18,
+                "start": 1780933833557,
+                "stop": 1780933833575,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "def test_player_scene_root_is_character_body_3d():\n        content = _read_text(os.path.join(PROJECT_DIR, \"scenes/Player.tscn\"))\n        # The root node line must have name=\"Player\" and type=\"CharacterBody3D\".\n        root_pattern = re.compile(\n            r'\\[node\\s+name=\"Player\"\\s+type=\"CharacterBody3D\"\\b', re.MULTILINE\n        )\n>       assert root_pattern.search(content), (\n            \"scenes/Player.tscn root must be `[node name=\\\"Player\\\" type=\\\"CharacterBody3D\\\"]`.\"\n        )\nE       AssertionError: scenes/Player.tscn root must be `[node name=\"Player\" type=\"CharacterBody3D\"]`.\nE       assert None\nE        +  where None = <built-in method search of re.Pattern object at 0xfcee310>('[gd_scene load_steps=4 format=3]\\n\\n[ext_resource type=\"Script\" path=\"res://scripts/Player.gd\" id=\"1_snwee\"]\\n\\n[sub_...t=\".\"]\\n\\n[node name=\"MeshInstance3D\" type=\"MeshInstance3D\" parent=\"Pivot\"]\\nmesh = SubResource(\"CapsuleMesh_s3jhq\")\\n')\nE        +    where <built-in method search of re.Pattern object at 0xfcee310> = re.compile('\\\\[node\\\\s+name=\"Player\"\\\\s+type=\"CharacterBody3D\"\\\\b', re.MULTILINE).search\n\ntests/test_final_state.py:117: AssertionError",
+                "message": "The test failed in the call phase due to an assertion error"
+            },
+            {
+                "name": "test_final_state.py::test_player_scene_has_capsule_collider_with_dimensions",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 11,
+                "start": 1780933833576,
+                "stop": 1780933833587,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "def test_player_scene_has_capsule_collider_with_dimensions():\n        content = _read_text(os.path.join(PROJECT_DIR, \"scenes/Player.tscn\"))\n        assert re.search(\n            r'\\[sub_resource\\s+type=\"CapsuleShape3D\"', content\n        ), \"scenes/Player.tscn must declare a CapsuleShape3D sub_resource.\"\n        # Find the CapsuleShape3D block and confirm radius/height.\n        blocks = re.findall(\n            r'\\[sub_resource\\s+type=\"CapsuleShape3D\"[^\\[]*',\n            content,\n        )\n        matched = False\n        for block in blocks:\n            radius_ok = re.search(r\"\\bradius\\s*=\\s*0\\.5(?:0+)?\\b\", block) is not None\n            height_ok = re.search(r\"\\bheight\\s*=\\s*1\\.8(?:0+)?\\b\", block) is not None\n            if radius_ok and height_ok:\n                matched = True\n                break\n>       assert matched, (\n            \"scenes/Player.tscn must declare a CapsuleShape3D with `radius = 0.5` \"\n            \"and `height = 1.8`.\"\n        )\nE       AssertionError: scenes/Player.tscn must declare a CapsuleShape3D with `radius = 0.5` and `height = 1.8`.\nE       assert False\n\ntests/test_final_state.py:142: AssertionError",
+                "message": "The test failed in the call phase due to an assertion error"
+            },
+            {
+                "name": "test_final_state.py::test_player_scene_has_pivot_with_mesh",
+                "status": "passed",
+                "duration": 2,
+                "start": 1780933833588,
+                "stop": 1780933833590,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_project_loads_without_errors",
+                "status": "passed",
+                "duration": 757,
+                "start": 1780933833591,
+                "stop": 1780933834348,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_jump_runtime_harness",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 300251,
+                "start": 1780933834348,
+                "stop": 1780934134599,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "def test_jump_runtime_harness():\n        _reset_user_data()\n>       result = subprocess.run(\n            [\n                \"godot\",\n                \"--headless\",\n                \"--path\",\n                PROJECT_DIR,\n                \"res://_zealt_tests/test_harness_jump.tscn\",\n            ],\n            capture_output=True,\n            text=True,\n            timeout=300,\n            env=_godot_env(),\n        )\n\ntests/test_final_state.py:210: \n_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ \nusr/lib/python3.12/subprocess.py:550: in run\n    stdout, stderr = process.communicate(input, timeout=timeout)\nusr/lib/python3.12/subprocess.py:1209: in communicate\n    stdout, stderr = self._communicate(input, endtime, timeout)\nusr/lib/python3.12/subprocess.py:2116: in _communicate\n    self._check_timeout(endtime, orig_timeout, stdout, stderr)\n_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ \n\nself = <Popen: returncode: -9 args: ['godot', '--headless', '--path', '/home/user/p...>\nendtime = 974994.620338812, orig_timeout = 300\nstdout_seq = [b'Godot Engine v4.3.stable.official.77dcf97d8 - https://godotengine.org\\n', b'\\n']\nstderr_seq = [b'SCRIPT ERROR: Parse Error: Cannot infer the type of \"state\" variable because the value doesn\\'t have a set type.\\n ...es://_zealt_tests/test_harness_jump.gd\" with error \"Parse error\".\\n   at: load (modules/gdscript/gdscript.cpp:2936)\\n']\nskip_check_and_raise = False\n\n    def _check_timeout(self, endtime, orig_timeout, stdout_seq, stderr_seq,\n                       skip_check_and_raise=False):\n        \"\"\"Convenience for checking if a timeout has expired.\"\"\"\n        if endtime is None:\n            return\n        if skip_check_and_raise or _time() > endtime:\n>           raise TimeoutExpired(\n                    self.args, orig_timeout,\n                    output=b''.join(stdout_seq) if stdout_seq else None,\n                    stderr=b''.join(stderr_seq) if stderr_seq else None)\nE           subprocess.TimeoutExpired: Command '['godot', '--headless', '--path', '/home/user/platformer3d', 'res://_zealt_tests/test_harness_jump.tscn']' timed out after 300 seconds\n\nusr/lib/python3.12/subprocess.py:1253: TimeoutExpired",
+                "message": "The test failed in the call phase"
+            }
+        ]
+    }
+}

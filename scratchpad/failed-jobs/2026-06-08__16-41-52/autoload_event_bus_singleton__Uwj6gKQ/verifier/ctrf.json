@@ -1,0 +1,151 @@
+{
+    "results": {
+        "tool": {
+            "name": "pytest",
+            "version": "7.4.4"
+        },
+        "summary": {
+            "tests": 13,
+            "passed": 10,
+            "failed": 3,
+            "skipped": 0,
+            "pending": 0,
+            "other": 0,
+            "start": 1780938591033,
+            "stop": 1780938591823
+        },
+        "environment": {
+            "buildName": "Pytest JSON CTRF Report",
+            "buildNumber": "000",
+            "buildUrl": "https://ctrf.io"
+        },
+        "tests": [
+            {
+                "name": "test_final_state.py::test_project_godot_exists",
+                "status": "passed",
+                "duration": 2,
+                "start": 1780938591064,
+                "stop": 1780938591066,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_bus_script_exists",
+                "status": "passed",
+                "duration": 1,
+                "start": 1780938591067,
+                "stop": 1780938591068,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_bus_declares_class_name",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 19,
+                "start": 1780938591068,
+                "stop": 1780938591087,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "def test_bus_declares_class_name():\n        p = os.path.join(PROJECT_DIR, \"autoloads\", \"Bus.gd\")\n        content = _read_text(p)\n>       assert re.search(r\"^class_name\\s+Bus\\b\", content, re.MULTILINE), (\n            \"autoloads/Bus.gd must declare `class_name Bus`.\"\n        )\nE       AssertionError: autoloads/Bus.gd must declare `class_name Bus`.\nE       assert None\nE        +  where None = <function search at 0x7f1a7bd03ba0>('^class_name\\\\s+Bus\\\\b', 'extends Node\\n\\n## Emitted on every publish/publish_once call, regardless of middleware drops.\\nsignal event_publishe...t_channel_index[channel].erase(sid)\\n\\t\\tif _channel_index[channel].is_empty():\\n\\t\\t\\t_channel_index.erase(channel)\\n', re.MULTILINE)\nE        +    where <function search at 0x7f1a7bd03ba0> = re.search\nE        +    and   re.MULTILINE = re.MULTILINE\n\ntests/test_final_state.py:87: AssertionError",
+                "message": "The test failed in the call phase due to an assertion error"
+            },
+            {
+                "name": "test_final_state.py::test_autoload_registered_in_project_godot",
+                "status": "passed",
+                "duration": 1,
+                "start": 1780938591087,
+                "stop": 1780938591088,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_project_loads_without_errors",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 312,
+                "start": 1780938591089,
+                "stop": 1780938591401,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "def test_project_loads_without_errors():\n        _reset_user_data()\n        result = subprocess.run(\n            [\"godot\", \"--headless\", \"--path\", PROJECT_DIR, \"--quit\"],\n            capture_output=True,\n            text=True,\n            timeout=120,\n            env=_godot_env(),\n        )\n        combined = (result.stdout or \"\") + (result.stderr or \"\")\n>       assert result.returncode == 0, (\n            f\"`godot --quit` exited with code {result.returncode}:\\n\"\n            f\"stdout:\\n{result.stdout}\\nstderr:\\n{result.stderr}\"\n        )\nE       AssertionError: `godot --quit` exited with code 1:\nE         stdout:\nE         Godot Engine v4.3.stable.official.77dcf97d8 - https://godotengine.org\nE         \nE         ========================================\nE           Bus Autoload Acceptance Test Suite\nE         ========================================\nE         \nE         [test] subscribe + publish\nE           FAIL: subscriber receives published payload\nE         [test] multiple subscribers\nE           PASS: first subscriber received payload\nE           PASS: second subscriber received payload\nE           PASS: exactly two subscribers invoked\nE         [test] unsubscribe\nE           PASS: unsubscribe returns true for valid id\nE           FAIL: only remaining subscriber invoked after unsubscribe\nE           PASS: unsubscribe returns false for invalid id\nE         [test] publish_once\nE           PASS: publish_once invokes first subscriber\nE           PASS: publish_once invokes second subscriber\nE           PASS: publish_once invokes exactly two subscribers\nE           PASS: publish_once removes all subscribers\nE         [test] publish_once then publish again\nE           PASS: publish after publish_once invokes no subscribers\nE         [test] subscription_count\nE           PASS: count is 0 for nonexistent channel\nE           PASS: count reflects two subscribers\nE           PASS: count decrements after unsubscribe\nE         [test] clear_channel\nE           PASS: clear_channel removes all subscribers\nE           PASS: publish after clear_channel invokes no subscribers\nE         [test] middleware \u2014 modify payload\nE           FAIL: middleware-modified payload reaches subscriber\nE         [test] middleware \u2014 drop event\nE           PASS: subscriber NOT invoked when middleware drops event\nE         [test] event_published signal\nE           FAIL: event_published captures correct channel\nE           FAIL: event_published captures correct payload\nE         [test] event_published fires on middleware drop\nE           FAIL: event_published fires even when middleware drops the event\nE         [test] auto-prune freed Object\nE           PASS: subscription registered for bound object\nE         [test] add_middleware / clear_middleware\nE           FAIL: middleware applied\nE           FAIL: middleware no longer applied after clear\nE         \nE         ========================================\nE           RESULTS: 17 passed, 8 failed\nE         ========================================\nE         SOME TESTS FAILED \u2014 exiting with code 1\nE         \nE         stderr:\nE         ERROR: Can't free a RefCounted object.\nE            at: callp (core/object/object.cpp:766)\nE         SCRIPT ERROR: Attempted to free a RefCounted object.\nE                   at: _test_auto_prune_freed_object (res://tests/test_bus.gd:246)\nE         WARNING: ObjectDB instances leaked at exit (run with --verbose for details).\nE              at: cleanup (core/object/object.cpp:2284)\nE         ERROR: 1 resources still in use at exit (run with --verbose for details).\nE            at: clear (core/io/resource.cpp:604)\nE         \nE       assert 1 == 0\nE        +  where 1 = CompletedProcess(args=['godot', '--headless', '--path', '/home/user/myproject', '--quit'], returncode=1, stdout='Godot...nERROR: 1 resources still in use at exit (run with --verbose for details).\\n   at: clear (core/io/resource.cpp:604)\\n\").returncode\n\ntests/test_final_state.py:119: AssertionError",
+                "message": "The test failed in the call phase due to an assertion error"
+            },
+            {
+                "name": "test_final_state.py::test_harness_autoload",
+                "status": "passed",
+                "duration": 408,
+                "start": 1780938591402,
+                "stop": 1780938591810,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_harness_multi_subs",
+                "status": "passed",
+                "duration": 1,
+                "start": 1780938591810,
+                "stop": 1780938591811,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_harness_unsubscribe",
+                "status": "passed",
+                "duration": 1,
+                "start": 1780938591811,
+                "stop": 1780938591812,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_harness_publish_once",
+                "status": "passed",
+                "duration": 1,
+                "start": 1780938591812,
+                "stop": 1780938591813,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_harness_middleware_drop",
+                "status": "passed",
+                "duration": 1,
+                "start": 1780938591813,
+                "stop": 1780938591814,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_harness_middleware_transform",
+                "status": "passed",
+                "duration": 1,
+                "start": 1780938591814,
+                "stop": 1780938591815,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_harness_freed_autoprune",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 6,
+                "start": 1780938591815,
+                "stop": 1780938591821,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "harness_results = {'autoload': True, 'clear_channel': True, 'freed_autoprune': False, 'middleware_drop': True, ...}\n\n    def test_harness_freed_autoprune(harness_results):\n>       assert harness_results.get(\"freed_autoprune\") is True, (\n            \"Subscriptions whose target Object was freed must be auto-pruned on publish.\"\n        )\nE       AssertionError: Subscriptions whose target Object was freed must be auto-pruned on publish.\nE       assert False is True\nE        +  where False = <built-in method get of dict object at 0x7f1a7b163d40>('freed_autoprune')\nE        +    where <built-in method get of dict object at 0x7f1a7b163d40> = {'autoload': True, 'clear_channel': True, 'freed_autoprune': False, 'middleware_drop': True, ...}.get\n\ntests/test_final_state.py:209: AssertionError",
+                "message": "The test failed in the call phase due to an assertion error"
+            },
+            {
+                "name": "test_final_state.py::test_harness_clear_channel",
+                "status": "passed",
+                "duration": 2,
+                "start": 1780938591821,
+                "stop": 1780938591823,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            }
+        ]
+    }
+}

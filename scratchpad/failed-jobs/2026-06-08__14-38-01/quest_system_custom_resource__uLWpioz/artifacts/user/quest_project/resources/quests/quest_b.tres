@@ -1,0 +1,20 @@
+[gd_resource type="Resource" script_class="Quest" load_steps=4 format=3]
+
+[ext_resource type="Script" path="res://scripts/QuestObjective.gd" id="1_dqg7n"]
+[ext_resource type="Script" path="res://scripts/Quest.gd" id="2_mugrs"]
+
+[sub_resource type="Resource" id="Resource_qn36h"]
+script = ExtResource("1_dqg7n")
+description = "Defeat 3 slimes"
+target_count = 3
+current_count = 0
+
+[resource]
+script = ExtResource("2_mugrs")
+id = &"quest_b"
+title = "Slime Menace"
+description = "Defeat the slimes near the gate."
+objectives = Array[ExtResource("1_dqg7n")]([SubResource("Resource_qn36h")])
+prerequisite_quest_ids = Array[StringName]([&"quest_a"])
+reward_gold = 100
+reward_items = Array[StringName]([&"shield"])

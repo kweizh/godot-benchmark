@@ -1,0 +1,37 @@
+# 3D Platformer Character Controller (CharacterBody3D)
+
+Godot 4 (>= 4.3) is installed as the headless binary `godot`. Build a Godot 4 project at `/home/user/platformer3d` that implements a 3D platformer character controller with double jump, coyote time, and jump buffering.
+
+## Acceptance Criteria
+- Project path: `/home/user/platformer3d` (must be a valid Godot 4 project with `project.godot` at the root).
+- Required files:
+  - `project.godot`
+  - `scripts/Player.gd`
+  - `scenes/Player.tscn`
+- `scenes/Player.tscn`:
+  - Root node is a `CharacterBody3D` named `Player` with `scripts/Player.gd` attached.
+  - A direct child `CollisionShape3D` whose `shape` is a `CapsuleShape3D` with `radius = 0.5` and `height = 1.8`.
+  - A direct child `Node3D` named `Pivot` containing a `MeshInstance3D` whose `mesh` is any built-in primitive mesh (e.g. `BoxMesh`, `CapsuleMesh`, `SphereMesh`).
+- `scripts/Player.gd` declares these `@export` variables with the exact names, types, and defaults:
+  - `speed: float = 5.0`
+  - `jump_velocity: float = 7.5`
+  - `gravity: float = 25.0`
+  - `max_air_jumps: int = 1`
+  - `coyote_time: float = 0.15`
+  - `jump_buffer_time: float = 0.15`
+- `scripts/Player.gd` declares the instance signal `signal jumped(remaining_air_jumps: int)`.
+- `_physics_process(delta)` implements:
+  - Downward gravity applied to `velocity.y` only when the body is not on the floor.
+  - Horizontal movement derived from `Input.get_vector("ui_left", "ui_right", "ui_up", "ui_down")` scaled by `speed`.
+  - A coyote timer that counts down from `coyote_time` once the player leaves the floor; while it is > 0, a jump press still produces a normal grounded jump (no air-jump consumed).
+  - A jump buffer that starts on jump press (`ui_accept`) with length `jump_buffer_time` so a press just before becoming able to jump still fires.
+  - On landing, `air_jumps_left` resets to `max_air_jumps`.
+  - A jump fires when any of these is true: `is_on_floor()`, `coyote_timer > 0`, or `air_jumps_left > 0`. The first two are "grounded"-style jumps (consume coyote, do not consume an air jump); otherwise an air jump is consumed and `air_jumps_left` decrements.
+  - Every successful jump sets `velocity.y = jump_velocity` and emits `jumped(air_jumps_left)`.
+- A method `get_movement_state() -> StringName` returns exactly one of `&"grounded"`, `&"jumping"`, `&"falling"`, or `&"coyote"`:
+  - `&"grounded"` when on floor and `velocity.y <= 0`.
+  - `&"jumping"` when not on floor and `velocity.y > 0`.
+  - `&"falling"` when not on floor, `velocity.y <= 0`, and `coyote_timer <= 0`.
+  - `&"coyote"` when not on floor and `coyote_timer > 0`.
+- The project loads cleanly under `godot --headless --path /home/user/platformer3d --quit` (exit code 0, no script parse errors).
+

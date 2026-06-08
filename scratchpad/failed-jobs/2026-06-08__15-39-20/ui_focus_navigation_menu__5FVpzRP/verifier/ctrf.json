@@ -1,0 +1,244 @@
+{
+    "results": {
+        "tool": {
+            "name": "pytest",
+            "version": "7.4.4"
+        },
+        "summary": {
+            "tests": 19,
+            "passed": 3,
+            "failed": 16,
+            "skipped": 0,
+            "pending": 0,
+            "other": 0,
+            "start": 1780933636365,
+            "stop": 1780933636837
+        },
+        "environment": {
+            "buildName": "Pytest JSON CTRF Report",
+            "buildNumber": "000",
+            "buildUrl": "https://ctrf.io"
+        },
+        "tests": [
+            {
+                "name": "test_final_state.py::test_scene_files_exist",
+                "status": "passed",
+                "duration": 1,
+                "start": 1780933636395,
+                "stop": 1780933636396,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_project_godot_has_ui_back_with_escape_and_joypad",
+                "status": "passed",
+                "duration": 3,
+                "start": 1780933636396,
+                "stop": 1780933636399,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_project_godot_registers_game_settings_autoload",
+                "status": "passed",
+                "duration": 1,
+                "start": 1780933636399,
+                "stop": 1780933636400,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_godot_verify_script_runs",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 328,
+                "start": 1780933636401,
+                "stop": 1780933636729,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "godot_run = (CompletedProcess(args=['godot', '--headless', '--path', '/home/user/myproject', '--script', 'res://verify.gd'], retur...to load script \"res://verify.gd\" with error \"Parse error\".\\n   at: load (modules/gdscript/gdscript.cpp:2936)\\n'), None)\n\n    def test_godot_verify_script_runs(godot_run):\n        proc, data = godot_run\n>       assert proc.returncode == 0, (\n            f\"verify.gd run failed (rc={proc.returncode}).\\n\"\n            f\"stdout=\\n{proc.stdout}\\nstderr=\\n{proc.stderr}\"\n        )\nE       AssertionError: verify.gd run failed (rc=1).\nE         stdout=\nE         Godot Engine v4.3.stable.official.77dcf97d8 - https://godotengine.org\nE         \nE         \nE         stderr=\nE         SCRIPT ERROR: Parse Error: Cannot infer the type of \"labels_ok\" variable because the value doesn't have a set type.\nE                   at: GDScript::reload (res://verify.gd:122)\nE         SCRIPT ERROR: Parse Error: Cannot infer the type of \"num_ok\" variable because the value doesn't have a set type.\nE                   at: GDScript::reload (res://verify.gd:257)\nE         SCRIPT ERROR: Parse Error: Cannot infer the type of \"ok\" variable because the value doesn't have a set type.\nE                   at: GDScript::reload (res://verify.gd:258)\nE         ERROR: Failed to load script \"res://verify.gd\" with error \"Parse error\".\nE            at: load (modules/gdscript/gdscript.cpp:2936)\nE         \nE       assert 1 == 0\nE        +  where 1 = CompletedProcess(args=['godot', '--headless', '--path', '/home/user/myproject', '--script', 'res://verify.gd'], return...Failed to load script \"res://verify.gd\" with error \"Parse error\".\\n   at: load (modules/gdscript/gdscript.cpp:2936)\\n').returncode\n\ntests/test_final_state.py:350: AssertionError",
+                "message": "The test failed in the call phase due to an assertion error"
+            },
+            {
+                "name": "test_final_state.py::test_input_action_exists",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 7,
+                "start": 1780933636730,
+                "stop": 1780933636737,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "godot_run = (CompletedProcess(args=['godot', '--headless', '--path', '/home/user/myproject', '--script', 'res://verify.gd'], retur...to load script \"res://verify.gd\" with error \"Parse error\".\\n   at: load (modules/gdscript/gdscript.cpp:2936)\\n'), None)\n\n    def test_input_action_exists(godot_run):\n>       _check(godot_run, \"input_action_exists\")\n\ntests/test_final_state.py:372: \n_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ \n\ngodot_run = (CompletedProcess(args=['godot', '--headless', '--path', '/home/user/myproject', '--script', 'res://verify.gd'], retur...to load script \"res://verify.gd\" with error \"Parse error\".\\n   at: load (modules/gdscript/gdscript.cpp:2936)\\n'), None)\nname = 'input_action_exists'\n\n    def _check(godot_run, name):\n        _, data = godot_run\n>       assert data is not None, \"verify_results.json missing; see verify run output\"\nE       AssertionError: verify_results.json missing; see verify run output\nE       assert None is not None\n\ntests/test_final_state.py:364: AssertionError",
+                "message": "The test failed in the call phase due to an assertion error"
+            },
+            {
+                "name": "test_final_state.py::test_input_action_key_escape",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 7,
+                "start": 1780933636737,
+                "stop": 1780933636744,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "godot_run = (CompletedProcess(args=['godot', '--headless', '--path', '/home/user/myproject', '--script', 'res://verify.gd'], retur...to load script \"res://verify.gd\" with error \"Parse error\".\\n   at: load (modules/gdscript/gdscript.cpp:2936)\\n'), None)\n\n    def test_input_action_key_escape(godot_run):\n>       _check(godot_run, \"input_action_key_escape\")\n\ntests/test_final_state.py:376: \n_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ \n\ngodot_run = (CompletedProcess(args=['godot', '--headless', '--path', '/home/user/myproject', '--script', 'res://verify.gd'], retur...to load script \"res://verify.gd\" with error \"Parse error\".\\n   at: load (modules/gdscript/gdscript.cpp:2936)\\n'), None)\nname = 'input_action_key_escape'\n\n    def _check(godot_run, name):\n        _, data = godot_run\n>       assert data is not None, \"verify_results.json missing; see verify run output\"\nE       AssertionError: verify_results.json missing; see verify run output\nE       assert None is not None\n\ntests/test_final_state.py:364: AssertionError",
+                "message": "The test failed in the call phase due to an assertion error"
+            },
+            {
+                "name": "test_final_state.py::test_input_action_joypad",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 7,
+                "start": 1780933636744,
+                "stop": 1780933636751,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "godot_run = (CompletedProcess(args=['godot', '--headless', '--path', '/home/user/myproject', '--script', 'res://verify.gd'], retur...to load script \"res://verify.gd\" with error \"Parse error\".\\n   at: load (modules/gdscript/gdscript.cpp:2936)\\n'), None)\n\n    def test_input_action_joypad(godot_run):\n>       _check(godot_run, \"input_action_joypad\")\n\ntests/test_final_state.py:380: \n_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ \n\ngodot_run = (CompletedProcess(args=['godot', '--headless', '--path', '/home/user/myproject', '--script', 'res://verify.gd'], retur...to load script \"res://verify.gd\" with error \"Parse error\".\\n   at: load (modules/gdscript/gdscript.cpp:2936)\\n'), None)\nname = 'input_action_joypad'\n\n    def _check(godot_run, name):\n        _, data = godot_run\n>       assert data is not None, \"verify_results.json missing; see verify run output\"\nE       AssertionError: verify_results.json missing; see verify run output\nE       assert None is not None\n\ntests/test_final_state.py:364: AssertionError",
+                "message": "The test failed in the call phase due to an assertion error"
+            },
+            {
+                "name": "test_final_state.py::test_autoload_registered",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 6,
+                "start": 1780933636751,
+                "stop": 1780933636757,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "godot_run = (CompletedProcess(args=['godot', '--headless', '--path', '/home/user/myproject', '--script', 'res://verify.gd'], retur...to load script \"res://verify.gd\" with error \"Parse error\".\\n   at: load (modules/gdscript/gdscript.cpp:2936)\\n'), None)\n\n    def test_autoload_registered(godot_run):\n>       _check(godot_run, \"autoload_registered\")\n\ntests/test_final_state.py:384: \n_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ \n\ngodot_run = (CompletedProcess(args=['godot', '--headless', '--path', '/home/user/myproject', '--script', 'res://verify.gd'], retur...to load script \"res://verify.gd\" with error \"Parse error\".\\n   at: load (modules/gdscript/gdscript.cpp:2936)\\n'), None)\nname = 'autoload_registered'\n\n    def _check(godot_run, name):\n        _, data = godot_run\n>       assert data is not None, \"verify_results.json missing; see verify run output\"\nE       AssertionError: verify_results.json missing; see verify run output\nE       assert None is not None\n\ntests/test_final_state.py:364: AssertionError",
+                "message": "The test failed in the call phase due to an assertion error"
+            },
+            {
+                "name": "test_final_state.py::test_autoload_has_volume",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 7,
+                "start": 1780933636758,
+                "stop": 1780933636765,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "godot_run = (CompletedProcess(args=['godot', '--headless', '--path', '/home/user/myproject', '--script', 'res://verify.gd'], retur...to load script \"res://verify.gd\" with error \"Parse error\".\\n   at: load (modules/gdscript/gdscript.cpp:2936)\\n'), None)\n\n    def test_autoload_has_volume(godot_run):\n>       _check(godot_run, \"autoload_has_volume\")\n\ntests/test_final_state.py:388: \n_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ \n\ngodot_run = (CompletedProcess(args=['godot', '--headless', '--path', '/home/user/myproject', '--script', 'res://verify.gd'], retur...to load script \"res://verify.gd\" with error \"Parse error\".\\n   at: load (modules/gdscript/gdscript.cpp:2936)\\n'), None)\nname = 'autoload_has_volume'\n\n    def _check(godot_run, name):\n        _, data = godot_run\n>       assert data is not None, \"verify_results.json missing; see verify run output\"\nE       AssertionError: verify_results.json missing; see verify run output\nE       assert None is not None\n\ntests/test_final_state.py:364: AssertionError",
+                "message": "The test failed in the call phase due to an assertion error"
+            },
+            {
+                "name": "test_final_state.py::test_autoload_has_signal",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 7,
+                "start": 1780933636765,
+                "stop": 1780933636772,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "godot_run = (CompletedProcess(args=['godot', '--headless', '--path', '/home/user/myproject', '--script', 'res://verify.gd'], retur...to load script \"res://verify.gd\" with error \"Parse error\".\\n   at: load (modules/gdscript/gdscript.cpp:2936)\\n'), None)\n\n    def test_autoload_has_signal(godot_run):\n>       _check(godot_run, \"autoload_has_signal\")\n\ntests/test_final_state.py:392: \n_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ \n\ngodot_run = (CompletedProcess(args=['godot', '--headless', '--path', '/home/user/myproject', '--script', 'res://verify.gd'], retur...to load script \"res://verify.gd\" with error \"Parse error\".\\n   at: load (modules/gdscript/gdscript.cpp:2936)\\n'), None)\nname = 'autoload_has_signal'\n\n    def _check(godot_run, name):\n        _, data = godot_run\n>       assert data is not None, \"verify_results.json missing; see verify run output\"\nE       AssertionError: verify_results.json missing; see verify run output\nE       assert None is not None\n\ntests/test_final_state.py:364: AssertionError",
+                "message": "The test failed in the call phase due to an assertion error"
+            },
+            {
+                "name": "test_final_state.py::test_main_menu_buttons",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 7,
+                "start": 1780933636772,
+                "stop": 1780933636779,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "godot_run = (CompletedProcess(args=['godot', '--headless', '--path', '/home/user/myproject', '--script', 'res://verify.gd'], retur...to load script \"res://verify.gd\" with error \"Parse error\".\\n   at: load (modules/gdscript/gdscript.cpp:2936)\\n'), None)\n\n    def test_main_menu_buttons(godot_run):\n>       _check(godot_run, \"main_menu_buttons\")\n\ntests/test_final_state.py:396: \n_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ \n\ngodot_run = (CompletedProcess(args=['godot', '--headless', '--path', '/home/user/myproject', '--script', 'res://verify.gd'], retur...to load script \"res://verify.gd\" with error \"Parse error\".\\n   at: load (modules/gdscript/gdscript.cpp:2936)\\n'), None)\nname = 'main_menu_buttons'\n\n    def _check(godot_run, name):\n        _, data = godot_run\n>       assert data is not None, \"verify_results.json missing; see verify run output\"\nE       AssertionError: verify_results.json missing; see verify run output\nE       assert None is not None\n\ntests/test_final_state.py:364: AssertionError",
+                "message": "The test failed in the call phase due to an assertion error"
+            },
+            {
+                "name": "test_final_state.py::test_main_menu_focus_cycle",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 6,
+                "start": 1780933636779,
+                "stop": 1780933636785,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "godot_run = (CompletedProcess(args=['godot', '--headless', '--path', '/home/user/myproject', '--script', 'res://verify.gd'], retur...to load script \"res://verify.gd\" with error \"Parse error\".\\n   at: load (modules/gdscript/gdscript.cpp:2936)\\n'), None)\n\n    def test_main_menu_focus_cycle(godot_run):\n>       _check(godot_run, \"main_menu_focus_cycle\")\n\ntests/test_final_state.py:400: \n_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ \n\ngodot_run = (CompletedProcess(args=['godot', '--headless', '--path', '/home/user/myproject', '--script', 'res://verify.gd'], retur...to load script \"res://verify.gd\" with error \"Parse error\".\\n   at: load (modules/gdscript/gdscript.cpp:2936)\\n'), None)\nname = 'main_menu_focus_cycle'\n\n    def _check(godot_run, name):\n        _, data = godot_run\n>       assert data is not None, \"verify_results.json missing; see verify run output\"\nE       AssertionError: verify_results.json missing; see verify run output\nE       assert None is not None\n\ntests/test_final_state.py:364: AssertionError",
+                "message": "The test failed in the call phase due to an assertion error"
+            },
+            {
+                "name": "test_final_state.py::test_settings_has_slider",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 6,
+                "start": 1780933636786,
+                "stop": 1780933636792,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "godot_run = (CompletedProcess(args=['godot', '--headless', '--path', '/home/user/myproject', '--script', 'res://verify.gd'], retur...to load script \"res://verify.gd\" with error \"Parse error\".\\n   at: load (modules/gdscript/gdscript.cpp:2936)\\n'), None)\n\n    def test_settings_has_slider(godot_run):\n>       _check(godot_run, \"settings_has_slider\")\n\ntests/test_final_state.py:404: \n_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ \n\ngodot_run = (CompletedProcess(args=['godot', '--headless', '--path', '/home/user/myproject', '--script', 'res://verify.gd'], retur...to load script \"res://verify.gd\" with error \"Parse error\".\\n   at: load (modules/gdscript/gdscript.cpp:2936)\\n'), None)\nname = 'settings_has_slider'\n\n    def _check(godot_run, name):\n        _, data = godot_run\n>       assert data is not None, \"verify_results.json missing; see verify run output\"\nE       AssertionError: verify_results.json missing; see verify run output\nE       assert None is not None\n\ntests/test_final_state.py:364: AssertionError",
+                "message": "The test failed in the call phase due to an assertion error"
+            },
+            {
+                "name": "test_final_state.py::test_settings_has_option_3",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 7,
+                "start": 1780933636792,
+                "stop": 1780933636799,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "godot_run = (CompletedProcess(args=['godot', '--headless', '--path', '/home/user/myproject', '--script', 'res://verify.gd'], retur...to load script \"res://verify.gd\" with error \"Parse error\".\\n   at: load (modules/gdscript/gdscript.cpp:2936)\\n'), None)\n\n    def test_settings_has_option_3(godot_run):\n>       _check(godot_run, \"settings_has_option_3\")\n\ntests/test_final_state.py:408: \n_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ \n\ngodot_run = (CompletedProcess(args=['godot', '--headless', '--path', '/home/user/myproject', '--script', 'res://verify.gd'], retur...to load script \"res://verify.gd\" with error \"Parse error\".\\n   at: load (modules/gdscript/gdscript.cpp:2936)\\n'), None)\nname = 'settings_has_option_3'\n\n    def _check(godot_run, name):\n        _, data = godot_run\n>       assert data is not None, \"verify_results.json missing; see verify run output\"\nE       AssertionError: verify_results.json missing; see verify run output\nE       assert None is not None\n\ntests/test_final_state.py:364: AssertionError",
+                "message": "The test failed in the call phase due to an assertion error"
+            },
+            {
+                "name": "test_final_state.py::test_settings_has_checkbox",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 8,
+                "start": 1780933636799,
+                "stop": 1780933636807,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "godot_run = (CompletedProcess(args=['godot', '--headless', '--path', '/home/user/myproject', '--script', 'res://verify.gd'], retur...to load script \"res://verify.gd\" with error \"Parse error\".\\n   at: load (modules/gdscript/gdscript.cpp:2936)\\n'), None)\n\n    def test_settings_has_checkbox(godot_run):\n>       _check(godot_run, \"settings_has_checkbox\")\n\ntests/test_final_state.py:412: \n_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ \n\ngodot_run = (CompletedProcess(args=['godot', '--headless', '--path', '/home/user/myproject', '--script', 'res://verify.gd'], retur...to load script \"res://verify.gd\" with error \"Parse error\".\\n   at: load (modules/gdscript/gdscript.cpp:2936)\\n'), None)\nname = 'settings_has_checkbox'\n\n    def _check(godot_run, name):\n        _, data = godot_run\n>       assert data is not None, \"verify_results.json missing; see verify run output\"\nE       AssertionError: verify_results.json missing; see verify run output\nE       assert None is not None\n\ntests/test_final_state.py:364: AssertionError",
+                "message": "The test failed in the call phase due to an assertion error"
+            },
+            {
+                "name": "test_final_state.py::test_settings_has_back_button",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 7,
+                "start": 1780933636808,
+                "stop": 1780933636815,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "godot_run = (CompletedProcess(args=['godot', '--headless', '--path', '/home/user/myproject', '--script', 'res://verify.gd'], retur...to load script \"res://verify.gd\" with error \"Parse error\".\\n   at: load (modules/gdscript/gdscript.cpp:2936)\\n'), None)\n\n    def test_settings_has_back_button(godot_run):\n>       _check(godot_run, \"settings_has_back_button\")\n\ntests/test_final_state.py:416: \n_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ \n\ngodot_run = (CompletedProcess(args=['godot', '--headless', '--path', '/home/user/myproject', '--script', 'res://verify.gd'], retur...to load script \"res://verify.gd\" with error \"Parse error\".\\n   at: load (modules/gdscript/gdscript.cpp:2936)\\n'), None)\nname = 'settings_has_back_button'\n\n    def _check(godot_run, name):\n        _, data = godot_run\n>       assert data is not None, \"verify_results.json missing; see verify run output\"\nE       AssertionError: verify_results.json missing; see verify run output\nE       assert None is not None\n\ntests/test_final_state.py:364: AssertionError",
+                "message": "The test failed in the call phase due to an assertion error"
+            },
+            {
+                "name": "test_final_state.py::test_root_initial_visibility",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 7,
+                "start": 1780933636815,
+                "stop": 1780933636822,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "godot_run = (CompletedProcess(args=['godot', '--headless', '--path', '/home/user/myproject', '--script', 'res://verify.gd'], retur...to load script \"res://verify.gd\" with error \"Parse error\".\\n   at: load (modules/gdscript/gdscript.cpp:2936)\\n'), None)\n\n    def test_root_initial_visibility(godot_run):\n>       _check(godot_run, \"root_initial_visibility\")\n\ntests/test_final_state.py:420: \n_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ \n\ngodot_run = (CompletedProcess(args=['godot', '--headless', '--path', '/home/user/myproject', '--script', 'res://verify.gd'], retur...to load script \"res://verify.gd\" with error \"Parse error\".\\n   at: load (modules/gdscript/gdscript.cpp:2936)\\n'), None)\nname = 'root_initial_visibility'\n\n    def _check(godot_run, name):\n        _, data = godot_run\n>       assert data is not None, \"verify_results.json missing; see verify run output\"\nE       AssertionError: verify_results.json missing; see verify run output\nE       assert None is not None\n\ntests/test_final_state.py:364: AssertionError",
+                "message": "The test failed in the call phase due to an assertion error"
+            },
+            {
+                "name": "test_final_state.py::test_root_ui_back_toggles",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 6,
+                "start": 1780933636823,
+                "stop": 1780933636829,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "godot_run = (CompletedProcess(args=['godot', '--headless', '--path', '/home/user/myproject', '--script', 'res://verify.gd'], retur...to load script \"res://verify.gd\" with error \"Parse error\".\\n   at: load (modules/gdscript/gdscript.cpp:2936)\\n'), None)\n\n    def test_root_ui_back_toggles(godot_run):\n>       _check(godot_run, \"root_ui_back_toggles\")\n\ntests/test_final_state.py:424: \n_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ \n\ngodot_run = (CompletedProcess(args=['godot', '--headless', '--path', '/home/user/myproject', '--script', 'res://verify.gd'], retur...to load script \"res://verify.gd\" with error \"Parse error\".\\n   at: load (modules/gdscript/gdscript.cpp:2936)\\n'), None)\nname = 'root_ui_back_toggles'\n\n    def _check(godot_run, name):\n        _, data = godot_run\n>       assert data is not None, \"verify_results.json missing; see verify run output\"\nE       AssertionError: verify_results.json missing; see verify run output\nE       assert None is not None\n\ntests/test_final_state.py:364: AssertionError",
+                "message": "The test failed in the call phase due to an assertion error"
+            },
+            {
+                "name": "test_final_state.py::test_volume_signal",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 7,
+                "start": 1780933636829,
+                "stop": 1780933636836,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "godot_run = (CompletedProcess(args=['godot', '--headless', '--path', '/home/user/myproject', '--script', 'res://verify.gd'], retur...to load script \"res://verify.gd\" with error \"Parse error\".\\n   at: load (modules/gdscript/gdscript.cpp:2936)\\n'), None)\n\n    def test_volume_signal(godot_run):\n>       _check(godot_run, \"volume_signal\")\n\ntests/test_final_state.py:428: \n_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ \n\ngodot_run = (CompletedProcess(args=['godot', '--headless', '--path', '/home/user/myproject', '--script', 'res://verify.gd'], retur...to load script \"res://verify.gd\" with error \"Parse error\".\\n   at: load (modules/gdscript/gdscript.cpp:2936)\\n'), None)\nname = 'volume_signal'\n\n    def _check(godot_run, name):\n        _, data = godot_run\n>       assert data is not None, \"verify_results.json missing; see verify run output\"\nE       AssertionError: verify_results.json missing; see verify run output\nE       assert None is not None\n\ntests/test_final_state.py:364: AssertionError",
+                "message": "The test failed in the call phase due to an assertion error"
+            }
+        ]
+    }
+}

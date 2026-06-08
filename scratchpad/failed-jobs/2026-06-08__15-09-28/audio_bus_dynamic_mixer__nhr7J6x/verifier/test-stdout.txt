@@ -1,0 +1,98 @@
+============================= test session starts ==============================
+platform linux -- Python 3.12.3, pytest-7.4.4, pluggy-1.4.0
+rootdir: /tests
+plugins: json-ctrf-0.5.0
+collected 10 items
+
+tests/test_final_state.py ..FF.....F                                     [100%]
+
+=================================== FAILURES ===================================
+_______________ test_project_godot_references_default_bus_layout _______________
+
+    def test_project_godot_references_default_bus_layout():
+        content = _read_text(os.path.join(PROJECT_DIR, "project.godot"))
+        m = re.search(
+            r"audio/buses/default_bus_layout\s*=\s*\"res://default_bus_layout\.tres\"",
+            content,
+        )
+>       assert m is not None, (
+            "project.godot must contain "
+            "audio/buses/default_bus_layout=\"res://default_bus_layout.tres\". "
+            "Got project.godot:\n" + content
+        )
+E       AssertionError: project.godot must contain audio/buses/default_bus_layout="res://default_bus_layout.tres". Got project.godot:
+E         ; Engine configuration file.
+E         ; It's best edited using the editor UI and not directly,
+E         ; but the file format is well-documented and should work as expected.
+E         
+E         config_version=5
+E         
+E         [application]
+E         
+E         config/name="AudioBusMixer"
+E         config/features=PackedStringArray("4.3")
+E         
+E         [audio]
+E         
+E         buses/default_bus_layout="res://default_bus_layout.tres"
+E         
+E         [autoload]
+E         
+E         AudioManager="*res://autoloads/AudioManager.gd"
+E         
+E       assert None is not None
+
+tests/test_final_state.py:231: AssertionError
+___________________________ test_harness_overall_ok ____________________________
+
+harness_result = ({'details': {'duck_did_not_drop': -3.33333349227905}, 'ok': False}, CompletedProcess(args=['godot', '--headless', '--...s.tscn'], returncode=0, stdout='Godot Engine v4.3.stable.official.77dcf97d8 - https://godotengine.org\n\n', stderr=''))
+
+    def test_harness_overall_ok(harness_result):
+        data, proc = harness_result
+        details = data.get("details", {})
+>       assert data.get("ok") is True, (
+            "Harness reported failure. "
+            f"details={details}\nstdout={proc.stdout}\nstderr={proc.stderr}"
+        )
+E       AssertionError: Harness reported failure. details={'duck_did_not_drop': -3.33333349227905}
+E         stdout=Godot Engine v4.3.stable.official.77dcf97d8 - https://godotengine.org
+E         
+E         
+E         stderr=
+E       assert False is True
+E        +  where False = <built-in method get of dict object at 0x7f67ed64a900>('ok')
+E        +    where <built-in method get of dict object at 0x7f67ed64a900> = {'details': {'duck_did_not_drop': -3.33333349227905}, 'ok': False}.get
+
+tests/test_final_state.py:271: AssertionError
+___________________________ test_harness_duck_music ____________________________
+
+harness_result = ({'details': {'duck_did_not_drop': -3.33333349227905}, 'ok': False}, CompletedProcess(args=['godot', '--headless', '--...s.tscn'], returncode=0, stdout='Godot Engine v4.3.stable.official.77dcf97d8 - https://godotengine.org\n\n', stderr=''))
+
+    def test_harness_duck_music(harness_result):
+        data, _ = harness_result
+        details = data.get("details", {})
+        assert "reset_to_zero_failed" not in details, (
+            "Could not reset Music bus volume to 0.0 prior to ducking: "
+            f"{details.get('reset_to_zero_failed')}"
+        )
+>       assert "duck_did_not_drop" not in details, (
+            "duck_music(-10.0, 0.05) did not drop Music bus volume below -8 dB: "
+            f"{details.get('duck_did_not_drop')}"
+        )
+E       AssertionError: duck_music(-10.0, 0.05) did not drop Music bus volume below -8 dB: -3.33333349227905
+E       assert 'duck_did_not_drop' not in {'duck_did_not_drop': -3.33333349227905}
+
+tests/test_final_state.py:359: AssertionError
+==================================== PASSES ====================================
+=========================== short test summary info ============================
+PASSED tests/test_final_state.py::test_required_files_exist
+PASSED tests/test_final_state.py::test_project_godot_registers_audio_manager_autoload
+PASSED tests/test_final_state.py::test_harness_bus_layout
+PASSED tests/test_final_state.py::test_harness_lowpass_effect
+PASSED tests/test_final_state.py::test_harness_audio_manager_volume
+PASSED tests/test_final_state.py::test_harness_mute
+PASSED tests/test_final_state.py::test_harness_low_pass_toggle
+FAILED tests/test_final_state.py::test_project_godot_references_default_bus_layout
+FAILED tests/test_final_state.py::test_harness_overall_ok - AssertionError: H...
+FAILED tests/test_final_state.py::test_harness_duck_music - AssertionError: d...
+========================= 3 failed, 7 passed in 1.26s ==========================

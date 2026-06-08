@@ -1,0 +1,16 @@
+; Godot 4 project file.
+config_version=5
+
+[application]
+
+config/name="state_machine_player"
+run/main_scene="res://scenes/Player.tscn"
+config/features=PackedStringArray("4.3")
+
+[input]
+
+attack={
+"deadzone": 0.5,
+"events": [Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":-1,"window_id":0,"alt_pressed":false,"shift_pressed":false,"meta_pressed":false,"ctrl_pressed":false,"pressed":false,"keycode":74,"physical_keycode":0,"key_label":0,"unicode":106,"echo":false,"script":null)
+]
+}

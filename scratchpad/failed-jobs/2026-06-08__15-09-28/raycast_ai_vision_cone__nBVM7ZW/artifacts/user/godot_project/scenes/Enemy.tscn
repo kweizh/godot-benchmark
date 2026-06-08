@@ -1,0 +1,19 @@
+[gd_scene load_steps=3 format=3 uid="uid://enemy_scene"]
+
+[ext_resource type="Script" path="res://scripts/VisionCone.gd" id="1_visioncone"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_1"]
+
+[node name="Enemy" type="CharacterBody2D"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CapsuleShape2D_1")
+
+[node name="VisionCone" type="Node2D" parent="."]
+script = ExtResource("1_visioncone")
+cone_angle_deg = 90.0
+cone_range = 200.0
+ray_count = 7
+facing_dir = Vector2(1, 0)
+target_group = &"player"
+collision_mask = 1

@@ -1,0 +1,16 @@
+[gd_scene load_steps=4 format=3 uid="uid://bq5pm8x3"]
+
+[ext_resource type="Script" path="res://scenes/Main.gd" id="1_main"]
+[ext_resource type="Script" path="res://scripts/Inventory.gd" id="2_inv"]
+[ext_resource type="Script" path="res://scenes/Hotbar.gd" id="3_hotbar"]
+
+[node name="Main" type="Node2D"]
+script = ExtResource("1_main")
+
+[node name="Inventory" type="Node" parent="."]
+script = ExtResource("2_inv")
+max_slots = 8
+
+[node name="Hotbar" type="Control" parent="."]
+script = ExtResource("3_hotbar")
+max_slots = 8

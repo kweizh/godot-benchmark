@@ -1,0 +1,14 @@
+; Engine configuration file.
+; It's best edited using the editor UI and not directly,
+; but changing the autoload path programmatically is fine.
+config_version=5
+
+[application]
+
+config/name="autoload_event_bus_singleton"
+config/features=PackedStringArray("4.3")
+config/run/main_scene="res://tests/TestRunner.tscn"
+
+[autoload]
+
+Bus="*res://autoloads/Bus.gd"

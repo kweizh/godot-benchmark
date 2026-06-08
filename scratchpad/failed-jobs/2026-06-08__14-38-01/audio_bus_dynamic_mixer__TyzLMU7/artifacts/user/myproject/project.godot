@@ -1,0 +1,13 @@
+config_version=5
+
+[application]
+
+config/name="Runtime Audio Bus Mixer"
+
+[autoload]
+
+AudioManager="*res://autoloads/AudioManager.gd"
+
+[audio]
+
+buses/default_bus_layout="res://default_bus_layout.tres"

@@ -1,0 +1,17 @@
+[gd_scene load_steps=4 format=3 uid="uid://water000000000001"]
+
+[ext_resource type="Shader" path="res://shaders/water_distortion.gdshader" id="1_shader"]
+[ext_resource type="Script" path="res://scenes/Water.gd" id="2_script"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_water"]
+shader = ExtResource("1_shader")
+
+[node name="Water" type="ColorRect"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(1, 1, 1, 1)
+material = SubResource("ShaderMaterial_water")
+script = ExtResource("2_script")

@@ -1,0 +1,79 @@
+Skipping image OS validation for hb__dissolve_shader_effect: docker inspect returned 1
+Running command: apt-get update && apt-get install -y curl ripgrep
+Command outputs captured
+Running command: set -euo pipefail; curl -fsSL https://getpochi.com/install.sh | bash -x -s -- pochi-v0.6.12 && mkdir -p /logs/agent/pochi && ~/.pochi/bin/pochi --version
+Command outputs captured
+Running command: ln -sf ~/.pochi/bin/pochi /usr/local/bin/pochi
+Command outputs captured
+Running command: echo zr-aay3ekh > /logs/artifacts/run-id && echo dissolve_shader_effect__Aay3ekh > /logs/artifacts/trial_id
+Command outputs captured
+Running command: mkdir -p ~/.pochi && cat << 'EOF' | sed -e "s/OPENAI_API_KEY/${OPENAI_API_KEY}/g" -e "s/DEEPINFRA_API_KEY/${DEEPINFRA_API_KEY}/g" > ~/.pochi/config.jsonc
+{
+  "providers": {
+    "deepinfra": {
+      "kind": "openai",
+      "baseURL": "https://api.deepinfra.com/v1/openai",
+      "apiKey": "DEEPINFRA_API_KEY",
+      "models": {
+        "zai-org/GLM-4.7-Flash": {
+          "name": "glm-4.7-flash"
+        },
+        "moonshotai/Kimi-K2.6": {
+          "name": "kimi-K2.6"
+        },
+        "deepseek-ai/DeepSeek-V4-Pro": {
+          "name": "DeepSeek-V4-Pro"
+        }
+      }
+    },
+    "openai": {
+      "kind": "openai",
+      "baseURL": "https://api.openai.com/v1",
+      "apiKey": "OPENAI_API_KEY",
+      "models": {
+        "gpt-5.4": {
+          "name": "gpt-5.4"
+        }
+      }
+    }
+  }
+}
+EOF
+Command outputs captured
+Running command: if [ -f /bootstrap/test_initial_state.py ]; then pytest -s --log-cli-level=DEBUG /bootstrap/test_initial_state.py > >(tee /logs/agent/pochi/initial-test-stdout.txt) 2> >(tee /logs/agent/pochi/initial-test-stderr.txt >&2); fi
+Command outputs captured
+Running command: pochi --model google/gemini-3.5-flash --max-steps 200 --max-retries 10 --blobs-dir /logs/agent/pochi/blobs --experimental-stream-trajectory /logs/agent/pochi/trajectory.jsonl > >(tee /logs/agent/pochi/stdout.txt) 2> >(tee /logs/agent/pochi/stderr.txt >&2) <<'EOF'
+# 2D Dissolve Shader Effect in Godot 4
+
+## Background
+In 2D game development, visual effects like dissolving or disintegrating sprites are commonly used for enemy deaths, teleportation, or item spawning. In Godot 4, this is achieved using a custom 2D shader (GDShader) and animating its parameters via the Tween API.
+
+## Requirements
+- Create a 2D shader (`dissolve.gdshader`) that implements a dissolve effect using a noise texture and a uniform float.
+- Create a Sprite2D script (`dissolving_sprite.gd`) that manages the shader material and animates the dissolve process.
+- The shader must use a custom uniform float `dissolve_amount` (ranging from 0.0 to 1.0) and a `dissolve_texture` sampler2D.
+- The script must define a custom signal `dissolve_completed` and a custom method `dissolve()`.
+- The `dissolve()` method must use a Tween (`create_tween()`) to animate the `dissolve_amount` shader parameter from 0.0 to 1.0 over exactly 1.0 second.
+- When the tween animation finishes, the script must emit the `dissolve_completed` signal.
+
+## Implementation Hints
+- The shader type should be `canvas_item` since it is a 2D effect.
+- In the fragment function, sample the noise texture and discard pixels when the value is less than `dissolve_amount`.
+- Access shader parameters in GDScript using the `shader_parameter/` prefix, for example `material.set_shader_parameter("dissolve_amount", value)` or animating it via a Tween.
+- Use `create_tween()` on the Sprite2D node to interpolate the shader parameter from 0.0 to 1.0.
+- Connect to the tween's `finished` signal or use `tween_callback()` to emit the `dissolve_completed` signal.
+
+## Acceptance Criteria
+- Project path: /home/user/godot-benchmark
+- The project must have a valid `project.godot` file.
+- The GDShader file must be located at `res://dissolve.gdshader`.
+- The shader must contain a float uniform `dissolve_amount` and a sampler2D uniform `dissolve_texture`.
+- The Sprite2D script must be located at `res://dissolving_sprite.gd`.
+- The script must define a custom signal `dissolve_completed`.
+- The script must implement a custom method `dissolve()`.
+- Calling `dissolve()` must animate the shader's `dissolve_amount` parameter from 0.0 to 1.0 over 1.0 second, and emit the `dissolve_completed` signal upon completion.
+
+EOF
+Command outputs captured
+Running command: rm -f ~/.pochi/config.jsonc
+Command outputs captured

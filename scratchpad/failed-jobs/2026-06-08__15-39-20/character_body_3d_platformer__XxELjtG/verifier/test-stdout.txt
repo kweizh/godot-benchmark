@@ -1,0 +1,112 @@
+============================= test session starts ==============================
+platform linux -- Python 3.12.3, pytest-7.4.4, pluggy-1.4.0
+rootdir: /tests
+plugins: json-ctrf-0.5.0
+collected 9 items
+
+tests/test_final_state.py ....FF..F                                      [100%]
+
+=================================== FAILURES ===================================
+_________________ test_player_scene_root_is_character_body_3d __________________
+
+    def test_player_scene_root_is_character_body_3d():
+        content = _read_text(os.path.join(PROJECT_DIR, "scenes/Player.tscn"))
+        # The root node line must have name="Player" and type="CharacterBody3D".
+        root_pattern = re.compile(
+            r'\[node\s+name="Player"\s+type="CharacterBody3D"\b', re.MULTILINE
+        )
+>       assert root_pattern.search(content), (
+            "scenes/Player.tscn root must be `[node name=\"Player\" type=\"CharacterBody3D\"]`."
+        )
+E       AssertionError: scenes/Player.tscn root must be `[node name="Player" type="CharacterBody3D"]`.
+E       assert None
+E        +  where None = <built-in method search of re.Pattern object at 0xfcee310>('[gd_scene load_steps=4 format=3]\n\n[ext_resource type="Script" path="res://scripts/Player.gd" id="1_snwee"]\n\n[sub_...t="."]\n\n[node name="MeshInstance3D" type="MeshInstance3D" parent="Pivot"]\nmesh = SubResource("CapsuleMesh_s3jhq")\n')
+E        +    where <built-in method search of re.Pattern object at 0xfcee310> = re.compile('\\[node\\s+name="Player"\\s+type="CharacterBody3D"\\b', re.MULTILINE).search
+
+tests/test_final_state.py:117: AssertionError
+____________ test_player_scene_has_capsule_collider_with_dimensions ____________
+
+    def test_player_scene_has_capsule_collider_with_dimensions():
+        content = _read_text(os.path.join(PROJECT_DIR, "scenes/Player.tscn"))
+        assert re.search(
+            r'\[sub_resource\s+type="CapsuleShape3D"', content
+        ), "scenes/Player.tscn must declare a CapsuleShape3D sub_resource."
+        # Find the CapsuleShape3D block and confirm radius/height.
+        blocks = re.findall(
+            r'\[sub_resource\s+type="CapsuleShape3D"[^\[]*',
+            content,
+        )
+        matched = False
+        for block in blocks:
+            radius_ok = re.search(r"\bradius\s*=\s*0\.5(?:0+)?\b", block) is not None
+            height_ok = re.search(r"\bheight\s*=\s*1\.8(?:0+)?\b", block) is not None
+            if radius_ok and height_ok:
+                matched = True
+                break
+>       assert matched, (
+            "scenes/Player.tscn must declare a CapsuleShape3D with `radius = 0.5` "
+            "and `height = 1.8`."
+        )
+E       AssertionError: scenes/Player.tscn must declare a CapsuleShape3D with `radius = 0.5` and `height = 1.8`.
+E       assert False
+
+tests/test_final_state.py:142: AssertionError
+__________________________ test_jump_runtime_harness ___________________________
+
+    def test_jump_runtime_harness():
+        _reset_user_data()
+>       result = subprocess.run(
+            [
+                "godot",
+                "--headless",
+                "--path",
+                PROJECT_DIR,
+                "res://_zealt_tests/test_harness_jump.tscn",
+            ],
+            capture_output=True,
+            text=True,
+            timeout=300,
+            env=_godot_env(),
+        )
+
+tests/test_final_state.py:210: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+usr/lib/python3.12/subprocess.py:550: in run
+    stdout, stderr = process.communicate(input, timeout=timeout)
+usr/lib/python3.12/subprocess.py:1209: in communicate
+    stdout, stderr = self._communicate(input, endtime, timeout)
+usr/lib/python3.12/subprocess.py:2116: in _communicate
+    self._check_timeout(endtime, orig_timeout, stdout, stderr)
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <Popen: returncode: -9 args: ['godot', '--headless', '--path', '/home/user/p...>
+endtime = 974994.620338812, orig_timeout = 300
+stdout_seq = [b'Godot Engine v4.3.stable.official.77dcf97d8 - https://godotengine.org\n', b'\n']
+stderr_seq = [b'SCRIPT ERROR: Parse Error: Cannot infer the type of "state" variable because the value doesn\'t have a set type.\n ...es://_zealt_tests/test_harness_jump.gd" with error "Parse error".\n   at: load (modules/gdscript/gdscript.cpp:2936)\n']
+skip_check_and_raise = False
+
+    def _check_timeout(self, endtime, orig_timeout, stdout_seq, stderr_seq,
+                       skip_check_and_raise=False):
+        """Convenience for checking if a timeout has expired."""
+        if endtime is None:
+            return
+        if skip_check_and_raise or _time() > endtime:
+>           raise TimeoutExpired(
+                    self.args, orig_timeout,
+                    output=b''.join(stdout_seq) if stdout_seq else None,
+                    stderr=b''.join(stderr_seq) if stderr_seq else None)
+E           subprocess.TimeoutExpired: Command '['godot', '--headless', '--path', '/home/user/platformer3d', 'res://_zealt_tests/test_harness_jump.tscn']' timed out after 300 seconds
+
+usr/lib/python3.12/subprocess.py:1253: TimeoutExpired
+==================================== PASSES ====================================
+=========================== short test summary info ============================
+PASSED tests/test_final_state.py::test_required_files_exist
+PASSED tests/test_final_state.py::test_player_script_declares_exports_with_defaults
+PASSED tests/test_final_state.py::test_player_script_declares_jumped_signal
+PASSED tests/test_final_state.py::test_player_script_defines_required_methods
+PASSED tests/test_final_state.py::test_player_scene_has_pivot_with_mesh
+PASSED tests/test_final_state.py::test_project_loads_without_errors
+FAILED tests/test_final_state.py::test_player_scene_root_is_character_body_3d
+FAILED tests/test_final_state.py::test_player_scene_has_capsule_collider_with_dimensions
+FAILED tests/test_final_state.py::test_jump_runtime_harness - subprocess.Time...
+=================== 3 failed, 6 passed in 301.09s (0:05:01) ====================

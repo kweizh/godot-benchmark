@@ -1,0 +1,634 @@
+============================= test session starts ==============================
+platform linux -- Python 3.12.3, pytest-7.4.4, pluggy-1.4.0
+rootdir: /tests
+plugins: json-ctrf-0.5.0
+collected 21 items
+
+tests/test_final_state.py F.FFFFFFFFFFFFFFFFFFF                          [100%]
+
+=================================== FAILURES ===================================
+______________________ test_required_project_files_exist _______________________
+
+    def test_required_project_files_exist():
+        for rel in ("scenes/Minimap.tscn", "scenes/World.tscn", "scripts/Minimap.gd"):
+            path = os.path.join(PROJECT_DIR, rel)
+>           assert os.path.isfile(path), f"Required project file missing: {path}"
+E           AssertionError: Required project file missing: /home/user/myproject/scenes/Minimap.tscn
+E           assert False
+E            +  where False = <function isfile at 0x7f67436ac220>('/home/user/myproject/scenes/Minimap.tscn')
+E            +    where <function isfile at 0x7f67436ac220> = <module 'posixpath' (frozen)>.isfile
+E            +      where <module 'posixpath' (frozen)> = os.path
+
+tests/test_final_state.py:299: AssertionError
+____________________ test_harness_pass[load_minimap_scene] _____________________
+
+check_name = 'load_minimap_scene'
+harness_output = ('Godot Engine v4.3.stable.official.77dcf97d8 - https://godotengine.org\n\nHARNESS_START\nFAIL load_minimap_scene :: F...een imported by opening the project in the editor at least once.\n   at: _load (core/io/resource_loader.cpp:283)\n', 0)
+
+    @pytest.mark.parametrize("check_name", REQUIRED_PASSES)
+    def test_harness_pass(check_name, harness_output):
+        combined, _rc = harness_output
+        fail_marker = f"FAIL {check_name} ::"
+        pass_marker = f"PASS {check_name}"
+>       assert fail_marker not in combined, (
+            f"Check '{check_name}' failed. Harness output:\n{combined}"
+        )
+E       AssertionError: Check 'load_minimap_scene' failed. Harness output:
+E         Godot Engine v4.3.stable.official.77dcf97d8 - https://godotengine.org
+E         
+E         HARNESS_START
+E         FAIL load_minimap_scene :: Failed to load res://scenes/Minimap.tscn
+E         HARNESS_DONE
+E         
+E         ERROR: Cannot open file 'res://scenes/Minimap.tscn'.
+E            at: load (scene/resources/resource_format_text.cpp:1367)
+E         ERROR: Failed loading resource: res://scenes/Minimap.tscn. Make sure resources have been imported by opening the project in the editor at least once.
+E            at: _load (core/io/resource_loader.cpp:283)
+E         
+E       assert 'FAIL load_minimap_scene ::' not in 'Godot Engin...r.cpp:283)\n'
+E         'FAIL load_minimap_scene ::' is contained here:
+E           ESS_START
+E           FAIL load_minimap_scene :: Failed to load res://scenes/Minimap.tscn
+E         ? ++++++++++++++++++++++++++
+E           HARNESS_DONE
+E           
+E           ERROR: Cannot open file 'res://scenes/Minimap.tscn'....
+E         
+E         ...Full output truncated (3 lines hidden), use '-vv' to show
+
+tests/test_final_state.py:317: AssertionError
+_________________ test_harness_pass[instantiate_minimap_scene] _________________
+
+check_name = 'instantiate_minimap_scene'
+harness_output = ('Godot Engine v4.3.stable.official.77dcf97d8 - https://godotengine.org\n\nHARNESS_START\nFAIL load_minimap_scene :: F...een imported by opening the project in the editor at least once.\n   at: _load (core/io/resource_loader.cpp:283)\n', 0)
+
+    @pytest.mark.parametrize("check_name", REQUIRED_PASSES)
+    def test_harness_pass(check_name, harness_output):
+        combined, _rc = harness_output
+        fail_marker = f"FAIL {check_name} ::"
+        pass_marker = f"PASS {check_name}"
+        assert fail_marker not in combined, (
+            f"Check '{check_name}' failed. Harness output:\n{combined}"
+        )
+>       assert pass_marker in combined, (
+            f"Check '{check_name}' did not pass. Harness output:\n{combined}"
+        )
+E       AssertionError: Check 'instantiate_minimap_scene' did not pass. Harness output:
+E         Godot Engine v4.3.stable.official.77dcf97d8 - https://godotengine.org
+E         
+E         HARNESS_START
+E         FAIL load_minimap_scene :: Failed to load res://scenes/Minimap.tscn
+E         HARNESS_DONE
+E         
+E         ERROR: Cannot open file 'res://scenes/Minimap.tscn'.
+E            at: load (scene/resources/resource_format_text.cpp:1367)
+E         ERROR: Failed loading resource: res://scenes/Minimap.tscn. Make sure resources have been imported by opening the project in the editor at least once.
+E            at: _load (core/io/resource_loader.cpp:283)
+E         
+E       assert 'PASS instantiate_minimap_scene' in 'Godot Engine v4.3.stable.official.77dcf97d8 - https://godotengine.org\n\nHARNESS_START\nFAIL load_minimap_scene :: Fa...ve been imported by opening the project in the editor at least once.\n   at: _load (core/io/resource_loader.cpp:283)\n'
+
+tests/test_final_state.py:320: AssertionError
+___________ test_harness_pass[minimap_root_is_subviewport_container] ___________
+
+check_name = 'minimap_root_is_subviewport_container'
+harness_output = ('Godot Engine v4.3.stable.official.77dcf97d8 - https://godotengine.org\n\nHARNESS_START\nFAIL load_minimap_scene :: F...een imported by opening the project in the editor at least once.\n   at: _load (core/io/resource_loader.cpp:283)\n', 0)
+
+    @pytest.mark.parametrize("check_name", REQUIRED_PASSES)
+    def test_harness_pass(check_name, harness_output):
+        combined, _rc = harness_output
+        fail_marker = f"FAIL {check_name} ::"
+        pass_marker = f"PASS {check_name}"
+        assert fail_marker not in combined, (
+            f"Check '{check_name}' failed. Harness output:\n{combined}"
+        )
+>       assert pass_marker in combined, (
+            f"Check '{check_name}' did not pass. Harness output:\n{combined}"
+        )
+E       AssertionError: Check 'minimap_root_is_subviewport_container' did not pass. Harness output:
+E         Godot Engine v4.3.stable.official.77dcf97d8 - https://godotengine.org
+E         
+E         HARNESS_START
+E         FAIL load_minimap_scene :: Failed to load res://scenes/Minimap.tscn
+E         HARNESS_DONE
+E         
+E         ERROR: Cannot open file 'res://scenes/Minimap.tscn'.
+E            at: load (scene/resources/resource_format_text.cpp:1367)
+E         ERROR: Failed loading resource: res://scenes/Minimap.tscn. Make sure resources have been imported by opening the project in the editor at least once.
+E            at: _load (core/io/resource_loader.cpp:283)
+E         
+E       assert 'PASS minimap_root_is_subviewport_container' in 'Godot Engine v4.3.stable.official.77dcf97d8 - https://godotengine.org\n\nHARNESS_START\nFAIL load_minimap_scene :: Fa...ve been imported by opening the project in the editor at least once.\n   at: _load (core/io/resource_loader.cpp:283)\n'
+
+tests/test_final_state.py:320: AssertionError
+_______________ test_harness_pass[minimap_has_subviewport_child] _______________
+
+check_name = 'minimap_has_subviewport_child'
+harness_output = ('Godot Engine v4.3.stable.official.77dcf97d8 - https://godotengine.org\n\nHARNESS_START\nFAIL load_minimap_scene :: F...een imported by opening the project in the editor at least once.\n   at: _load (core/io/resource_loader.cpp:283)\n', 0)
+
+    @pytest.mark.parametrize("check_name", REQUIRED_PASSES)
+    def test_harness_pass(check_name, harness_output):
+        combined, _rc = harness_output
+        fail_marker = f"FAIL {check_name} ::"
+        pass_marker = f"PASS {check_name}"
+        assert fail_marker not in combined, (
+            f"Check '{check_name}' failed. Harness output:\n{combined}"
+        )
+>       assert pass_marker in combined, (
+            f"Check '{check_name}' did not pass. Harness output:\n{combined}"
+        )
+E       AssertionError: Check 'minimap_has_subviewport_child' did not pass. Harness output:
+E         Godot Engine v4.3.stable.official.77dcf97d8 - https://godotengine.org
+E         
+E         HARNESS_START
+E         FAIL load_minimap_scene :: Failed to load res://scenes/Minimap.tscn
+E         HARNESS_DONE
+E         
+E         ERROR: Cannot open file 'res://scenes/Minimap.tscn'.
+E            at: load (scene/resources/resource_format_text.cpp:1367)
+E         ERROR: Failed loading resource: res://scenes/Minimap.tscn. Make sure resources have been imported by opening the project in the editor at least once.
+E            at: _load (core/io/resource_loader.cpp:283)
+E         
+E       assert 'PASS minimap_has_subviewport_child' in 'Godot Engine v4.3.stable.official.77dcf97d8 - https://godotengine.org\n\nHARNESS_START\nFAIL load_minimap_scene :: Fa...ve been imported by opening the project in the editor at least once.\n   at: _load (core/io/resource_loader.cpp:283)\n'
+
+tests/test_final_state.py:320: AssertionError
+_____________________ test_harness_pass[subviewport_size] ______________________
+
+check_name = 'subviewport_size'
+harness_output = ('Godot Engine v4.3.stable.official.77dcf97d8 - https://godotengine.org\n\nHARNESS_START\nFAIL load_minimap_scene :: F...een imported by opening the project in the editor at least once.\n   at: _load (core/io/resource_loader.cpp:283)\n', 0)
+
+    @pytest.mark.parametrize("check_name", REQUIRED_PASSES)
+    def test_harness_pass(check_name, harness_output):
+        combined, _rc = harness_output
+        fail_marker = f"FAIL {check_name} ::"
+        pass_marker = f"PASS {check_name}"
+        assert fail_marker not in combined, (
+            f"Check '{check_name}' failed. Harness output:\n{combined}"
+        )
+>       assert pass_marker in combined, (
+            f"Check '{check_name}' did not pass. Harness output:\n{combined}"
+        )
+E       AssertionError: Check 'subviewport_size' did not pass. Harness output:
+E         Godot Engine v4.3.stable.official.77dcf97d8 - https://godotengine.org
+E         
+E         HARNESS_START
+E         FAIL load_minimap_scene :: Failed to load res://scenes/Minimap.tscn
+E         HARNESS_DONE
+E         
+E         ERROR: Cannot open file 'res://scenes/Minimap.tscn'.
+E            at: load (scene/resources/resource_format_text.cpp:1367)
+E         ERROR: Failed loading resource: res://scenes/Minimap.tscn. Make sure resources have been imported by opening the project in the editor at least once.
+E            at: _load (core/io/resource_loader.cpp:283)
+E         
+E       assert 'PASS subviewport_size' in 'Godot Engine v4.3.stable.official.77dcf97d8 - https://godotengine.org\n\nHARNESS_START\nFAIL load_minimap_scene :: Fa...ve been imported by opening the project in the editor at least once.\n   at: _load (core/io/resource_loader.cpp:283)\n'
+
+tests/test_final_state.py:320: AssertionError
+________________ test_harness_pass[subviewport_transparent_bg] _________________
+
+check_name = 'subviewport_transparent_bg'
+harness_output = ('Godot Engine v4.3.stable.official.77dcf97d8 - https://godotengine.org\n\nHARNESS_START\nFAIL load_minimap_scene :: F...een imported by opening the project in the editor at least once.\n   at: _load (core/io/resource_loader.cpp:283)\n', 0)
+
+    @pytest.mark.parametrize("check_name", REQUIRED_PASSES)
+    def test_harness_pass(check_name, harness_output):
+        combined, _rc = harness_output
+        fail_marker = f"FAIL {check_name} ::"
+        pass_marker = f"PASS {check_name}"
+        assert fail_marker not in combined, (
+            f"Check '{check_name}' failed. Harness output:\n{combined}"
+        )
+>       assert pass_marker in combined, (
+            f"Check '{check_name}' did not pass. Harness output:\n{combined}"
+        )
+E       AssertionError: Check 'subviewport_transparent_bg' did not pass. Harness output:
+E         Godot Engine v4.3.stable.official.77dcf97d8 - https://godotengine.org
+E         
+E         HARNESS_START
+E         FAIL load_minimap_scene :: Failed to load res://scenes/Minimap.tscn
+E         HARNESS_DONE
+E         
+E         ERROR: Cannot open file 'res://scenes/Minimap.tscn'.
+E            at: load (scene/resources/resource_format_text.cpp:1367)
+E         ERROR: Failed loading resource: res://scenes/Minimap.tscn. Make sure resources have been imported by opening the project in the editor at least once.
+E            at: _load (core/io/resource_loader.cpp:283)
+E         
+E       assert 'PASS subviewport_transparent_bg' in 'Godot Engine v4.3.stable.official.77dcf97d8 - https://godotengine.org\n\nHARNESS_START\nFAIL load_minimap_scene :: Fa...ve been imported by opening the project in the editor at least once.\n   at: _load (core/io/resource_loader.cpp:283)\n'
+
+tests/test_final_state.py:320: AssertionError
+___________________ test_harness_pass[minimap_camera_exists] ___________________
+
+check_name = 'minimap_camera_exists'
+harness_output = ('Godot Engine v4.3.stable.official.77dcf97d8 - https://godotengine.org\n\nHARNESS_START\nFAIL load_minimap_scene :: F...een imported by opening the project in the editor at least once.\n   at: _load (core/io/resource_loader.cpp:283)\n', 0)
+
+    @pytest.mark.parametrize("check_name", REQUIRED_PASSES)
+    def test_harness_pass(check_name, harness_output):
+        combined, _rc = harness_output
+        fail_marker = f"FAIL {check_name} ::"
+        pass_marker = f"PASS {check_name}"
+        assert fail_marker not in combined, (
+            f"Check '{check_name}' failed. Harness output:\n{combined}"
+        )
+>       assert pass_marker in combined, (
+            f"Check '{check_name}' did not pass. Harness output:\n{combined}"
+        )
+E       AssertionError: Check 'minimap_camera_exists' did not pass. Harness output:
+E         Godot Engine v4.3.stable.official.77dcf97d8 - https://godotengine.org
+E         
+E         HARNESS_START
+E         FAIL load_minimap_scene :: Failed to load res://scenes/Minimap.tscn
+E         HARNESS_DONE
+E         
+E         ERROR: Cannot open file 'res://scenes/Minimap.tscn'.
+E            at: load (scene/resources/resource_format_text.cpp:1367)
+E         ERROR: Failed loading resource: res://scenes/Minimap.tscn. Make sure resources have been imported by opening the project in the editor at least once.
+E            at: _load (core/io/resource_loader.cpp:283)
+E         
+E       assert 'PASS minimap_camera_exists' in 'Godot Engine v4.3.stable.official.77dcf97d8 - https://godotengine.org\n\nHARNESS_START\nFAIL load_minimap_scene :: Fa...ve been imported by opening the project in the editor at least once.\n   at: _load (core/io/resource_loader.cpp:283)\n'
+
+tests/test_final_state.py:320: AssertionError
+____________________ test_harness_pass[minimap_camera_zoom] ____________________
+
+check_name = 'minimap_camera_zoom'
+harness_output = ('Godot Engine v4.3.stable.official.77dcf97d8 - https://godotengine.org\n\nHARNESS_START\nFAIL load_minimap_scene :: F...een imported by opening the project in the editor at least once.\n   at: _load (core/io/resource_loader.cpp:283)\n', 0)
+
+    @pytest.mark.parametrize("check_name", REQUIRED_PASSES)
+    def test_harness_pass(check_name, harness_output):
+        combined, _rc = harness_output
+        fail_marker = f"FAIL {check_name} ::"
+        pass_marker = f"PASS {check_name}"
+        assert fail_marker not in combined, (
+            f"Check '{check_name}' failed. Harness output:\n{combined}"
+        )
+>       assert pass_marker in combined, (
+            f"Check '{check_name}' did not pass. Harness output:\n{combined}"
+        )
+E       AssertionError: Check 'minimap_camera_zoom' did not pass. Harness output:
+E         Godot Engine v4.3.stable.official.77dcf97d8 - https://godotengine.org
+E         
+E         HARNESS_START
+E         FAIL load_minimap_scene :: Failed to load res://scenes/Minimap.tscn
+E         HARNESS_DONE
+E         
+E         ERROR: Cannot open file 'res://scenes/Minimap.tscn'.
+E            at: load (scene/resources/resource_format_text.cpp:1367)
+E         ERROR: Failed loading resource: res://scenes/Minimap.tscn. Make sure resources have been imported by opening the project in the editor at least once.
+E            at: _load (core/io/resource_loader.cpp:283)
+E         
+E       assert 'PASS minimap_camera_zoom' in 'Godot Engine v4.3.stable.official.77dcf97d8 - https://godotengine.org\n\nHARNESS_START\nFAIL load_minimap_scene :: Fa...ve been imported by opening the project in the editor at least once.\n   at: _load (core/io/resource_loader.cpp:283)\n'
+
+tests/test_final_state.py:320: AssertionError
+_____________________ test_harness_pass[load_world_scene] ______________________
+
+check_name = 'load_world_scene'
+harness_output = ('Godot Engine v4.3.stable.official.77dcf97d8 - https://godotengine.org\n\nHARNESS_START\nFAIL load_minimap_scene :: F...een imported by opening the project in the editor at least once.\n   at: _load (core/io/resource_loader.cpp:283)\n', 0)
+
+    @pytest.mark.parametrize("check_name", REQUIRED_PASSES)
+    def test_harness_pass(check_name, harness_output):
+        combined, _rc = harness_output
+        fail_marker = f"FAIL {check_name} ::"
+        pass_marker = f"PASS {check_name}"
+        assert fail_marker not in combined, (
+            f"Check '{check_name}' failed. Harness output:\n{combined}"
+        )
+>       assert pass_marker in combined, (
+            f"Check '{check_name}' did not pass. Harness output:\n{combined}"
+        )
+E       AssertionError: Check 'load_world_scene' did not pass. Harness output:
+E         Godot Engine v4.3.stable.official.77dcf97d8 - https://godotengine.org
+E         
+E         HARNESS_START
+E         FAIL load_minimap_scene :: Failed to load res://scenes/Minimap.tscn
+E         HARNESS_DONE
+E         
+E         ERROR: Cannot open file 'res://scenes/Minimap.tscn'.
+E            at: load (scene/resources/resource_format_text.cpp:1367)
+E         ERROR: Failed loading resource: res://scenes/Minimap.tscn. Make sure resources have been imported by opening the project in the editor at least once.
+E            at: _load (core/io/resource_loader.cpp:283)
+E         
+E       assert 'PASS load_world_scene' in 'Godot Engine v4.3.stable.official.77dcf97d8 - https://godotengine.org\n\nHARNESS_START\nFAIL load_minimap_scene :: Fa...ve been imported by opening the project in the editor at least once.\n   at: _load (core/io/resource_loader.cpp:283)\n'
+
+tests/test_final_state.py:320: AssertionError
+__________________ test_harness_pass[instantiate_world_scene] __________________
+
+check_name = 'instantiate_world_scene'
+harness_output = ('Godot Engine v4.3.stable.official.77dcf97d8 - https://godotengine.org\n\nHARNESS_START\nFAIL load_minimap_scene :: F...een imported by opening the project in the editor at least once.\n   at: _load (core/io/resource_loader.cpp:283)\n', 0)
+
+    @pytest.mark.parametrize("check_name", REQUIRED_PASSES)
+    def test_harness_pass(check_name, harness_output):
+        combined, _rc = harness_output
+        fail_marker = f"FAIL {check_name} ::"
+        pass_marker = f"PASS {check_name}"
+        assert fail_marker not in combined, (
+            f"Check '{check_name}' failed. Harness output:\n{combined}"
+        )
+>       assert pass_marker in combined, (
+            f"Check '{check_name}' did not pass. Harness output:\n{combined}"
+        )
+E       AssertionError: Check 'instantiate_world_scene' did not pass. Harness output:
+E         Godot Engine v4.3.stable.official.77dcf97d8 - https://godotengine.org
+E         
+E         HARNESS_START
+E         FAIL load_minimap_scene :: Failed to load res://scenes/Minimap.tscn
+E         HARNESS_DONE
+E         
+E         ERROR: Cannot open file 'res://scenes/Minimap.tscn'.
+E            at: load (scene/resources/resource_format_text.cpp:1367)
+E         ERROR: Failed loading resource: res://scenes/Minimap.tscn. Make sure resources have been imported by opening the project in the editor at least once.
+E            at: _load (core/io/resource_loader.cpp:283)
+E         
+E       assert 'PASS instantiate_world_scene' in 'Godot Engine v4.3.stable.official.77dcf97d8 - https://godotengine.org\n\nHARNESS_START\nFAIL load_minimap_scene :: Fa...ve been imported by opening the project in the editor at least once.\n   at: _load (core/io/resource_loader.cpp:283)\n'
+
+tests/test_final_state.py:320: AssertionError
+______________________ test_harness_pass[world_root_name] ______________________
+
+check_name = 'world_root_name'
+harness_output = ('Godot Engine v4.3.stable.official.77dcf97d8 - https://godotengine.org\n\nHARNESS_START\nFAIL load_minimap_scene :: F...een imported by opening the project in the editor at least once.\n   at: _load (core/io/resource_loader.cpp:283)\n', 0)
+
+    @pytest.mark.parametrize("check_name", REQUIRED_PASSES)
+    def test_harness_pass(check_name, harness_output):
+        combined, _rc = harness_output
+        fail_marker = f"FAIL {check_name} ::"
+        pass_marker = f"PASS {check_name}"
+        assert fail_marker not in combined, (
+            f"Check '{check_name}' failed. Harness output:\n{combined}"
+        )
+>       assert pass_marker in combined, (
+            f"Check '{check_name}' did not pass. Harness output:\n{combined}"
+        )
+E       AssertionError: Check 'world_root_name' did not pass. Harness output:
+E         Godot Engine v4.3.stable.official.77dcf97d8 - https://godotengine.org
+E         
+E         HARNESS_START
+E         FAIL load_minimap_scene :: Failed to load res://scenes/Minimap.tscn
+E         HARNESS_DONE
+E         
+E         ERROR: Cannot open file 'res://scenes/Minimap.tscn'.
+E            at: load (scene/resources/resource_format_text.cpp:1367)
+E         ERROR: Failed loading resource: res://scenes/Minimap.tscn. Make sure resources have been imported by opening the project in the editor at least once.
+E            at: _load (core/io/resource_loader.cpp:283)
+E         
+E       assert 'PASS world_root_name' in 'Godot Engine v4.3.stable.official.77dcf97d8 - https://godotengine.org\n\nHARNESS_START\nFAIL load_minimap_scene :: Fa...ve been imported by opening the project in the editor at least once.\n   at: _load (core/io/resource_loader.cpp:283)\n'
+
+tests/test_final_state.py:320: AssertionError
+_______________________ test_harness_pass[player_exists] _______________________
+
+check_name = 'player_exists'
+harness_output = ('Godot Engine v4.3.stable.official.77dcf97d8 - https://godotengine.org\n\nHARNESS_START\nFAIL load_minimap_scene :: F...een imported by opening the project in the editor at least once.\n   at: _load (core/io/resource_loader.cpp:283)\n', 0)
+
+    @pytest.mark.parametrize("check_name", REQUIRED_PASSES)
+    def test_harness_pass(check_name, harness_output):
+        combined, _rc = harness_output
+        fail_marker = f"FAIL {check_name} ::"
+        pass_marker = f"PASS {check_name}"
+        assert fail_marker not in combined, (
+            f"Check '{check_name}' failed. Harness output:\n{combined}"
+        )
+>       assert pass_marker in combined, (
+            f"Check '{check_name}' did not pass. Harness output:\n{combined}"
+        )
+E       AssertionError: Check 'player_exists' did not pass. Harness output:
+E         Godot Engine v4.3.stable.official.77dcf97d8 - https://godotengine.org
+E         
+E         HARNESS_START
+E         FAIL load_minimap_scene :: Failed to load res://scenes/Minimap.tscn
+E         HARNESS_DONE
+E         
+E         ERROR: Cannot open file 'res://scenes/Minimap.tscn'.
+E            at: load (scene/resources/resource_format_text.cpp:1367)
+E         ERROR: Failed loading resource: res://scenes/Minimap.tscn. Make sure resources have been imported by opening the project in the editor at least once.
+E            at: _load (core/io/resource_loader.cpp:283)
+E         
+E       assert 'PASS player_exists' in 'Godot Engine v4.3.stable.official.77dcf97d8 - https://godotengine.org\n\nHARNESS_START\nFAIL load_minimap_scene :: Fa...ve been imported by opening the project in the editor at least once.\n   at: _load (core/io/resource_loader.cpp:283)\n'
+
+tests/test_final_state.py:320: AssertionError
+________________________ test_harness_pass[player_name] ________________________
+
+check_name = 'player_name'
+harness_output = ('Godot Engine v4.3.stable.official.77dcf97d8 - https://godotengine.org\n\nHARNESS_START\nFAIL load_minimap_scene :: F...een imported by opening the project in the editor at least once.\n   at: _load (core/io/resource_loader.cpp:283)\n', 0)
+
+    @pytest.mark.parametrize("check_name", REQUIRED_PASSES)
+    def test_harness_pass(check_name, harness_output):
+        combined, _rc = harness_output
+        fail_marker = f"FAIL {check_name} ::"
+        pass_marker = f"PASS {check_name}"
+        assert fail_marker not in combined, (
+            f"Check '{check_name}' failed. Harness output:\n{combined}"
+        )
+>       assert pass_marker in combined, (
+            f"Check '{check_name}' did not pass. Harness output:\n{combined}"
+        )
+E       AssertionError: Check 'player_name' did not pass. Harness output:
+E         Godot Engine v4.3.stable.official.77dcf97d8 - https://godotengine.org
+E         
+E         HARNESS_START
+E         FAIL load_minimap_scene :: Failed to load res://scenes/Minimap.tscn
+E         HARNESS_DONE
+E         
+E         ERROR: Cannot open file 'res://scenes/Minimap.tscn'.
+E            at: load (scene/resources/resource_format_text.cpp:1367)
+E         ERROR: Failed loading resource: res://scenes/Minimap.tscn. Make sure resources have been imported by opening the project in the editor at least once.
+E            at: _load (core/io/resource_loader.cpp:283)
+E         
+E       assert 'PASS player_name' in 'Godot Engine v4.3.stable.official.77dcf97d8 - https://godotengine.org\n\nHARNESS_START\nFAIL load_minimap_scene :: Fa...ve been imported by opening the project in the editor at least once.\n   at: _load (core/io/resource_loader.cpp:283)\n'
+
+tests/test_final_state.py:320: AssertionError
+______________________ test_harness_pass[poi_group_count] ______________________
+
+check_name = 'poi_group_count'
+harness_output = ('Godot Engine v4.3.stable.official.77dcf97d8 - https://godotengine.org\n\nHARNESS_START\nFAIL load_minimap_scene :: F...een imported by opening the project in the editor at least once.\n   at: _load (core/io/resource_loader.cpp:283)\n', 0)
+
+    @pytest.mark.parametrize("check_name", REQUIRED_PASSES)
+    def test_harness_pass(check_name, harness_output):
+        combined, _rc = harness_output
+        fail_marker = f"FAIL {check_name} ::"
+        pass_marker = f"PASS {check_name}"
+        assert fail_marker not in combined, (
+            f"Check '{check_name}' failed. Harness output:\n{combined}"
+        )
+>       assert pass_marker in combined, (
+            f"Check '{check_name}' did not pass. Harness output:\n{combined}"
+        )
+E       AssertionError: Check 'poi_group_count' did not pass. Harness output:
+E         Godot Engine v4.3.stable.official.77dcf97d8 - https://godotengine.org
+E         
+E         HARNESS_START
+E         FAIL load_minimap_scene :: Failed to load res://scenes/Minimap.tscn
+E         HARNESS_DONE
+E         
+E         ERROR: Cannot open file 'res://scenes/Minimap.tscn'.
+E            at: load (scene/resources/resource_format_text.cpp:1367)
+E         ERROR: Failed loading resource: res://scenes/Minimap.tscn. Make sure resources have been imported by opening the project in the editor at least once.
+E            at: _load (core/io/resource_loader.cpp:283)
+E         
+E       assert 'PASS poi_group_count' in 'Godot Engine v4.3.stable.official.77dcf97d8 - https://godotengine.org\n\nHARNESS_START\nFAIL load_minimap_scene :: Fa...ve been imported by opening the project in the editor at least once.\n   at: _load (core/io/resource_loader.cpp:283)\n'
+
+tests/test_final_state.py:320: AssertionError
+_________________ test_harness_pass[poi_added_signal_defined] __________________
+
+check_name = 'poi_added_signal_defined'
+harness_output = ('Godot Engine v4.3.stable.official.77dcf97d8 - https://godotengine.org\n\nHARNESS_START\nFAIL load_minimap_scene :: F...een imported by opening the project in the editor at least once.\n   at: _load (core/io/resource_loader.cpp:283)\n', 0)
+
+    @pytest.mark.parametrize("check_name", REQUIRED_PASSES)
+    def test_harness_pass(check_name, harness_output):
+        combined, _rc = harness_output
+        fail_marker = f"FAIL {check_name} ::"
+        pass_marker = f"PASS {check_name}"
+        assert fail_marker not in combined, (
+            f"Check '{check_name}' failed. Harness output:\n{combined}"
+        )
+>       assert pass_marker in combined, (
+            f"Check '{check_name}' did not pass. Harness output:\n{combined}"
+        )
+E       AssertionError: Check 'poi_added_signal_defined' did not pass. Harness output:
+E         Godot Engine v4.3.stable.official.77dcf97d8 - https://godotengine.org
+E         
+E         HARNESS_START
+E         FAIL load_minimap_scene :: Failed to load res://scenes/Minimap.tscn
+E         HARNESS_DONE
+E         
+E         ERROR: Cannot open file 'res://scenes/Minimap.tscn'.
+E            at: load (scene/resources/resource_format_text.cpp:1367)
+E         ERROR: Failed loading resource: res://scenes/Minimap.tscn. Make sure resources have been imported by opening the project in the editor at least once.
+E            at: _load (core/io/resource_loader.cpp:283)
+E         
+E       assert 'PASS poi_added_signal_defined' in 'Godot Engine v4.3.stable.official.77dcf97d8 - https://godotengine.org\n\nHARNESS_START\nFAIL load_minimap_scene :: Fa...ve been imported by opening the project in the editor at least once.\n   at: _load (core/io/resource_loader.cpp:283)\n'
+
+tests/test_final_state.py:320: AssertionError
+___________________ test_harness_pass[poi_added_emit_count] ____________________
+
+check_name = 'poi_added_emit_count'
+harness_output = ('Godot Engine v4.3.stable.official.77dcf97d8 - https://godotengine.org\n\nHARNESS_START\nFAIL load_minimap_scene :: F...een imported by opening the project in the editor at least once.\n   at: _load (core/io/resource_loader.cpp:283)\n', 0)
+
+    @pytest.mark.parametrize("check_name", REQUIRED_PASSES)
+    def test_harness_pass(check_name, harness_output):
+        combined, _rc = harness_output
+        fail_marker = f"FAIL {check_name} ::"
+        pass_marker = f"PASS {check_name}"
+        assert fail_marker not in combined, (
+            f"Check '{check_name}' failed. Harness output:\n{combined}"
+        )
+>       assert pass_marker in combined, (
+            f"Check '{check_name}' did not pass. Harness output:\n{combined}"
+        )
+E       AssertionError: Check 'poi_added_emit_count' did not pass. Harness output:
+E         Godot Engine v4.3.stable.official.77dcf97d8 - https://godotengine.org
+E         
+E         HARNESS_START
+E         FAIL load_minimap_scene :: Failed to load res://scenes/Minimap.tscn
+E         HARNESS_DONE
+E         
+E         ERROR: Cannot open file 'res://scenes/Minimap.tscn'.
+E            at: load (scene/resources/resource_format_text.cpp:1367)
+E         ERROR: Failed loading resource: res://scenes/Minimap.tscn. Make sure resources have been imported by opening the project in the editor at least once.
+E            at: _load (core/io/resource_loader.cpp:283)
+E         
+E       assert 'PASS poi_added_emit_count' in 'Godot Engine v4.3.stable.official.77dcf97d8 - https://godotengine.org\n\nHARNESS_START\nFAIL load_minimap_scene :: Fa...ve been imported by opening the project in the editor at least once.\n   at: _load (core/io/resource_loader.cpp:283)\n'
+
+tests/test_final_state.py:320: AssertionError
+________________ test_harness_pass[get_marker_for_poi_position] ________________
+
+check_name = 'get_marker_for_poi_position'
+harness_output = ('Godot Engine v4.3.stable.official.77dcf97d8 - https://godotengine.org\n\nHARNESS_START\nFAIL load_minimap_scene :: F...een imported by opening the project in the editor at least once.\n   at: _load (core/io/resource_loader.cpp:283)\n', 0)
+
+    @pytest.mark.parametrize("check_name", REQUIRED_PASSES)
+    def test_harness_pass(check_name, harness_output):
+        combined, _rc = harness_output
+        fail_marker = f"FAIL {check_name} ::"
+        pass_marker = f"PASS {check_name}"
+        assert fail_marker not in combined, (
+            f"Check '{check_name}' failed. Harness output:\n{combined}"
+        )
+>       assert pass_marker in combined, (
+            f"Check '{check_name}' did not pass. Harness output:\n{combined}"
+        )
+E       AssertionError: Check 'get_marker_for_poi_position' did not pass. Harness output:
+E         Godot Engine v4.3.stable.official.77dcf97d8 - https://godotengine.org
+E         
+E         HARNESS_START
+E         FAIL load_minimap_scene :: Failed to load res://scenes/Minimap.tscn
+E         HARNESS_DONE
+E         
+E         ERROR: Cannot open file 'res://scenes/Minimap.tscn'.
+E            at: load (scene/resources/resource_format_text.cpp:1367)
+E         ERROR: Failed loading resource: res://scenes/Minimap.tscn. Make sure resources have been imported by opening the project in the editor at least once.
+E            at: _load (core/io/resource_loader.cpp:283)
+E         
+E       assert 'PASS get_marker_for_poi_position' in 'Godot Engine v4.3.stable.official.77dcf97d8 - https://godotengine.org\n\nHARNESS_START\nFAIL load_minimap_scene :: Fa...ve been imported by opening the project in the editor at least once.\n   at: _load (core/io/resource_loader.cpp:283)\n'
+
+tests/test_final_state.py:320: AssertionError
+________________ test_harness_pass[player_marker_tracks_player] ________________
+
+check_name = 'player_marker_tracks_player'
+harness_output = ('Godot Engine v4.3.stable.official.77dcf97d8 - https://godotengine.org\n\nHARNESS_START\nFAIL load_minimap_scene :: F...een imported by opening the project in the editor at least once.\n   at: _load (core/io/resource_loader.cpp:283)\n', 0)
+
+    @pytest.mark.parametrize("check_name", REQUIRED_PASSES)
+    def test_harness_pass(check_name, harness_output):
+        combined, _rc = harness_output
+        fail_marker = f"FAIL {check_name} ::"
+        pass_marker = f"PASS {check_name}"
+        assert fail_marker not in combined, (
+            f"Check '{check_name}' failed. Harness output:\n{combined}"
+        )
+>       assert pass_marker in combined, (
+            f"Check '{check_name}' did not pass. Harness output:\n{combined}"
+        )
+E       AssertionError: Check 'player_marker_tracks_player' did not pass. Harness output:
+E         Godot Engine v4.3.stable.official.77dcf97d8 - https://godotengine.org
+E         
+E         HARNESS_START
+E         FAIL load_minimap_scene :: Failed to load res://scenes/Minimap.tscn
+E         HARNESS_DONE
+E         
+E         ERROR: Cannot open file 'res://scenes/Minimap.tscn'.
+E            at: load (scene/resources/resource_format_text.cpp:1367)
+E         ERROR: Failed loading resource: res://scenes/Minimap.tscn. Make sure resources have been imported by opening the project in the editor at least once.
+E            at: _load (core/io/resource_loader.cpp:283)
+E         
+E       assert 'PASS player_marker_tracks_player' in 'Godot Engine v4.3.stable.official.77dcf97d8 - https://godotengine.org\n\nHARNESS_START\nFAIL load_minimap_scene :: Fa...ve been imported by opening the project in the editor at least once.\n   at: _load (core/io/resource_loader.cpp:283)\n'
+
+tests/test_final_state.py:320: AssertionError
+________________________ test_all_checks_passed_marker _________________________
+
+harness_output = ('Godot Engine v4.3.stable.official.77dcf97d8 - https://godotengine.org\n\nHARNESS_START\nFAIL load_minimap_scene :: F...een imported by opening the project in the editor at least once.\n   at: _load (core/io/resource_loader.cpp:283)\n', 0)
+
+    def test_all_checks_passed_marker(harness_output):
+        combined, _rc = harness_output
+>       assert "ALL_CHECKS_PASSED" in combined, (
+            f"Final summary marker missing. Output:\n{combined}"
+        )
+E       AssertionError: Final summary marker missing. Output:
+E         Godot Engine v4.3.stable.official.77dcf97d8 - https://godotengine.org
+E         
+E         HARNESS_START
+E         FAIL load_minimap_scene :: Failed to load res://scenes/Minimap.tscn
+E         HARNESS_DONE
+E         
+E         ERROR: Cannot open file 'res://scenes/Minimap.tscn'.
+E            at: load (scene/resources/resource_format_text.cpp:1367)
+E         ERROR: Failed loading resource: res://scenes/Minimap.tscn. Make sure resources have been imported by opening the project in the editor at least once.
+E            at: _load (core/io/resource_loader.cpp:283)
+E         
+E       assert 'ALL_CHECKS_PASSED' in 'Godot Engine v4.3.stable.official.77dcf97d8 - https://godotengine.org\n\nHARNESS_START\nFAIL load_minimap_scene :: Fa...ve been imported by opening the project in the editor at least once.\n   at: _load (core/io/resource_loader.cpp:283)\n'
+
+tests/test_final_state.py:327: AssertionError
+==================================== PASSES ====================================
+=========================== short test summary info ============================
+PASSED tests/test_final_state.py::test_harness_runs_without_fatal_errors
+FAILED tests/test_final_state.py::test_required_project_files_exist - Asserti...
+FAILED tests/test_final_state.py::test_harness_pass[load_minimap_scene] - Ass...
+FAILED tests/test_final_state.py::test_harness_pass[instantiate_minimap_scene]
+FAILED tests/test_final_state.py::test_harness_pass[minimap_root_is_subviewport_container]
+FAILED tests/test_final_state.py::test_harness_pass[minimap_has_subviewport_child]
+FAILED tests/test_final_state.py::test_harness_pass[subviewport_size] - Asser...
+FAILED tests/test_final_state.py::test_harness_pass[subviewport_transparent_bg]
+FAILED tests/test_final_state.py::test_harness_pass[minimap_camera_exists] - ...
+FAILED tests/test_final_state.py::test_harness_pass[minimap_camera_zoom] - As...
+FAILED tests/test_final_state.py::test_harness_pass[load_world_scene] - Asser...
+FAILED tests/test_final_state.py::test_harness_pass[instantiate_world_scene]
+FAILED tests/test_final_state.py::test_harness_pass[world_root_name] - Assert...
+FAILED tests/test_final_state.py::test_harness_pass[player_exists] - Assertio...
+FAILED tests/test_final_state.py::test_harness_pass[player_name] - AssertionE...
+FAILED tests/test_final_state.py::test_harness_pass[poi_group_count] - Assert...
+FAILED tests/test_final_state.py::test_harness_pass[poi_added_signal_defined]
+FAILED tests/test_final_state.py::test_harness_pass[poi_added_emit_count] - A...
+FAILED tests/test_final_state.py::test_harness_pass[get_marker_for_poi_position]
+FAILED tests/test_final_state.py::test_harness_pass[player_marker_tracks_player]
+FAILED tests/test_final_state.py::test_all_checks_passed_marker - AssertionEr...
+========================= 20 failed, 1 passed in 0.78s =========================

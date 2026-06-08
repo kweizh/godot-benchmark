@@ -1,0 +1,106 @@
+{
+    "results": {
+        "tool": {
+            "name": "pytest",
+            "version": "7.4.4"
+        },
+        "summary": {
+            "tests": 9,
+            "passed": 9,
+            "failed": 0,
+            "skipped": 0,
+            "pending": 0,
+            "other": 0,
+            "start": 1780934987522,
+            "stop": 1780934988170
+        },
+        "environment": {
+            "buildName": "Pytest JSON CTRF Report",
+            "buildNumber": "000",
+            "buildUrl": "https://ctrf.io"
+        },
+        "tests": [
+            {
+                "name": "test_final_state.py::test_vision_cone_script_exists",
+                "status": "passed",
+                "duration": 1,
+                "start": 1780934987550,
+                "stop": 1780934987551,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_cone_test_scene_exists",
+                "status": "passed",
+                "duration": 1,
+                "start": 1780934987551,
+                "stop": 1780934987552,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_headless_harness_executes_successfully",
+                "status": "passed",
+                "duration": 611,
+                "start": 1780934987552,
+                "stop": 1780934988163,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_is_point_in_cone_inside",
+                "status": "passed",
+                "duration": 1,
+                "start": 1780934988164,
+                "stop": 1780934988165,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_is_point_in_cone_outside_angle",
+                "status": "passed",
+                "duration": 1,
+                "start": 1780934988165,
+                "stop": 1780934988166,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_detect_visible_player_in_range",
+                "status": "passed",
+                "duration": 1,
+                "start": 1780934988166,
+                "stop": 1780934988167,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_detect_returns_null_outside_range",
+                "status": "passed",
+                "duration": 1,
+                "start": 1780934988167,
+                "stop": 1780934988168,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_detect_blocked_by_wall",
+                "status": "passed",
+                "duration": 1,
+                "start": 1780934988168,
+                "stop": 1780934988169,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_target_spotted_emitted_once",
+                "status": "passed",
+                "duration": 1,
+                "start": 1780934988169,
+                "stop": 1780934988170,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            }
+        ]
+    }
+}

@@ -1,0 +1,22 @@
+[gd_scene load_steps=3 format=3 uid="uid://testscene"]
+
+[ext_resource type="PackedScene" path="res://scenes/Enemy.tscn" id="1_enemy"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_wall"]
+size = Vector2(20, 100)
+
+[node name="TestScene" type="Node2D"]
+
+[node name="Enemy" parent="." instance=ExtResource("1_enemy")]
+
+[node name="Player" type="CharacterBody2D" parent="." groups=["player"]]
+position = Vector2(50, 0)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Player"]
+shape = SubResource("RectangleShape2D_wall")
+
+[node name="Wall" type="StaticBody2D" parent="."]
+position = Vector2(25, 0)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Wall"]
+shape = SubResource("RectangleShape2D_wall")

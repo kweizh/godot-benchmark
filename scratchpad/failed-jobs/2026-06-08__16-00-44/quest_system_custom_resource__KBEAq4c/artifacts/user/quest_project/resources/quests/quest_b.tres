@@ -1,0 +1,20 @@
+[gd_resource type="Resource" script_class="Quest" load_steps=4 format=3]
+
+[ext_resource type="Script" path="res://scripts/QuestObjective.gd" id="1_y515n"]
+[ext_resource type="Script" path="res://scripts/Quest.gd" id="2_na4wy"]
+
+[sub_resource type="Resource" id="Resource_ugia8"]
+script = ExtResource("1_y515n")
+description = "Defeat 3 wolves"
+target_count = 3
+current_count = 0
+
+[resource]
+script = ExtResource("2_na4wy")
+id = &"quest_b"
+title = "Wolf Hunt"
+description = "Hunt the wolves threatening the village"
+objectives = Array[ExtResource("1_y515n")]([SubResource("Resource_ugia8")])
+prerequisite_quest_ids = Array[StringName]([&"quest_a"])
+reward_gold = 200
+reward_items = Array[StringName]([&"iron_sword"])

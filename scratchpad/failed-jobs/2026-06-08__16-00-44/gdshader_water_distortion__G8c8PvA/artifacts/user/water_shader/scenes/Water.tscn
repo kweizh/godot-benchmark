@@ -1,0 +1,11 @@
+[gd_scene load_steps=4 format=3]
+
+[ext_resource type="Shader" id="1_water" path="res://shaders/water_distortion.gdshader"]
+[ext_resource type="Script" id="2_water" path="res://scenes/water_controller.gd"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_water"]
+shader = ExtResource("1_water")
+
+[node name="Water" type="ColorRect"]
+material = SubResource("ShaderMaterial_water")
+script = ExtResource("2_water")

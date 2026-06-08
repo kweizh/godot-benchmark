@@ -1,0 +1,20 @@
+============================= test session starts ==============================
+platform linux -- Python 3.12.3, pytest-7.4.4, pluggy-1.4.0
+rootdir: /tests
+plugins: json-ctrf-0.5.0
+collected 9 items
+
+tests/test_final_state.py .........                                      [100%]
+
+==================================== PASSES ====================================
+=========================== short test summary info ============================
+PASSED tests/test_final_state.py::test_required_files_exist
+PASSED tests/test_final_state.py::test_project_godot_registers_eventbus_autoload
+PASSED tests/test_final_state.py::test_inventory_script_does_not_reference_inventory_or_hotbar_names
+PASSED tests/test_final_state.py::test_pickup_script_does_not_reference_inventory_or_hotbar_names
+PASSED tests/test_final_state.py::test_harness_overall_ok
+PASSED tests/test_final_state.py::test_harness_signal_signatures_ok
+PASSED tests/test_final_state.py::test_harness_accumulation_ok
+PASSED tests/test_final_state.py::test_harness_overflow_ok
+PASSED tests/test_final_state.py::test_harness_hotbar_label_ok
+============================== 9 passed in 0.84s ===============================

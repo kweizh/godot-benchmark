@@ -1,0 +1,26 @@
+[gd_resource type="Resource" script_class="Quest" load_steps=4 format=3 uid="uid://quest_c"]
+
+[ext_resource type="Script" path="res://scripts/Quest.gd" id="1_quest"]
+[ext_resource type="Script" path="res://scripts/QuestObjective.gd" id="2_obj"]
+
+[sub_resource type="Resource" id="Objective_1"]
+script = ExtResource("2_obj")
+description = "Find the ancient relic"
+target_count = 1
+current_count = 0
+
+[sub_resource type="Resource" id="Objective_2"]
+script = ExtResource("2_obj")
+description = "Return to the guild"
+target_count = 1
+current_count = 0
+
+[resource]
+script = ExtResource("1_quest")
+id = &"quest_c"
+title = "The Lost Relic"
+description = "Retrieve the ancient relic from the ruins and bring it back."
+objectives = [SubResource("Objective_1"), SubResource("Objective_2")]
+prerequisite_quest_ids = [&"quest_b"]
+reward_gold = 500
+reward_items = [&"relic_fragment", &"guild_medal"]

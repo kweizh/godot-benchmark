@@ -1,0 +1,22 @@
+[gd_scene load_steps=6 format=3]
+
+[ext_resource type="Script" path="res://scenes/RootUI.gd" id="1_tkojf"]
+[ext_resource type="PackedScene" path="res://scenes/MainMenu.tscn" id="2_0yxt7"]
+[ext_resource type="Script" path="res://scenes/MainMenu.gd" id="3_qdx7x"]
+[ext_resource type="PackedScene" path="res://scenes/SettingsMenu.tscn" id="4_t2prq"]
+[ext_resource type="Script" path="res://scenes/SettingsMenu.gd" id="5_kln65"]
+
+[node name="RootUI" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+script = ExtResource("1_tkojf")
+
+[node name="MainMenu" type="Control" parent="." instance=ExtResource("2_0yxt7")]
+layout_mode = 3
+anchors_preset = 0
+script = ExtResource("3_qdx7x")
+
+[node name="SettingsMenu" type="Control" parent="." instance=ExtResource("4_t2prq")]
+layout_mode = 3
+anchors_preset = 0
+script = ExtResource("5_kln65")

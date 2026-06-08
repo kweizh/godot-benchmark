@@ -1,0 +1,8 @@
+ea4bc82a6ad023ab7ee23ee620429895
+::res://::1780932866
+quit.gd::GDScript::-1::1780932821::0::1::::<>SceneTree<>::
+::res://autoloads/::1780932670
+LeaderboardClient.gd::GDScript::-1::1780932670::0::1::::LeaderboardClient<>Node<>::
+::res://scenes/::1780932682
+main.gd::GDScript::-1::1780932682::0::1::::<>Node<>::
+main.tscn::PackedScene::6059583345185547168::1780932863::0::1::::<><>::uid://b51y5de7qxf42::::res://scenes/main.gd

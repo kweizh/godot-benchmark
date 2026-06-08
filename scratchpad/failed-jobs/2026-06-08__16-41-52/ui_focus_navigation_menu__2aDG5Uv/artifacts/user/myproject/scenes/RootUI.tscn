@@ -1,0 +1,22 @@
+[gd_scene load_steps=5 format=3 uid="uid://c1rootui0000000000000000000001"]
+
+[ext_resource type="Script" path="res://scenes/RootUI.gd" id="1_root"]
+[ext_resource type="PackedScene" uid="uid://c1mainmenu00000000000000000001" path="res://scenes/MainMenu.tscn" id="2_mainmenu"]
+[ext_resource type="PackedScene" uid="uid://c1settings00000000000000000001" path="res://scenes/SettingsMenu.tscn" id="3_settings"]
+
+[node name="RootUI" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_root")
+
+[node name="MainMenu" parent="." instance=ExtResource("2_mainmenu")]
+layout_mode = 0
+visible = true
+
+[node name="SettingsMenu" parent="." instance=ExtResource("3_settings")]
+layout_mode = 0
+visible = false

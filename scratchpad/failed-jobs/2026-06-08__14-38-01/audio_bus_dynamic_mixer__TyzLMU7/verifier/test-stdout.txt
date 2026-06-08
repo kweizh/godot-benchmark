@@ -1,0 +1,53 @@
+============================= test session starts ==============================
+platform linux -- Python 3.12.3, pytest-7.4.4, pluggy-1.4.0
+rootdir: /tests
+plugins: json-ctrf-0.5.0
+collected 10 items
+
+tests/test_final_state.py ..F.......                                     [100%]
+
+=================================== FAILURES ===================================
+_______________ test_project_godot_references_default_bus_layout _______________
+
+    def test_project_godot_references_default_bus_layout():
+        content = _read_text(os.path.join(PROJECT_DIR, "project.godot"))
+        m = re.search(
+            r"audio/buses/default_bus_layout\s*=\s*\"res://default_bus_layout\.tres\"",
+            content,
+        )
+>       assert m is not None, (
+            "project.godot must contain "
+            "audio/buses/default_bus_layout=\"res://default_bus_layout.tres\". "
+            "Got project.godot:\n" + content
+        )
+E       AssertionError: project.godot must contain audio/buses/default_bus_layout="res://default_bus_layout.tres". Got project.godot:
+E         config_version=5
+E         
+E         [application]
+E         
+E         config/name="Runtime Audio Bus Mixer"
+E         
+E         [autoload]
+E         
+E         AudioManager="*res://autoloads/AudioManager.gd"
+E         
+E         [audio]
+E         
+E         buses/default_bus_layout="res://default_bus_layout.tres"
+E         
+E       assert None is not None
+
+tests/test_final_state.py:231: AssertionError
+==================================== PASSES ====================================
+=========================== short test summary info ============================
+PASSED tests/test_final_state.py::test_required_files_exist
+PASSED tests/test_final_state.py::test_project_godot_registers_audio_manager_autoload
+PASSED tests/test_final_state.py::test_harness_overall_ok
+PASSED tests/test_final_state.py::test_harness_bus_layout
+PASSED tests/test_final_state.py::test_harness_lowpass_effect
+PASSED tests/test_final_state.py::test_harness_audio_manager_volume
+PASSED tests/test_final_state.py::test_harness_mute
+PASSED tests/test_final_state.py::test_harness_low_pass_toggle
+PASSED tests/test_final_state.py::test_harness_duck_music
+FAILED tests/test_final_state.py::test_project_godot_references_default_bus_layout
+========================= 1 failed, 9 passed in 0.95s ==========================

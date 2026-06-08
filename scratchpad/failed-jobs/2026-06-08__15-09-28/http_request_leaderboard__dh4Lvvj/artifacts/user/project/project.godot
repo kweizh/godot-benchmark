@@ -1,0 +1,13 @@
+; Godot 4 project file. Replace as needed.
+config_version=5
+
+[application]
+
+config/name="leaderboard_client"
+config/features=PackedStringArray("4.3")
+config/main_scene="res://scenes/main.tscn"
+run/main_scene="res://scenes/main.tscn"
+
+[autoload]
+
+LeaderboardClient="res://autoloads/LeaderboardClient.gd"

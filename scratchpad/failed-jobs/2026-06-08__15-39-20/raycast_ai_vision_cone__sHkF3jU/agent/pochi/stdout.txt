@@ -1,0 +1,159 @@
+- Initializing MCP connections...
+You
+# AI Vision Cone — Acceptance Criteria Project path: `/home/user/godot_project` - `scripts/VisionCone.gd` exists, declares `class_name VisionCone` (extends `Node2D`), and exports: `cone_angle_deg: float`, `cone_range: float`, `ray_count: int`, `facing_dir: Vector2`, `target_group: StringName`, `collision_mask: int`. - `VisionCone.is_point_in_cone(point: Vector2) -> bool` performs an angle + range check against the parent's world position. - With `facing_dir=(1,0)`, `cone_angle_deg=90`, `cone_range=200`, parent at origin: `is_point_in_cone(Vector2(50, 0))` is `true` and `is_point_in_cone(Vector2(-50, 0))` is `false`. - `VisionCone.detect(world_2d: World2D) -> Node2D` casts `ray_count` rays evenly across the cone using `PhysicsRayQueryParameters2D` + `direct_space_state.intersect_ray`, honors `collision_mask`, and returns the closest visible node in `target_group` (or `null`). - Player at `(50, 0)` with clear line-of-sight → returns the player. - Player at `(300, 0)` (beyond range 200) → returns `null`. - Wall (StaticBody2D + RectangleShape2D) between enemy at `(0, 0)` and player at `(50, 0)` → returns `null`. - The node defines signals `target_spotted(target: Node2D)` and `target_lost()`. Moving the player from non-visible to visible and invoking `detect()` results in `target_spotted` being emitted exactly once. - An `Enemy` CharacterBody2D scene contains a `VisionCone` child. - `tests/cone_test.tscn` contains static walls, the Enemy at the origin facing right, and a `player`-grouped Node2D. Verification runs `godot --headless --path /home/user/godot_project --script res://tests/run_tests.gd`.   
+
+Pochi
+💭 Thinking for 367 characters   
+💫 Executing mkdir -p /home/user/godot_project/scripts /home/user/godot_project/scenes /home/user/godot_project/tests ✔ 
+✏️  Writing /home/user/godot_project/project.godot ✖ "File has not been read yet. Please read the file before writing it."
+💭 Thinking for 235 characters   
+💫 Executing cat << 'EOF' > /home/user/godot_project/project.godot
+; Engine configuration file.
+; It's best edited using the editor UI and not directly,
+; since the parameters that go here are not all obvious.
+;
+; Format:
+;   [section] ; section goes between []
+;   param=value ; assign values to parameters
+
+config_version=5
+
+[application]
+
+config/name="AI Vision Cone"
+config/features=PackedStringArray("4.0", "Forward Plus")
+
+[dotnet]
+
+project/assembly_name="AI Vision Cone"
+EOF
+ ✔ 
+💭 Thinking for 450 characters   
+💫 Executing cat << 'EOF' > /home/user/godot_project/scripts/VisionCone.gd
+class_name VisionCone
+extends Node2D
+
+signal target_spotted(target: Node2D)
+signal target_lost()
+
+@export var cone_angle_deg: float = 90.0
+@export var cone_range: float = 200.0
+@export var ray_count: int = 10
+@export var facing_dir: Vector2 = Vector2.RIGHT
+@export var target_group: StringName = &"player"
+@export var collision_mask: int = 1
+
+var _current_target: Node2D = null
+
+func is_point_in_cone(point: Vector2) -> bool:
+	var parent = get_parent()
+	var origin = parent.global_position if parent and parent is Node2D else global_position
+	var to_point = point - origin
+	if to_point.length() > cone_range:
+		return false
+	if to_point.length_squared() == 0:
+		return true
+	var angle_to_point = facing_dir.angle_to(to_point.normalized())
+	if abs(rad_to_deg(angle_to_point)) <= cone_angle_deg / 2.0:
+		return true
+	return false
+
+func detect(world_2d: World2D) -> Node2D:
+	var parent = get_parent()
+	var origin = parent.global_position if parent and parent is Node2D else global_position
+	var space_state = world_2d.direct_space_state
+	
+	var closest_target: Node2D = null
+	var closest_dist: float = cone_range + 1.0
+	
+	var start_angle = -deg_to_rad(cone_angle_deg) / 2.0
+	var angle_step = deg_to_rad(cone_angle_deg) / max(1, ray_count - 1) if ray_count > 1 else 0.0
+	
+	for i in range(ray_count):
+		var angle = start_angle + i * angle_step
+		var ray_dir = facing_dir.rotated(angle)
+		var end_pos = origin + ray_dir * cone_range
+		
+		var query = PhysicsRayQueryParameters2D.create(origin, end_pos, collision_mask)
+		var result = space_state.intersect_ray(query)
+		
+		if result and result.collider is Node2D:
+			var collider = result.collider
+			if collider.is_in_group(target_group):
+				var dist = origin.distance_to(result.position)
+				if dist < closest_dist:
+					closest_dist = dist
+					closest_target = collider
+					
+	if closest_target != _current_target:
+		if closest_target != null:
+			target_spotted.emit(closest_target)
+		else:
+			target_lost.emit()
+		_current_target = closest_target
+		
+	return closest_target
+EOF ✔ 
+💭 Thinking for 256 characters   
+💫 Executing cat << 'EOF' > /home/user/godot_project/scenes/Enemy.tscn
+[gd_scene load_steps=2 format=3 uid="uid://enemy123"]
+
+[ext_resource type="Script" path="res://scripts/VisionCone.gd" id="1_abc"]
+
+[node name="Enemy" type="CharacterBody2D"]
+
+[node name="VisionCone" type="Node2D" parent="."]
+script = ExtResource("1_abc")
+EOF ✔ 
+💭 Thinking for 1141 characters   
+💫 Executing cat << 'EOF' > /home/user/godot_project/tests/cone_test.tscn
+[gd_scene load_steps=3 format=3 uid="uid://testscene"]
+
+[ext_resource type="PackedScene" path="res://scenes/Enemy.tscn" id="1_enemy"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_wall"]
+size = Vector2(20, 100)
+
+[node name="TestScene" type="Node2D"]
+
+[node name="Enemy" parent="." instance=ExtResource("1_enemy")]
+
+[node name="Player" type="CharacterBody2D" parent="." groups=["player"]]
+position = Vector2(50, 0)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Player"]
+shape = SubResource("RectangleShape2D_wall")
+
+[node name="Wall" type="StaticBody2D" parent="."]
+position = Vector2(25, 0)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Wall"]
+shape = SubResource("RectangleShape2D_wall")
+EOF ✔ 
+💭 Thinking for 476 characters   
+💫 Executing ls -la /home/user/godot_project/tests/ ✔ 
+📖 Reading /home/user/godot_project/tests/run_tests.gd ✔ 
+💭 Thinking for 816 characters   
+💫 Executing godot --headless --path /home/user/godot_project --script res://tests/run_tests.gd ✔ 
+💭 Thinking for 1029 characters   
+💫 Executing cat /home/user/godot_project/scenes/Enemy.tscn ✔ 
+💫 Executing cat /home/user/godot_project/scripts/VisionCone.gd ✔ 
+💭 Thinking for 178 characters   
+🎉 Task Completed
+I have implemented the AI Vision Cone according to the acceptance criteria.
+
+1. **`VisionCone.gd` Script**: 
+   - Created at `/home/user/godot_project/scripts/VisionCone.gd`.
+   - Extends `Node2D` with `class_name VisionCone`.
+   - Exports all required variables (`cone_angle_deg`, `cone_range`, `ray_count`, `facing_dir`, `target_group`, `collision_mask`).
+   - `is_point_in_cone(point)` computes if a given point is within the angle and range relative to the parent's global position.
+   - `detect(world_2d)` computes ray angles evenly across the cone, performs raycasts using `intersect_ray`, checks `collision_mask` and `target_group`, and correctly calculates the closest target.
+   - Emits `target_spotted(target)` and `target_lost()` exactly once when the target enters or leaves the vision cone.
+
+2. **Scenes**:
+   - `Enemy.tscn` contains a `CharacterBody2D` with a `VisionCone` child.
+   - `tests/cone_test.tscn` contains static walls, an `Enemy` instance at the origin facing right, and a `Player` node (grouped under `"player"`).
+
+3. **Tests**:
+   - All tests in `tests/run_tests.gd` pass successfully, confirming that the line of sight and range checks work flawlessly.   
+  

@@ -1,0 +1,20 @@
+[gd_resource type="Resource" script_class="Quest" load_steps=3 format=3 uid="uid://quest_a"]
+
+[ext_resource type="Script" path="res://scripts/Quest.gd" id="1_quest"]
+[ext_resource type="Script" path="res://scripts/QuestObjective.gd" id="2_obj"]
+
+[sub_resource type="Resource" id="Objective_1"]
+script = ExtResource("2_obj")
+description = "Gather herbs"
+target_count = 3
+current_count = 0
+
+[resource]
+script = ExtResource("1_quest")
+id = &"quest_a"
+title = "The Herbalist's Request"
+description = "Collect herbs for the local herbalist."
+objectives = [SubResource("Objective_1")]
+prerequisite_quest_ids = []
+reward_gold = 50
+reward_items = [&"herb_pouch"]

@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=3 uid="uid://b5o1g7m7n8b8k"]
+
+[ext_resource type="Script" path="res://player.gd" id="1_player_gd"]
+
+[node name="Player" type="Node2D"]
+script = ExtResource("1_player_gd")
+
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]

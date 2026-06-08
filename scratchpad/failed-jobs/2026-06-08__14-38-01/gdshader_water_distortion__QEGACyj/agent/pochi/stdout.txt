@@ -1,0 +1,114 @@
+- Initializing MCP connections...
+You
+# Animated Water Distortion GDShader (canvas_item) Author a Godot 4 `canvas_item` GDShader that animates a water-like UV distortion of the screen behind it, plus a `ColorRect` scene and a GDScript controller that exposes the shader uniforms. Godot 4 (>= 4.3) is available as the headless binary `godot`. ## Acceptance Criteria - Project path: `/home/user/water_shader` - File layout (relative to the project root): - `project.godot` - `shaders/water_distortion.gdshader` - `scenes/Water.tscn` (with an attached GDScript controller) - `shaders/water_distortion.gdshader`: - First non-comment, non-blank line is `shader_type canvas_item;`. - Declares the following uniforms: - `uniform float time_scale : hint_range(0.0, 4.0) = 1.0;` - `uniform float wave_amplitude : hint_range(0.0, 0.1) = 0.02;` - `uniform float wave_frequency : hint_range(0.1, 50.0) = 10.0;` - `uniform vec4 tint_color : source_color = vec4(0.4, 0.7, 1.0, 0.5);` - `uniform sampler2D screen_texture : hint_screen_texture, repeat_disable, filter_linear;` - Defines a `void fragment()` function that: - Samples `screen_texture` at `SCREEN_UV` offset by a `sin`/`cos` wave derived from `TIME * time_scale` and `UV * wave_frequency`, scaled by `wave_amplitude`. - Mixes the sampled color with `tint_color` using `tint_color.a` as the mix factor via `mix(...)`. - Compiles without errors when assigned to a `ShaderMaterial`. - `scenes/Water.tscn`: - Root node is a `ColorRect` named `Water`. - Has a `ShaderMaterial` whose `shader` references `res://shaders/water_distortion.gdshader`. - An attached GDScript exports four variables (`time_scale: float`, `wave_amplitude: float`, `wave_frequency: float`, `tint_color: Color`) and, in `_process(delta)`, propagates each value to the material via `set_shader_parameter`. - Runtime: - `godot --headless --path /home/user/water_shader --quit` exits with code 0 and produces no `SCRIPT ERROR`, `Parse Error`, `Cannot compile`, or `Failed to load` messages. - Setting any of the four exported variables on the `Water` node updates the corresponding shader parameter on its `ShaderMaterial` within the next processed frame.   
+
+Pochi
+💭 Thinking for 807 characters   
+📋 Updating todo list (4 items) ✔ 
+📂 Listing files in /home/user recursively ✔ 
+📖 Reading /home/user/water_shader/project.godot ✔ 
+📋 Updating todo list (4 items) ✔ 
+💭 Thinking for 979 characters   
+✏️  Writing /home/user/water_shader/shaders/water_distortion.gdshader ✔ 
+📋 Updating todo list (4 items) ✔ 
+💭 Thinking for 1238 characters   
+✏️  Writing /home/user/water_shader/scenes/Water.gd ✔ 
+💭 Thinking for 255 characters   
+✏️  Writing /home/user/water_shader/scenes/Water.tscn ✔ 
+📋 Updating todo list (4 items) ✔ 
+💫 Executing godot --headless --path /home/user/water_shader --quit ✖ "Command exited with code 1"
+💭 Thinking for 304 characters   
+✏️  Writing /home/user/water_shader/project.godot ✔ 
+💫 Executing godot --headless --path /home/user/water_shader --quit ✔ 
+💭 Thinking for 1273 characters   
+✏️  Writing /home/user/water_shader/verify.gd ✔ 
+💫 Executing godot --headless --path /home/user/water_shader -s verify.gd --quit ✔ 
+💭 Thinking for 231 characters   
+✏️  Writing /home/user/water_shader/verify.gd ✔ 
+💫 Executing godot --headless --path /home/user/water_shader -s verify.gd --quit ✔ 
+💫 Executing rm /home/user/water_shader/verify.gd ✔ 
+💫 Executing godot --headless --path /home/user/water_shader --quit ✔ 
+📋 Updating todo list (4 items) ✔ 
+💭 Thinking for 573 characters   
+📂 Listing files in /home/user/water_shader recursively ✔ 
+📖 Reading /home/user/water_shader/shaders/water_distortion.gdshader ✔ 
+📖 Reading /home/user/water_shader/scenes/Water.gd ✔ 
+📖 Reading /home/user/water_shader/scenes/Water.tscn ✔ 
+🎉 Task Completed
+I have successfully authored and verified the animated water distortion GDShader and the corresponding Godot 4 scene controller.
+
+Here is a summary of the implemented files:
+
+### 1. `shaders/water_distortion.gdshader`
+This `canvas_item` shader performs a water-like UV distortion of the screen behind the node. It declares all the requested uniforms with proper ranges and defaults, and samples the `screen_texture` at `SCREEN_UV` offset by a `sin`/`cos` wave derived from `TIME` and `UV`. It then mixes the sampled color with `tint_color` using `tint_color.a` as the mix factor.
+
+```gdshader
+shader_type canvas_item;
+
+uniform float time_scale : hint_range(0.0, 4.0) = 1.0;
+uniform float wave_amplitude : hint_range(0.0, 0.1) = 0.02;
+uniform float wave_frequency : hint_range(0.1, 50.0) = 10.0;
+uniform vec4 tint_color : source_color = vec4(0.4, 0.7, 1.0, 0.5);
+uniform sampler2D screen_texture : hint_screen_texture, repeat_disable, filter_linear;
+
+void fragment() {
+    vec2 wave_uv_offset;
+    wave_uv_offset.x = sin(TIME * time_scale + UV.y * wave_frequency);
+    wave_uv_offset.y = cos(TIME * time_scale + UV.x * wave_frequency);
+    vec2 distorted_uv = SCREEN_UV + wave_uv_offset * wave_amplitude;
+    vec4 sampled_color = texture(screen_texture, distorted_uv);
+    COLOR = mix(sampled_color, tint_color, tint_color.a);
+}
+```
+
+### 2. `scenes/Water.gd` (Attached GDScript Controller)
+This controller exports the four configuration variables and, in its `_process(delta)` loop, propagates them to the shader material via `set_shader_parameter`, ensuring the shader is kept in sync with the exported properties in real-time.
+
+```gdscript
+extends ColorRect
+
+@export var time_scale: float = 1.0
+@export var wave_amplitude: float = 0.02
+@export var wave_frequency: float = 10.0
+@export var tint_color: Color = Color(0.4, 0.7, 1.0, 0.5)
+
+func _process(_delta: float) -> void:
+	if material is ShaderMaterial:
+		material.set_shader_parameter("time_scale", time_scale)
+		material.set_shader_parameter("wave_amplitude", wave_amplitude)
+		material.set_shader_parameter("wave_frequency", wave_frequency)
+		material.set_shader_parameter("tint_color", tint_color)
+```
+
+### 3. `scenes/Water.tscn`
+A scene file configuring the root node as a `ColorRect` named `Water`, equipped with a `ShaderMaterial` referencing the custom gdshader, and attaching the `Water.gd` script.
+
+```tscn
+[gd_scene load_steps=4 format=3]
+
+[ext_resource type="Shader" path="res://shaders/water_distortion.gdshader" id="1_shdr1"]
+[ext_resource type="Script" path="res://scenes/Water.gd" id="2_scrpt"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_wtr"]
+shader = ExtResource("1_shdr1")
+
+[node name="Water" type="ColorRect"]
+material = SubResource("ShaderMaterial_wtr")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("2_scrpt")
+```
+
+### 4. `project.godot`
+Configured with the main scene set to `res://scenes/Water.tscn` to ensure smooth execution.
+
+### Verification
+I verified the implementation using the headless Godot executable:
+```bash
+godot --headless --path /home/user/water_shader --quit
+```
+It compiles and exits successfully with code `0` and produces zero warnings, errors, or memory leaks. All acceptance criteria are fully met.   
+  

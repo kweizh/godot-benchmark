@@ -1,0 +1,88 @@
+{
+    "results": {
+        "tool": {
+            "name": "pytest",
+            "version": "7.4.4"
+        },
+        "summary": {
+            "tests": 7,
+            "passed": 7,
+            "failed": 0,
+            "skipped": 0,
+            "pending": 0,
+            "other": 0,
+            "start": 1780934691550,
+            "stop": 1780934692309
+        },
+        "environment": {
+            "buildName": "Pytest JSON CTRF Report",
+            "buildNumber": "000",
+            "buildUrl": "https://ctrf.io"
+        },
+        "tests": [
+            {
+                "name": "test_final_state.py::test_required_files_exist",
+                "status": "passed",
+                "duration": 2,
+                "start": 1780934691580,
+                "stop": 1780934691582,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_shader_starts_with_canvas_item_type",
+                "status": "passed",
+                "duration": 1,
+                "start": 1780934691583,
+                "stop": 1780934691584,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_shader_declares_required_uniforms",
+                "status": "passed",
+                "duration": 1,
+                "start": 1780934691584,
+                "stop": 1780934691585,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_shader_fragment_function_uses_required_builtins",
+                "status": "passed",
+                "duration": 2,
+                "start": 1780934691585,
+                "stop": 1780934691587,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_water_scene_root_is_color_rect_with_shader_material",
+                "status": "passed",
+                "duration": 1,
+                "start": 1780934691587,
+                "stop": 1780934691588,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_project_loads_without_errors",
+                "status": "passed",
+                "duration": 311,
+                "start": 1780934691588,
+                "stop": 1780934691899,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_runtime_harness",
+                "status": "passed",
+                "duration": 409,
+                "start": 1780934691899,
+                "stop": 1780934692308,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            }
+        ]
+    }
+}

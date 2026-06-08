@@ -1,0 +1,12 @@
+; Godot 4 project file. Replace as needed.
+config_version=5
+
+[application]
+
+config/name="autoload_event_bus_singleton"
+run/main_scene="res://scenes/main.gd"
+config/features=PackedStringArray("4.3")
+
+[autoload]
+
+Bus="*res://autoloads/Bus.gd"

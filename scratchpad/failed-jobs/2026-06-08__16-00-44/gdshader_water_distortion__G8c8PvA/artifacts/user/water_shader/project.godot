@@ -1,0 +1,16 @@
+; Engine configuration file.
+; It's best edited using the editor UI and not directly,
+; since the parameters that go here are not all obvious.
+;
+; Please read the documentation for more information on configuration files:
+; https://docs.godotengine.org/en/latest/tutorials/export/feature_tags.html
+
+[application]
+
+config/name="Water Shader"
+run/main_scene="res://scenes/Water.tscn"
+config/features=PackedStringArray("4.3")
+
+[rendering]
+
+renderer/rendering_method="mobile"

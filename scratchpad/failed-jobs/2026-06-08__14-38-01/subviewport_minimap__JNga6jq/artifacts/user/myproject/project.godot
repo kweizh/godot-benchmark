@@ -1,0 +1,15 @@
+; Engine configuration file.
+; Generated for the subviewport_minimap Harbor task.
+
+config_version=5
+
+[application]
+
+config/name="SubViewportMinimap"
+config/features=PackedStringArray("4.3", "Forward Plus")
+run/main_scene="res://scenes/World.tscn"
+
+[rendering]
+
+renderer/rendering_method="gl_compatibility"
+renderer/rendering_method.mobile="gl_compatibility"

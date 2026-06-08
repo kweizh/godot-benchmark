@@ -1,0 +1,10 @@
+[gd_scene load_steps=2 format=3 uid="uid://c5o1g7m7n8b8k"]
+
+[ext_resource type="Script" path="res://main.gd" id="1_main_gd"]
+
+[node name="Main" type="Node"]
+script = ExtResource("1_main_gd")
+
+[node name="Players" type="Node" parent="."]
+
+[node name="MultiplayerSpawner" type="MultiplayerSpawner" parent="."]

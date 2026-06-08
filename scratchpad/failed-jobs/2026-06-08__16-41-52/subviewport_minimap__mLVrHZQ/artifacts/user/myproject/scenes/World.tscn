@@ -1,0 +1,20 @@
+[gd_scene load_steps=2 format=3 uid="uid://cworld00000000000000000001"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_player"]
+radius = 16.0
+
+[node name="World" type="Node2D"]
+
+[node name="Player" type="CharacterBody2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Player"]
+shape = SubResource("CircleShape2D_player")
+
+[node name="POI_Treasure" type="Node2D" parent="." groups=["poi"]]
+position = Vector2(100, 50)
+
+[node name="POI_EnemyCamp" type="Node2D" parent="." groups=["poi"]]
+position = Vector2(-80, 120)
+
+[node name="POI_Portal" type="Node2D" parent="." groups=["poi"]]
+position = Vector2(200, -90)

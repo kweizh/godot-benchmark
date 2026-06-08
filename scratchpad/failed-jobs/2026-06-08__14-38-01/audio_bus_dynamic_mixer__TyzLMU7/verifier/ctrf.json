@@ -1,0 +1,118 @@
+{
+    "results": {
+        "tool": {
+            "name": "pytest",
+            "version": "7.4.4"
+        },
+        "summary": {
+            "tests": 10,
+            "passed": 9,
+            "failed": 1,
+            "skipped": 0,
+            "pending": 0,
+            "other": 0,
+            "start": 1780931010670,
+            "stop": 1780931011627
+        },
+        "environment": {
+            "buildName": "Pytest JSON CTRF Report",
+            "buildNumber": "000",
+            "buildUrl": "https://ctrf.io"
+        },
+        "tests": [
+            {
+                "name": "test_final_state.py::test_required_files_exist",
+                "status": "passed",
+                "duration": 1,
+                "start": 1780931010704,
+                "stop": 1780931010705,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_project_godot_registers_audio_manager_autoload",
+                "status": "passed",
+                "duration": 1,
+                "start": 1780931010706,
+                "stop": 1780931010707,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_project_godot_references_default_bus_layout",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 18,
+                "start": 1780931010707,
+                "stop": 1780931010725,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "def test_project_godot_references_default_bus_layout():\n        content = _read_text(os.path.join(PROJECT_DIR, \"project.godot\"))\n        m = re.search(\n            r\"audio/buses/default_bus_layout\\s*=\\s*\\\"res://default_bus_layout\\.tres\\\"\",\n            content,\n        )\n>       assert m is not None, (\n            \"project.godot must contain \"\n            \"audio/buses/default_bus_layout=\\\"res://default_bus_layout.tres\\\". \"\n            \"Got project.godot:\\n\" + content\n        )\nE       AssertionError: project.godot must contain audio/buses/default_bus_layout=\"res://default_bus_layout.tres\". Got project.godot:\nE         config_version=5\nE         \nE         [application]\nE         \nE         config/name=\"Runtime Audio Bus Mixer\"\nE         \nE         [autoload]\nE         \nE         AudioManager=\"*res://autoloads/AudioManager.gd\"\nE         \nE         [audio]\nE         \nE         buses/default_bus_layout=\"res://default_bus_layout.tres\"\nE         \nE       assert None is not None\n\ntests/test_final_state.py:231: AssertionError",
+                "message": "The test failed in the call phase due to an assertion error"
+            },
+            {
+                "name": "test_final_state.py::test_harness_overall_ok",
+                "status": "passed",
+                "duration": 895,
+                "start": 1780931010725,
+                "stop": 1780931011620,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_harness_bus_layout",
+                "status": "passed",
+                "duration": 1,
+                "start": 1780931011620,
+                "stop": 1780931011621,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_harness_lowpass_effect",
+                "status": "passed",
+                "duration": 1,
+                "start": 1780931011621,
+                "stop": 1780931011622,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_harness_audio_manager_volume",
+                "status": "passed",
+                "duration": 0,
+                "start": 1780931011623,
+                "stop": 1780931011623,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_harness_mute",
+                "status": "passed",
+                "duration": 0,
+                "start": 1780931011624,
+                "stop": 1780931011624,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_harness_low_pass_toggle",
+                "status": "passed",
+                "duration": 0,
+                "start": 1780931011625,
+                "stop": 1780931011625,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_harness_duck_music",
+                "status": "passed",
+                "duration": 1,
+                "start": 1780931011626,
+                "stop": 1780931011627,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            }
+        ]
+    }
+}

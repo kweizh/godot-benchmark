@@ -1,0 +1,20 @@
+[gd_resource type="Resource" script_class="Quest" load_steps=4 format=3]
+
+[ext_resource type="Script" path="res://scripts/QuestObjective.gd" id="1_mewly"]
+[ext_resource type="Script" path="res://scripts/Quest.gd" id="2_2dsgc"]
+
+[sub_resource type="Resource" id="Resource_r16it"]
+script = ExtResource("1_mewly")
+description = "Collect 5 herbs"
+target_count = 5
+current_count = 0
+
+[resource]
+script = ExtResource("2_2dsgc")
+id = &"quest_a"
+title = "Gather Herbs"
+description = "Collect herbs in the forest"
+objectives = Array[ExtResource("1_mewly")]([SubResource("Resource_r16it")])
+prerequisite_quest_ids = Array[StringName]([])
+reward_gold = 100
+reward_items = Array[StringName]([])

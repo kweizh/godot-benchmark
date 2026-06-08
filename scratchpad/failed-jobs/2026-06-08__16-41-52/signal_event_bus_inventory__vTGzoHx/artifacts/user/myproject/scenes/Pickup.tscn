@@ -1,0 +1,14 @@
+[gd_scene load_steps=3 format=3 uid="uid://c0pickup00000000000000000001"]
+
+[ext_resource type="Script" path="res://scripts/Pickup.gd" id="1_pickup"]
+[ext_resource type="Shape2D" path="res://resources/pickup_shape.tres" id="1_shape"]
+
+[node name="Pickup" type="Area2D"]
+script = ExtResource("1_pickup")
+item_id = &""
+quantity = 1
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = ExtResource("1_shape")
+
+[node name="body_entered" type="signal" parent="."]

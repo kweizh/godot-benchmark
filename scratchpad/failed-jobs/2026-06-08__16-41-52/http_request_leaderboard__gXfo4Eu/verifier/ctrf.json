@@ -1,0 +1,97 @@
+{
+    "results": {
+        "tool": {
+            "name": "pytest",
+            "version": "7.4.4"
+        },
+        "summary": {
+            "tests": 7,
+            "passed": 4,
+            "failed": 3,
+            "skipped": 0,
+            "pending": 0,
+            "other": 0,
+            "start": 1780938881877,
+            "stop": 1780938883176
+        },
+        "environment": {
+            "buildName": "Pytest JSON CTRF Report",
+            "buildNumber": "000",
+            "buildUrl": "https://ctrf.io"
+        },
+        "tests": [
+            {
+                "name": "test_final_state.py::test_required_files_exist",
+                "status": "passed",
+                "duration": 610,
+                "start": 1780938881907,
+                "stop": 1780938882517,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_autoload_registered_in_project_godot",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 20,
+                "start": 1780938882517,
+                "stop": 1780938882537,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "def test_autoload_registered_in_project_godot():\n        content = _read_text(os.path.join(PROJECT_DIR, \"project.godot\"))\n        pattern = re.compile(\n            r'^LeaderboardClient\\s*=\\s*\"\\*res://autoloads/LeaderboardClient\\.gd\"\\s*$',\n            re.MULTILINE,\n        )\n>       assert pattern.search(content), (\n            'project.godot must register `LeaderboardClient=\"*res://autoloads/LeaderboardClient.gd\"` '\n            \"under the [autoload] section.\"\n        )\nE       AssertionError: project.godot must register `LeaderboardClient=\"*res://autoloads/LeaderboardClient.gd\"` under the [autoload] section.\nE       assert None\nE        +  where None = <built-in method search of re.Pattern object at 0xa8056a0>('; Godot 4 project file. Replace as needed.\\nconfig_version=5\\n\\n[application]\\n\\nconfig/name=\"leaderboard_client\"\\nco...dStringArray(\"4.3\")\\n\\nrun/main_scene=\"res://main.tscn\"\\n\\n[autoload]\\n\\nLBC=\"*res://autoloads/LeaderboardClient.gd\"\\n')\nE        +    where <built-in method search of re.Pattern object at 0xa8056a0> = re.compile('^LeaderboardClient\\\\s*=\\\\s*\"\\\\*res://autoloads/LeaderboardClient\\\\.gd\"\\\\s*$', re.MULTILINE).search\n\ntests/test_final_state.py:127: AssertionError",
+                "message": "The test failed in the call phase due to an assertion error"
+            },
+            {
+                "name": "test_final_state.py::test_leaderboard_client_uses_httprequest",
+                "status": "passed",
+                "duration": 1,
+                "start": 1780938882537,
+                "stop": 1780938882538,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_exports_present",
+                "status": "passed",
+                "duration": 1,
+                "start": 1780938882539,
+                "stop": 1780938882540,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_project_loads_without_errors",
+                "status": "passed",
+                "duration": 309,
+                "start": 1780938882540,
+                "stop": 1780938882849,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_runtime_harness_against_real_http_server",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 314,
+                "start": 1780938882850,
+                "stop": 1780938883164,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "def test_runtime_harness_against_real_http_server():\n        _reset_user_data()\n        # Remove any stale log so we know the harness produced a fresh one.\n        if os.path.exists(GODOT_TEST_LOG):\n            os.unlink(GODOT_TEST_LOG)\n    \n        result = subprocess.run(\n            [\n                \"godot\",\n                \"--headless\",\n                \"--path\",\n                PROJECT_DIR,\n                \"res://_zealt_tests/test_harness.tscn\",\n            ],\n            capture_output=True,\n            text=True,\n            timeout=240,\n            env=_godot_env(),\n        )\n        combined = (result.stdout or \"\") + (result.stderr or \"\")\n        assert result.returncode == 0, (\n            f\"Test harness exited with code {result.returncode}:\\n{combined}\"\n        )\n    \n        assert os.path.isfile(GODOT_TEST_LOG), (\n            f\"Harness did not write report file at {GODOT_TEST_LOG}.\\n\"\n            f\"Godot stdout/stderr:\\n{combined}\"\n        )\n    \n        report = _read_text(GODOT_TEST_LOG)\n        required_checks = [\n            \"autoload_present\",\n            \"signal_leaderboard_fetched\",\n            \"signal_score_submitted\",\n            \"signal_request_failed\",\n            \"method_fetch_top\",\n            \"method_submit_score\",\n            \"fetch_top_happy\",\n            \"submit_score_happy\",\n            \"fetch_top_retry_success\",\n            \"fetch_top_retry_exhaust\",\n        ]\n        for check in required_checks:\n            pattern = re.compile(r\"^\" + re.escape(check) + r\"\\s+OK\\s*$\", re.MULTILINE)\n>           assert pattern.search(report), (\n                f\"Harness check '{check}' did not pass. Full report:\\n{report}\\n\"\n                f\"Godot stdout/stderr:\\n{combined}\"\n            )\nE           AssertionError: Harness check 'autoload_present' did not pass. Full report:\nE             autoload_present FAIL: LeaderboardClient autoload not found at /root/LeaderboardClient\nE             \nE             Godot stdout/stderr:\nE             Godot Engine v4.3.stable.official.77dcf97d8 - https://godotengine.org\nE             \nE             autoload_present FAIL: LeaderboardClient autoload not found at /root/LeaderboardClient\nE             \nE           assert None\nE            +  where None = <built-in method search of re.Pattern object at 0x7f3010e8c040>('autoload_present FAIL: LeaderboardClient autoload not found at /root/LeaderboardClient\\n')\nE            +    where <built-in method search of re.Pattern object at 0x7f3010e8c040> = re.compile('^autoload_present\\\\s+OK\\\\s*$', re.MULTILINE).search\n\ntests/test_final_state.py:237: AssertionError",
+                "message": "The test failed in the call phase due to an assertion error"
+            },
+            {
+                "name": "test_final_state.py::test_submit_recorded_in_server_log",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 10,
+                "start": 1780938883165,
+                "stop": 1780938883175,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "def test_submit_recorded_in_server_log():\n        # Verifies the POST /submit actually hit the real HTTP server (no mocking).\n        assert os.path.isfile(SERVER_LOG), f\"Server log not found at {SERVER_LOG}\"\n        log_text = _read_text(SERVER_LOG)\n        pattern = re.compile(r\"^POST /submit name=Carol score=150\\s*$\", re.MULTILINE)\n>       assert pattern.search(log_text), (\n            \"Expected a real POST /submit for Carol/150 in the server log, \"\n            f\"got:\\n{log_text}\"\n        )\nE       AssertionError: Expected a real POST /submit for Carol/150 in the server log, got:\nE         \nE       assert None\nE        +  where None = <built-in method search of re.Pattern object at 0x7f3010fcc950>('')\nE        +    where <built-in method search of re.Pattern object at 0x7f3010fcc950> = re.compile('^POST /submit name=Carol score=150\\\\s*$', re.MULTILINE).search\n\ntests/test_final_state.py:248: AssertionError",
+                "message": "The test failed in the call phase due to an assertion error"
+            }
+        ]
+    }
+}

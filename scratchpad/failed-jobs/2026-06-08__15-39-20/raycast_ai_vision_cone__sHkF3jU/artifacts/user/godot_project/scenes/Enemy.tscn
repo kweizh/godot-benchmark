@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=3 uid="uid://enemy123"]
+
+[ext_resource type="Script" path="res://scripts/VisionCone.gd" id="1_abc"]
+
+[node name="Enemy" type="CharacterBody2D"]
+
+[node name="VisionCone" type="Node2D" parent="."]
+script = ExtResource("1_abc")

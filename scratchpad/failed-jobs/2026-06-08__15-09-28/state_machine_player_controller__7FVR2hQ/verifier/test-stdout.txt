@@ -1,0 +1,202 @@
+============================= test session starts ==============================
+platform linux -- Python 3.12.3, pytest-7.4.4, pluggy-1.4.0
+rootdir: /tests
+plugins: json-ctrf-0.5.0
+collected 14 items
+
+tests/test_final_state.py ...FFFFFF.....                                 [100%]
+
+=================================== FAILURES ===================================
+_____________ test_concrete_state_classes[IdleState.gd-IdleState] ______________
+
+filename = 'IdleState.gd', classname = 'IdleState'
+
+    @pytest.mark.parametrize(
+        "filename,classname",
+        [
+            ("IdleState.gd", "IdleState"),
+            ("RunState.gd", "RunState"),
+            ("JumpState.gd", "JumpState"),
+            ("FallState.gd", "FallState"),
+            ("AttackState.gd", "AttackState"),
+        ],
+    )
+    def test_concrete_state_classes(filename, classname):
+        path = os.path.join(PROJECT_DIR, "scripts/states", filename)
+        content = _read_text(path)
+        assert re.search(rf"\bclass_name\s+{classname}\b", content), (
+            f"{filename} must declare `class_name {classname}`."
+        )
+>       assert re.search(r"\bextends\s+State\b", content), (
+            f"{filename} must `extends State`."
+        )
+E       AssertionError: IdleState.gd must `extends State`.
+E       assert None
+E        +  where None = <function search at 0x7eff91f77ba0>('\\bextends\\s+State\\b', 'class_name IdleState\nextends "res://scripts/states/State.gd"\n\n## Player is standing still on the ground.\n\n\nfunc...urn &"Jump"\n\tvar dir := Input.get_axis(&"ui_left", &"ui_right")\n\tif dir != 0.0:\n\t\treturn &"Run"\n\treturn &""\n')
+E        +    where <function search at 0x7eff91f77ba0> = re.search
+
+tests/test_final_state.py:121: AssertionError
+______________ test_concrete_state_classes[RunState.gd-RunState] _______________
+
+filename = 'RunState.gd', classname = 'RunState'
+
+    @pytest.mark.parametrize(
+        "filename,classname",
+        [
+            ("IdleState.gd", "IdleState"),
+            ("RunState.gd", "RunState"),
+            ("JumpState.gd", "JumpState"),
+            ("FallState.gd", "FallState"),
+            ("AttackState.gd", "AttackState"),
+        ],
+    )
+    def test_concrete_state_classes(filename, classname):
+        path = os.path.join(PROJECT_DIR, "scripts/states", filename)
+        content = _read_text(path)
+        assert re.search(rf"\bclass_name\s+{classname}\b", content), (
+            f"{filename} must declare `class_name {classname}`."
+        )
+>       assert re.search(r"\bextends\s+State\b", content), (
+            f"{filename} must `extends State`."
+        )
+E       AssertionError: RunState.gd must `extends State`.
+E       assert None
+E        +  where None = <function search at 0x7eff91f77ba0>('\\bextends\\s+State\\b', 'class_name RunState\nextends "res://scripts/states/State.gd"\n\n## Player is running horizontally on the ground.\n\nc...yer.is_on_floor():\n\t\tplayer.velocity.y += player.get_gravity().y * delta\n\tplayer.move_and_slide()\n\treturn &""\n')
+E        +    where <function search at 0x7eff91f77ba0> = re.search
+
+tests/test_final_state.py:121: AssertionError
+_____________ test_concrete_state_classes[JumpState.gd-JumpState] ______________
+
+filename = 'JumpState.gd', classname = 'JumpState'
+
+    @pytest.mark.parametrize(
+        "filename,classname",
+        [
+            ("IdleState.gd", "IdleState"),
+            ("RunState.gd", "RunState"),
+            ("JumpState.gd", "JumpState"),
+            ("FallState.gd", "FallState"),
+            ("AttackState.gd", "AttackState"),
+        ],
+    )
+    def test_concrete_state_classes(filename, classname):
+        path = os.path.join(PROJECT_DIR, "scripts/states", filename)
+        content = _read_text(path)
+        assert re.search(rf"\bclass_name\s+{classname}\b", content), (
+            f"{filename} must declare `class_name {classname}`."
+        )
+>       assert re.search(r"\bextends\s+State\b", content), (
+            f"{filename} must `extends State`."
+        )
+E       AssertionError: JumpState.gd must `extends State`.
+E       assert None
+E        +  where None = <function search at 0x7eff91f77ba0>('\\bextends\\s+State\\b', 'class_name JumpState\nextends "res://scripts/states/State.gd"\n\n## Player has just jumped; moving upward (velocity.y...velocity.x = dir * 200.0\n\tplayer.move_and_slide()\n\tif player.velocity.y > 0.0:\n\t\treturn &"Fall"\n\treturn &""\n')
+E        +    where <function search at 0x7eff91f77ba0> = re.search
+
+tests/test_final_state.py:121: AssertionError
+_____________ test_concrete_state_classes[FallState.gd-FallState] ______________
+
+filename = 'FallState.gd', classname = 'FallState'
+
+    @pytest.mark.parametrize(
+        "filename,classname",
+        [
+            ("IdleState.gd", "IdleState"),
+            ("RunState.gd", "RunState"),
+            ("JumpState.gd", "JumpState"),
+            ("FallState.gd", "FallState"),
+            ("AttackState.gd", "AttackState"),
+        ],
+    )
+    def test_concrete_state_classes(filename, classname):
+        path = os.path.join(PROJECT_DIR, "scripts/states", filename)
+        content = _read_text(path)
+        assert re.search(rf"\bclass_name\s+{classname}\b", content), (
+            f"{filename} must declare `class_name {classname}`."
+        )
+>       assert re.search(r"\bextends\s+State\b", content), (
+            f"{filename} must `extends State`."
+        )
+E       AssertionError: FallState.gd must `extends State`.
+E       assert None
+E        +  where None = <function search at 0x7eff91f77ba0>('\\bextends\\s+State\\b', 'class_name FallState\nextends "res://scripts/states/State.gd"\n\n## Player is falling (velocity.y > 0, not on floor)....er.velocity.x = dir * 200.0\n\tplayer.move_and_slide()\n\tif player.is_on_floor():\n\t\treturn &"Idle"\n\treturn &""\n')
+E        +    where <function search at 0x7eff91f77ba0> = re.search
+
+tests/test_final_state.py:121: AssertionError
+___________ test_concrete_state_classes[AttackState.gd-AttackState] ____________
+
+filename = 'AttackState.gd', classname = 'AttackState'
+
+    @pytest.mark.parametrize(
+        "filename,classname",
+        [
+            ("IdleState.gd", "IdleState"),
+            ("RunState.gd", "RunState"),
+            ("JumpState.gd", "JumpState"),
+            ("FallState.gd", "FallState"),
+            ("AttackState.gd", "AttackState"),
+        ],
+    )
+    def test_concrete_state_classes(filename, classname):
+        path = os.path.join(PROJECT_DIR, "scripts/states", filename)
+        content = _read_text(path)
+        assert re.search(rf"\bclass_name\s+{classname}\b", content), (
+            f"{filename} must declare `class_name {classname}`."
+        )
+>       assert re.search(r"\bextends\s+State\b", content), (
+            f"{filename} must `extends State`."
+        )
+E       AssertionError: AttackState.gd must `extends State`.
+E       assert None
+E        +  where None = <function search at 0x7eff91f77ba0>('\\bextends\\s+State\\b', 'class_name AttackState\nextends "res://scripts/states/State.gd"\n\n## Player performs an attack; returns to Idle afte...et_gravity().y * delta\n\tplayer.move_and_slide()\n\tif _timer >= ATTACK_DURATION:\n\t\treturn &"Idle"\n\treturn &""\n')
+E        +    where <function search at 0x7eff91f77ba0> = re.search
+
+tests/test_final_state.py:121: AssertionError
+___________________ test_attack_action_registered_with_J_key ___________________
+
+    def test_attack_action_registered_with_J_key():
+        content = _read_text(os.path.join(PROJECT_DIR, "project.godot"))
+        # The action must appear under (or after) the [input] section header.
+        input_section_match = re.search(r"^\[input\]\s*$", content, re.MULTILINE)
+        assert input_section_match, "project.godot must contain an [input] section."
+        after_input = content[input_section_match.end():]
+        # Stop at the next section header so we only inspect [input] content.
+        next_section = re.search(r"^\[[^\]]+\]\s*$", after_input, re.MULTILINE)
+        input_block = after_input if next_section is None else after_input[: next_section.start()]
+        assert re.search(r"^attack\s*=", input_block, re.MULTILINE), (
+            "project.godot [input] section must define an `attack` action."
+        )
+        # The attack entry should reference an InputEventKey with physical_keycode or
+        # keycode 74 (the `J` key).
+        attack_line_match = re.search(r"^attack\s*=.+$", input_block, re.MULTILINE | re.DOTALL)
+        assert attack_line_match, "Could not parse the `attack` action definition."
+        attack_block = attack_line_match.group(0)
+        assert "InputEventKey" in attack_block, (
+            "The `attack` action must include an InputEventKey event."
+        )
+>       assert re.search(r"(physical_keycode|keycode)\s*:\s*74", attack_block), (
+            "The `attack` action must bind a key event with keycode 74 (the J key)."
+        )
+E       AssertionError: The `attack` action must bind a key event with keycode 74 (the J key).
+E       assert None
+E        +  where None = <function search at 0x7eff91f77ba0>('(physical_keycode|keycode)\\s*:\\s*74', 'attack={\n"deadzone": 0.5,\n"events": [Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","devic...false,"keycode":74,"physical_keycode":0,"key_label":0,"unicode":106,"location":0,"echo":false,"script":null)\n]\n}\n\n')
+E        +    where <function search at 0x7eff91f77ba0> = re.search
+
+tests/test_final_state.py:146: AssertionError
+==================================== PASSES ====================================
+=========================== short test summary info ============================
+PASSED tests/test_final_state.py::test_required_files_exist
+PASSED tests/test_final_state.py::test_state_base_class
+PASSED tests/test_final_state.py::test_state_machine_class_and_signal
+PASSED tests/test_final_state.py::test_player_scene_structure
+PASSED tests/test_final_state.py::test_project_loads_without_errors
+PASSED tests/test_final_state.py::test_attack_action_harness
+PASSED tests/test_final_state.py::test_state_transitions_harness
+PASSED tests/test_final_state.py::test_attack_timing_harness
+FAILED tests/test_final_state.py::test_concrete_state_classes[IdleState.gd-IdleState]
+FAILED tests/test_final_state.py::test_concrete_state_classes[RunState.gd-RunState]
+FAILED tests/test_final_state.py::test_concrete_state_classes[JumpState.gd-JumpState]
+FAILED tests/test_final_state.py::test_concrete_state_classes[FallState.gd-FallState]
+FAILED tests/test_final_state.py::test_concrete_state_classes[AttackState.gd-AttackState]
+FAILED tests/test_final_state.py::test_attack_action_registered_with_J_key - ...
+========================= 6 failed, 8 passed in 2.47s ==========================

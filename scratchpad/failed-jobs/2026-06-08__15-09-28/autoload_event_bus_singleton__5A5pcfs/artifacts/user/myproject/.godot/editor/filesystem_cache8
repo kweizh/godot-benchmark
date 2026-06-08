@@ -1,0 +1,7 @@
+ea4bc82a6ad023ab7ee23ee620429895
+::res://::1780932575
+::res://autoloads/::1780932090
+Bus.gd::GDScript::-1::1780932224::0::1::::EventBus<>Node<>::
+::res://tests/::1780932165
+TestRunner.gd::GDScript::-1::1780932160::0::1::::<>Node<>::
+TestRunner.tscn::PackedScene::-1::1780932339::0::1::::<><>::res://tests/TestRunner.gd

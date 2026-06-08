@@ -1,0 +1,20 @@
+[gd_resource type="Resource" script_class="Quest" load_steps=4 format=3]
+
+[ext_resource type="Script" path="res://scripts/QuestObjective.gd" id="1_ejie5"]
+[ext_resource type="Script" path="res://scripts/Quest.gd" id="2_bvhhb"]
+
+[sub_resource type="Resource" id="Resource_2ih8w"]
+script = ExtResource("1_ejie5")
+description = "Gather 5 flowers"
+target_count = 5
+current_count = 0
+
+[resource]
+script = ExtResource("2_bvhhb")
+id = &"quest_a"
+title = "Flower Power"
+description = "Gather flowers for the town."
+objectives = Array[ExtResource("1_ejie5")]([SubResource("Resource_2ih8w")])
+prerequisite_quest_ids = Array[StringName]([])
+reward_gold = 50
+reward_items = Array[StringName]([&"potion"])

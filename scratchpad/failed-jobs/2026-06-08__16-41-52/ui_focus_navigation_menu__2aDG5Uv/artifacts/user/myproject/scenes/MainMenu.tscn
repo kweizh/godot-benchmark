@@ -1,0 +1,61 @@
+[gd_scene load_steps=5 format=3 uid="uid://c1mainmenu00000000000000000001"]
+
+[ext_resource type="Script" path="res://scenes/MainMenu.gd" id="1_main"]
+
+[sub_resource type="StyleBoxFlat" id="MainMenuPanel"]
+bg_color = Color(0.1, 0.1, 0.15, 1)
+
+[node name="MainMenu" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_main")
+
+[node name="CenterContainer" type="CenterContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Panel" type="Panel" parent="CenterContainer"]
+layout_mode = 2
+custom_minimum_size = Vector2(300, 0)
+theme_override_styles/panel = SubResource("MainMenuPanel")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CenterContainer/Panel"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -100.0
+offset_top = -80.0
+offset_right = 100.0
+offset_bottom = 80.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 10
+
+[node name="Play" type="Button" parent="CenterContainer/Panel/VBoxContainer"]
+layout_mode = 2
+text = "Play"
+focus_neighbor_top = NodePath("../../../../CenterContainer/Panel/VBoxContainer/Quit")
+focus_neighbor_bottom = NodePath("../../../../CenterContainer/Panel/VBoxContainer/Settings")
+
+[node name="Settings" type="Button" parent="CenterContainer/Panel/VBoxContainer"]
+layout_mode = 2
+text = "Settings"
+focus_neighbor_top = NodePath("../../../../CenterContainer/Panel/VBoxContainer/Play")
+focus_neighbor_bottom = NodePath("../../../../CenterContainer/Panel/VBoxContainer/Quit")
+
+[node name="Quit" type="Button" parent="CenterContainer/Panel/VBoxContainer"]
+layout_mode = 2
+text = "Quit"
+focus_neighbor_top = NodePath("../../../../CenterContainer/Panel/VBoxContainer/Settings")
+focus_neighbor_bottom = NodePath("../../../../CenterContainer/Panel/VBoxContainer/Play")

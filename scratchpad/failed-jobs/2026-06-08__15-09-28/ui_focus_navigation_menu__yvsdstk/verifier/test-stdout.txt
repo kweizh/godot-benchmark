@@ -1,0 +1,360 @@
+============================= test session starts ==============================
+platform linux -- Python 3.12.3, pytest-7.4.4, pluggy-1.4.0
+rootdir: /tests
+plugins: json-ctrf-0.5.0
+collected 19 items
+
+tests/test_final_state.py ...FFFFFFFFFFFFFFFF                            [100%]
+
+=================================== FAILURES ===================================
+________________________ test_godot_verify_script_runs _________________________
+
+godot_run = (CompletedProcess(args=['godot', '--headless', '--path', '/home/user/myproject', '--script', 'res://verify.gd'], retur...to load script "res://verify.gd" with error "Parse error".\n   at: load (modules/gdscript/gdscript.cpp:2936)\n'), None)
+
+    def test_godot_verify_script_runs(godot_run):
+        proc, data = godot_run
+>       assert proc.returncode == 0, (
+            f"verify.gd run failed (rc={proc.returncode}).\n"
+            f"stdout=\n{proc.stdout}\nstderr=\n{proc.stderr}"
+        )
+E       AssertionError: verify.gd run failed (rc=1).
+E         stdout=
+E         Godot Engine v4.3.stable.official.77dcf97d8 - https://godotengine.org
+E         
+E         
+E         stderr=
+E         SCRIPT ERROR: Parse Error: Cannot infer the type of "labels_ok" variable because the value doesn't have a set type.
+E                   at: GDScript::reload (res://verify.gd:122)
+E         SCRIPT ERROR: Parse Error: Cannot infer the type of "num_ok" variable because the value doesn't have a set type.
+E                   at: GDScript::reload (res://verify.gd:257)
+E         SCRIPT ERROR: Parse Error: Cannot infer the type of "ok" variable because the value doesn't have a set type.
+E                   at: GDScript::reload (res://verify.gd:258)
+E         ERROR: Failed to load script "res://verify.gd" with error "Parse error".
+E            at: load (modules/gdscript/gdscript.cpp:2936)
+E         
+E       assert 1 == 0
+E        +  where 1 = CompletedProcess(args=['godot', '--headless', '--path', '/home/user/myproject', '--script', 'res://verify.gd'], return...Failed to load script "res://verify.gd" with error "Parse error".\n   at: load (modules/gdscript/gdscript.cpp:2936)\n').returncode
+
+tests/test_final_state.py:350: AssertionError
+___________________________ test_input_action_exists ___________________________
+
+godot_run = (CompletedProcess(args=['godot', '--headless', '--path', '/home/user/myproject', '--script', 'res://verify.gd'], retur...to load script "res://verify.gd" with error "Parse error".\n   at: load (modules/gdscript/gdscript.cpp:2936)\n'), None)
+
+    def test_input_action_exists(godot_run):
+>       _check(godot_run, "input_action_exists")
+
+tests/test_final_state.py:372: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+godot_run = (CompletedProcess(args=['godot', '--headless', '--path', '/home/user/myproject', '--script', 'res://verify.gd'], retur...to load script "res://verify.gd" with error "Parse error".\n   at: load (modules/gdscript/gdscript.cpp:2936)\n'), None)
+name = 'input_action_exists'
+
+    def _check(godot_run, name):
+        _, data = godot_run
+>       assert data is not None, "verify_results.json missing; see verify run output"
+E       AssertionError: verify_results.json missing; see verify run output
+E       assert None is not None
+
+tests/test_final_state.py:364: AssertionError
+_________________________ test_input_action_key_escape _________________________
+
+godot_run = (CompletedProcess(args=['godot', '--headless', '--path', '/home/user/myproject', '--script', 'res://verify.gd'], retur...to load script "res://verify.gd" with error "Parse error".\n   at: load (modules/gdscript/gdscript.cpp:2936)\n'), None)
+
+    def test_input_action_key_escape(godot_run):
+>       _check(godot_run, "input_action_key_escape")
+
+tests/test_final_state.py:376: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+godot_run = (CompletedProcess(args=['godot', '--headless', '--path', '/home/user/myproject', '--script', 'res://verify.gd'], retur...to load script "res://verify.gd" with error "Parse error".\n   at: load (modules/gdscript/gdscript.cpp:2936)\n'), None)
+name = 'input_action_key_escape'
+
+    def _check(godot_run, name):
+        _, data = godot_run
+>       assert data is not None, "verify_results.json missing; see verify run output"
+E       AssertionError: verify_results.json missing; see verify run output
+E       assert None is not None
+
+tests/test_final_state.py:364: AssertionError
+___________________________ test_input_action_joypad ___________________________
+
+godot_run = (CompletedProcess(args=['godot', '--headless', '--path', '/home/user/myproject', '--script', 'res://verify.gd'], retur...to load script "res://verify.gd" with error "Parse error".\n   at: load (modules/gdscript/gdscript.cpp:2936)\n'), None)
+
+    def test_input_action_joypad(godot_run):
+>       _check(godot_run, "input_action_joypad")
+
+tests/test_final_state.py:380: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+godot_run = (CompletedProcess(args=['godot', '--headless', '--path', '/home/user/myproject', '--script', 'res://verify.gd'], retur...to load script "res://verify.gd" with error "Parse error".\n   at: load (modules/gdscript/gdscript.cpp:2936)\n'), None)
+name = 'input_action_joypad'
+
+    def _check(godot_run, name):
+        _, data = godot_run
+>       assert data is not None, "verify_results.json missing; see verify run output"
+E       AssertionError: verify_results.json missing; see verify run output
+E       assert None is not None
+
+tests/test_final_state.py:364: AssertionError
+___________________________ test_autoload_registered ___________________________
+
+godot_run = (CompletedProcess(args=['godot', '--headless', '--path', '/home/user/myproject', '--script', 'res://verify.gd'], retur...to load script "res://verify.gd" with error "Parse error".\n   at: load (modules/gdscript/gdscript.cpp:2936)\n'), None)
+
+    def test_autoload_registered(godot_run):
+>       _check(godot_run, "autoload_registered")
+
+tests/test_final_state.py:384: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+godot_run = (CompletedProcess(args=['godot', '--headless', '--path', '/home/user/myproject', '--script', 'res://verify.gd'], retur...to load script "res://verify.gd" with error "Parse error".\n   at: load (modules/gdscript/gdscript.cpp:2936)\n'), None)
+name = 'autoload_registered'
+
+    def _check(godot_run, name):
+        _, data = godot_run
+>       assert data is not None, "verify_results.json missing; see verify run output"
+E       AssertionError: verify_results.json missing; see verify run output
+E       assert None is not None
+
+tests/test_final_state.py:364: AssertionError
+___________________________ test_autoload_has_volume ___________________________
+
+godot_run = (CompletedProcess(args=['godot', '--headless', '--path', '/home/user/myproject', '--script', 'res://verify.gd'], retur...to load script "res://verify.gd" with error "Parse error".\n   at: load (modules/gdscript/gdscript.cpp:2936)\n'), None)
+
+    def test_autoload_has_volume(godot_run):
+>       _check(godot_run, "autoload_has_volume")
+
+tests/test_final_state.py:388: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+godot_run = (CompletedProcess(args=['godot', '--headless', '--path', '/home/user/myproject', '--script', 'res://verify.gd'], retur...to load script "res://verify.gd" with error "Parse error".\n   at: load (modules/gdscript/gdscript.cpp:2936)\n'), None)
+name = 'autoload_has_volume'
+
+    def _check(godot_run, name):
+        _, data = godot_run
+>       assert data is not None, "verify_results.json missing; see verify run output"
+E       AssertionError: verify_results.json missing; see verify run output
+E       assert None is not None
+
+tests/test_final_state.py:364: AssertionError
+___________________________ test_autoload_has_signal ___________________________
+
+godot_run = (CompletedProcess(args=['godot', '--headless', '--path', '/home/user/myproject', '--script', 'res://verify.gd'], retur...to load script "res://verify.gd" with error "Parse error".\n   at: load (modules/gdscript/gdscript.cpp:2936)\n'), None)
+
+    def test_autoload_has_signal(godot_run):
+>       _check(godot_run, "autoload_has_signal")
+
+tests/test_final_state.py:392: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+godot_run = (CompletedProcess(args=['godot', '--headless', '--path', '/home/user/myproject', '--script', 'res://verify.gd'], retur...to load script "res://verify.gd" with error "Parse error".\n   at: load (modules/gdscript/gdscript.cpp:2936)\n'), None)
+name = 'autoload_has_signal'
+
+    def _check(godot_run, name):
+        _, data = godot_run
+>       assert data is not None, "verify_results.json missing; see verify run output"
+E       AssertionError: verify_results.json missing; see verify run output
+E       assert None is not None
+
+tests/test_final_state.py:364: AssertionError
+____________________________ test_main_menu_buttons ____________________________
+
+godot_run = (CompletedProcess(args=['godot', '--headless', '--path', '/home/user/myproject', '--script', 'res://verify.gd'], retur...to load script "res://verify.gd" with error "Parse error".\n   at: load (modules/gdscript/gdscript.cpp:2936)\n'), None)
+
+    def test_main_menu_buttons(godot_run):
+>       _check(godot_run, "main_menu_buttons")
+
+tests/test_final_state.py:396: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+godot_run = (CompletedProcess(args=['godot', '--headless', '--path', '/home/user/myproject', '--script', 'res://verify.gd'], retur...to load script "res://verify.gd" with error "Parse error".\n   at: load (modules/gdscript/gdscript.cpp:2936)\n'), None)
+name = 'main_menu_buttons'
+
+    def _check(godot_run, name):
+        _, data = godot_run
+>       assert data is not None, "verify_results.json missing; see verify run output"
+E       AssertionError: verify_results.json missing; see verify run output
+E       assert None is not None
+
+tests/test_final_state.py:364: AssertionError
+__________________________ test_main_menu_focus_cycle __________________________
+
+godot_run = (CompletedProcess(args=['godot', '--headless', '--path', '/home/user/myproject', '--script', 'res://verify.gd'], retur...to load script "res://verify.gd" with error "Parse error".\n   at: load (modules/gdscript/gdscript.cpp:2936)\n'), None)
+
+    def test_main_menu_focus_cycle(godot_run):
+>       _check(godot_run, "main_menu_focus_cycle")
+
+tests/test_final_state.py:400: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+godot_run = (CompletedProcess(args=['godot', '--headless', '--path', '/home/user/myproject', '--script', 'res://verify.gd'], retur...to load script "res://verify.gd" with error "Parse error".\n   at: load (modules/gdscript/gdscript.cpp:2936)\n'), None)
+name = 'main_menu_focus_cycle'
+
+    def _check(godot_run, name):
+        _, data = godot_run
+>       assert data is not None, "verify_results.json missing; see verify run output"
+E       AssertionError: verify_results.json missing; see verify run output
+E       assert None is not None
+
+tests/test_final_state.py:364: AssertionError
+___________________________ test_settings_has_slider ___________________________
+
+godot_run = (CompletedProcess(args=['godot', '--headless', '--path', '/home/user/myproject', '--script', 'res://verify.gd'], retur...to load script "res://verify.gd" with error "Parse error".\n   at: load (modules/gdscript/gdscript.cpp:2936)\n'), None)
+
+    def test_settings_has_slider(godot_run):
+>       _check(godot_run, "settings_has_slider")
+
+tests/test_final_state.py:404: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+godot_run = (CompletedProcess(args=['godot', '--headless', '--path', '/home/user/myproject', '--script', 'res://verify.gd'], retur...to load script "res://verify.gd" with error "Parse error".\n   at: load (modules/gdscript/gdscript.cpp:2936)\n'), None)
+name = 'settings_has_slider'
+
+    def _check(godot_run, name):
+        _, data = godot_run
+>       assert data is not None, "verify_results.json missing; see verify run output"
+E       AssertionError: verify_results.json missing; see verify run output
+E       assert None is not None
+
+tests/test_final_state.py:364: AssertionError
+__________________________ test_settings_has_option_3 __________________________
+
+godot_run = (CompletedProcess(args=['godot', '--headless', '--path', '/home/user/myproject', '--script', 'res://verify.gd'], retur...to load script "res://verify.gd" with error "Parse error".\n   at: load (modules/gdscript/gdscript.cpp:2936)\n'), None)
+
+    def test_settings_has_option_3(godot_run):
+>       _check(godot_run, "settings_has_option_3")
+
+tests/test_final_state.py:408: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+godot_run = (CompletedProcess(args=['godot', '--headless', '--path', '/home/user/myproject', '--script', 'res://verify.gd'], retur...to load script "res://verify.gd" with error "Parse error".\n   at: load (modules/gdscript/gdscript.cpp:2936)\n'), None)
+name = 'settings_has_option_3'
+
+    def _check(godot_run, name):
+        _, data = godot_run
+>       assert data is not None, "verify_results.json missing; see verify run output"
+E       AssertionError: verify_results.json missing; see verify run output
+E       assert None is not None
+
+tests/test_final_state.py:364: AssertionError
+__________________________ test_settings_has_checkbox __________________________
+
+godot_run = (CompletedProcess(args=['godot', '--headless', '--path', '/home/user/myproject', '--script', 'res://verify.gd'], retur...to load script "res://verify.gd" with error "Parse error".\n   at: load (modules/gdscript/gdscript.cpp:2936)\n'), None)
+
+    def test_settings_has_checkbox(godot_run):
+>       _check(godot_run, "settings_has_checkbox")
+
+tests/test_final_state.py:412: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+godot_run = (CompletedProcess(args=['godot', '--headless', '--path', '/home/user/myproject', '--script', 'res://verify.gd'], retur...to load script "res://verify.gd" with error "Parse error".\n   at: load (modules/gdscript/gdscript.cpp:2936)\n'), None)
+name = 'settings_has_checkbox'
+
+    def _check(godot_run, name):
+        _, data = godot_run
+>       assert data is not None, "verify_results.json missing; see verify run output"
+E       AssertionError: verify_results.json missing; see verify run output
+E       assert None is not None
+
+tests/test_final_state.py:364: AssertionError
+________________________ test_settings_has_back_button _________________________
+
+godot_run = (CompletedProcess(args=['godot', '--headless', '--path', '/home/user/myproject', '--script', 'res://verify.gd'], retur...to load script "res://verify.gd" with error "Parse error".\n   at: load (modules/gdscript/gdscript.cpp:2936)\n'), None)
+
+    def test_settings_has_back_button(godot_run):
+>       _check(godot_run, "settings_has_back_button")
+
+tests/test_final_state.py:416: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+godot_run = (CompletedProcess(args=['godot', '--headless', '--path', '/home/user/myproject', '--script', 'res://verify.gd'], retur...to load script "res://verify.gd" with error "Parse error".\n   at: load (modules/gdscript/gdscript.cpp:2936)\n'), None)
+name = 'settings_has_back_button'
+
+    def _check(godot_run, name):
+        _, data = godot_run
+>       assert data is not None, "verify_results.json missing; see verify run output"
+E       AssertionError: verify_results.json missing; see verify run output
+E       assert None is not None
+
+tests/test_final_state.py:364: AssertionError
+_________________________ test_root_initial_visibility _________________________
+
+godot_run = (CompletedProcess(args=['godot', '--headless', '--path', '/home/user/myproject', '--script', 'res://verify.gd'], retur...to load script "res://verify.gd" with error "Parse error".\n   at: load (modules/gdscript/gdscript.cpp:2936)\n'), None)
+
+    def test_root_initial_visibility(godot_run):
+>       _check(godot_run, "root_initial_visibility")
+
+tests/test_final_state.py:420: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+godot_run = (CompletedProcess(args=['godot', '--headless', '--path', '/home/user/myproject', '--script', 'res://verify.gd'], retur...to load script "res://verify.gd" with error "Parse error".\n   at: load (modules/gdscript/gdscript.cpp:2936)\n'), None)
+name = 'root_initial_visibility'
+
+    def _check(godot_run, name):
+        _, data = godot_run
+>       assert data is not None, "verify_results.json missing; see verify run output"
+E       AssertionError: verify_results.json missing; see verify run output
+E       assert None is not None
+
+tests/test_final_state.py:364: AssertionError
+__________________________ test_root_ui_back_toggles ___________________________
+
+godot_run = (CompletedProcess(args=['godot', '--headless', '--path', '/home/user/myproject', '--script', 'res://verify.gd'], retur...to load script "res://verify.gd" with error "Parse error".\n   at: load (modules/gdscript/gdscript.cpp:2936)\n'), None)
+
+    def test_root_ui_back_toggles(godot_run):
+>       _check(godot_run, "root_ui_back_toggles")
+
+tests/test_final_state.py:424: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+godot_run = (CompletedProcess(args=['godot', '--headless', '--path', '/home/user/myproject', '--script', 'res://verify.gd'], retur...to load script "res://verify.gd" with error "Parse error".\n   at: load (modules/gdscript/gdscript.cpp:2936)\n'), None)
+name = 'root_ui_back_toggles'
+
+    def _check(godot_run, name):
+        _, data = godot_run
+>       assert data is not None, "verify_results.json missing; see verify run output"
+E       AssertionError: verify_results.json missing; see verify run output
+E       assert None is not None
+
+tests/test_final_state.py:364: AssertionError
+______________________________ test_volume_signal ______________________________
+
+godot_run = (CompletedProcess(args=['godot', '--headless', '--path', '/home/user/myproject', '--script', 'res://verify.gd'], retur...to load script "res://verify.gd" with error "Parse error".\n   at: load (modules/gdscript/gdscript.cpp:2936)\n'), None)
+
+    def test_volume_signal(godot_run):
+>       _check(godot_run, "volume_signal")
+
+tests/test_final_state.py:428: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+godot_run = (CompletedProcess(args=['godot', '--headless', '--path', '/home/user/myproject', '--script', 'res://verify.gd'], retur...to load script "res://verify.gd" with error "Parse error".\n   at: load (modules/gdscript/gdscript.cpp:2936)\n'), None)
+name = 'volume_signal'
+
+    def _check(godot_run, name):
+        _, data = godot_run
+>       assert data is not None, "verify_results.json missing; see verify run output"
+E       AssertionError: verify_results.json missing; see verify run output
+E       assert None is not None
+
+tests/test_final_state.py:364: AssertionError
+==================================== PASSES ====================================
+=========================== short test summary info ============================
+PASSED tests/test_final_state.py::test_scene_files_exist
+PASSED tests/test_final_state.py::test_project_godot_has_ui_back_with_escape_and_joypad
+PASSED tests/test_final_state.py::test_project_godot_registers_game_settings_autoload
+FAILED tests/test_final_state.py::test_godot_verify_script_runs - AssertionEr...
+FAILED tests/test_final_state.py::test_input_action_exists - AssertionError: ...
+FAILED tests/test_final_state.py::test_input_action_key_escape - AssertionErr...
+FAILED tests/test_final_state.py::test_input_action_joypad - AssertionError: ...
+FAILED tests/test_final_state.py::test_autoload_registered - AssertionError: ...
+FAILED tests/test_final_state.py::test_autoload_has_volume - AssertionError: ...
+FAILED tests/test_final_state.py::test_autoload_has_signal - AssertionError: ...
+FAILED tests/test_final_state.py::test_main_menu_buttons - AssertionError: ve...
+FAILED tests/test_final_state.py::test_main_menu_focus_cycle - AssertionError...
+FAILED tests/test_final_state.py::test_settings_has_slider - AssertionError: ...
+FAILED tests/test_final_state.py::test_settings_has_option_3 - AssertionError...
+FAILED tests/test_final_state.py::test_settings_has_checkbox - AssertionError...
+FAILED tests/test_final_state.py::test_settings_has_back_button - AssertionEr...
+FAILED tests/test_final_state.py::test_root_initial_visibility - AssertionErr...
+FAILED tests/test_final_state.py::test_root_ui_back_toggles - AssertionError:...
+FAILED tests/test_final_state.py::test_volume_signal - AssertionError: verify...
+========================= 16 failed, 3 passed in 0.70s =========================

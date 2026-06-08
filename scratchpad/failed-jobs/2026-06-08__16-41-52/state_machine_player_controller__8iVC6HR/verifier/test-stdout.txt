@@ -1,0 +1,210 @@
+============================= test session starts ==============================
+platform linux -- Python 3.12.3, pytest-7.4.4, pluggy-1.4.0
+rootdir: /tests
+plugins: json-ctrf-0.5.0
+collected 14 items
+
+tests/test_final_state.py ........F.FFFF                                 [100%]
+
+=================================== FAILURES ===================================
+___________________ test_attack_action_registered_with_J_key ___________________
+
+    def test_attack_action_registered_with_J_key():
+        content = _read_text(os.path.join(PROJECT_DIR, "project.godot"))
+        # The action must appear under (or after) the [input] section header.
+        input_section_match = re.search(r"^\[input\]\s*$", content, re.MULTILINE)
+        assert input_section_match, "project.godot must contain an [input] section."
+        after_input = content[input_section_match.end():]
+        # Stop at the next section header so we only inspect [input] content.
+        next_section = re.search(r"^\[[^\]]+\]\s*$", after_input, re.MULTILINE)
+        input_block = after_input if next_section is None else after_input[: next_section.start()]
+        assert re.search(r"^attack\s*=", input_block, re.MULTILINE), (
+            "project.godot [input] section must define an `attack` action."
+        )
+        # The attack entry should reference an InputEventKey with physical_keycode or
+        # keycode 74 (the `J` key).
+        attack_line_match = re.search(r"^attack\s*=.+$", input_block, re.MULTILINE | re.DOTALL)
+        assert attack_line_match, "Could not parse the `attack` action definition."
+        attack_block = attack_line_match.group(0)
+>       assert "InputEventKey" in attack_block, (
+            "The `attack` action must include an InputEventKey event."
+        )
+E       AssertionError: The `attack` action must include an InputEventKey event.
+E       assert 'InputEventKey' in 'attack={\n"deadzone": 0.5,\n"events": [{\n"keycode": 74,\n"physical_keycode": 74,\n"pressed": false\n}]\n}\n'
+
+tests/test_final_state.py:143: AssertionError
+______________________ test_project_loads_without_errors _______________________
+
+    def test_project_loads_without_errors():
+        _reset_user_data()
+        result = subprocess.run(
+            ["godot", "--headless", "--path", PROJECT_DIR, "--quit"],
+            capture_output=True,
+            text=True,
+            timeout=120,
+            env=_godot_env(),
+        )
+        combined = (result.stdout or "") + (result.stderr or "")
+>       assert result.returncode == 0, (
+            f"`godot --quit` exited with code {result.returncode}:\n"
+            f"stdout:\n{result.stdout}\nstderr:\n{result.stderr}"
+        )
+E       AssertionError: `godot --quit` exited with code 1:
+E         stdout:
+E         Error: Can't run project: no main scene defined in the project.
+E         Error: Can't run project: no main scene defined in the project.
+E         
+E         
+E         stderr:
+E         
+E       assert 1 == 0
+E        +  where 1 = CompletedProcess(args=['godot', '--headless', '--path', '/home/user/state_machine_player', '--quit'], returncode=1, st...no main scene defined in the project.\nError: Can't run project: no main scene defined in the project.\n\n", stderr='').returncode
+
+tests/test_final_state.py:182: AssertionError
+__________________________ test_attack_action_harness __________________________
+
+    def test_attack_action_harness():
+        _reset_user_data()
+        result = subprocess.run(
+            [
+                "godot",
+                "--headless",
+                "--path",
+                PROJECT_DIR,
+                "res://_zealt_tests/test_harness_action.tscn",
+            ],
+            capture_output=True,
+            text=True,
+            timeout=120,
+            env=_godot_env(),
+        )
+        combined = (result.stdout or "") + (result.stderr or "")
+>       assert result.returncode == 0, (
+            f"action harness exited with code {result.returncode}:\n{combined}"
+        )
+E       AssertionError: action harness exited with code 3:
+E         Godot Engine v4.3.stable.official.77dcf97d8 - https://godotengine.org
+E         
+E         FAIL: `attack` action has no InputEventKey bound to J (74)
+E         
+E       assert 3 == 0
+E        +  where 3 = CompletedProcess(args=['godot', '--headless', '--path', '/home/user/state_machine_player', 'res://_zealt_tests/test_ha...ficial.77dcf97d8 - https://godotengine.org\n\n', stderr='FAIL: `attack` action has no InputEventKey bound to J (74)\n').returncode
+
+tests/test_final_state.py:212: AssertionError
+________________________ test_state_transitions_harness ________________________
+
+    def test_state_transitions_harness():
+        _reset_user_data()
+        result = subprocess.run(
+            [
+                "godot",
+                "--headless",
+                "--path",
+                PROJECT_DIR,
+                "res://_zealt_tests/test_harness_states.tscn",
+            ],
+            capture_output=True,
+            text=True,
+            timeout=180,
+            env=_godot_env(),
+        )
+        combined = (result.stdout or "") + (result.stderr or "")
+>       assert result.returncode == 0, (
+            f"states harness exited with code {result.returncode}:\n{combined}"
+        )
+E       AssertionError: states harness exited with code 6:
+E         Godot Engine v4.3.stable.official.77dcf97d8 - https://godotengine.org
+E         
+E         SCRIPT ERROR: Parse Error: Could not find base class "State".
+E                   at: GDScript::reload (res://scripts/states/IdleState.gd:2)
+E         ERROR: Failed to load script "res://scripts/states/IdleState.gd" with error "Parse error".
+E            at: load (modules/gdscript/gdscript.cpp:2936)
+E         SCRIPT ERROR: Parse Error: Could not find base class "State".
+E                   at: GDScript::reload (res://scripts/states/RunState.gd:2)
+E         ERROR: Failed to load script "res://scripts/states/RunState.gd" with error "Parse error".
+E            at: load (modules/gdscript/gdscript.cpp:2936)
+E         SCRIPT ERROR: Parse Error: Could not find base class "State".
+E                   at: GDScript::reload (res://scripts/states/JumpState.gd:2)
+E         ERROR: Failed to load script "res://scripts/states/JumpState.gd" with error "Parse error".
+E            at: load (modules/gdscript/gdscript.cpp:2936)
+E         SCRIPT ERROR: Parse Error: Could not find base class "State".
+E                   at: GDScript::reload (res://scripts/states/FallState.gd:2)
+E         ERROR: Failed to load script "res://scripts/states/FallState.gd" with error "Parse error".
+E            at: load (modules/gdscript/gdscript.cpp:2936)
+E         SCRIPT ERROR: Parse Error: Could not find base class "State".
+E                   at: GDScript::reload (res://scripts/states/AttackState.gd:2)
+E         ERROR: Failed to load script "res://scripts/states/AttackState.gd" with error "Parse error".
+E            at: load (modules/gdscript/gdscript.cpp:2936)
+E         FAIL: initial state expected Idle, got '<null>'
+E         
+E       assert 6 == 0
+E        +  where 6 = CompletedProcess(args=['godot', '--headless', '--path', '/home/user/state_machine_player', 'res://_zealt_tests/test_ha..."Parse error".\n   at: load (modules/gdscript/gdscript.cpp:2936)\nFAIL: initial state expected Idle, got \'<null>\'\n').returncode
+
+tests/test_final_state.py:236: AssertionError
+__________________________ test_attack_timing_harness __________________________
+
+    def test_attack_timing_harness():
+        _reset_user_data()
+        result = subprocess.run(
+            [
+                "godot",
+                "--headless",
+                "--path",
+                PROJECT_DIR,
+                "res://_zealt_tests/test_harness_attack.tscn",
+            ],
+            capture_output=True,
+            text=True,
+            timeout=120,
+            env=_godot_env(),
+        )
+        combined = (result.stdout or "") + (result.stderr or "")
+>       assert result.returncode == 0, (
+            f"attack harness exited with code {result.returncode}:\n{combined}"
+        )
+E       AssertionError: attack harness exited with code 5:
+E         Godot Engine v4.3.stable.official.77dcf97d8 - https://godotengine.org
+E         
+E         SCRIPT ERROR: Parse Error: Could not find base class "State".
+E                   at: GDScript::reload (res://scripts/states/IdleState.gd:2)
+E         ERROR: Failed to load script "res://scripts/states/IdleState.gd" with error "Parse error".
+E            at: load (modules/gdscript/gdscript.cpp:2936)
+E         SCRIPT ERROR: Parse Error: Could not find base class "State".
+E                   at: GDScript::reload (res://scripts/states/RunState.gd:2)
+E         ERROR: Failed to load script "res://scripts/states/RunState.gd" with error "Parse error".
+E            at: load (modules/gdscript/gdscript.cpp:2936)
+E         SCRIPT ERROR: Parse Error: Could not find base class "State".
+E                   at: GDScript::reload (res://scripts/states/JumpState.gd:2)
+E         ERROR: Failed to load script "res://scripts/states/JumpState.gd" with error "Parse error".
+E            at: load (modules/gdscript/gdscript.cpp:2936)
+E         SCRIPT ERROR: Parse Error: Could not find base class "State".
+E                   at: GDScript::reload (res://scripts/states/FallState.gd:2)
+E         ERROR: Failed to load script "res://scripts/states/FallState.gd" with error "Parse error".
+E            at: load (modules/gdscript/gdscript.cpp:2936)
+E         SCRIPT ERROR: Parse Error: Could not find base class "State".
+E                   at: GDScript::reload (res://scripts/states/AttackState.gd:2)
+E         ERROR: Failed to load script "res://scripts/states/AttackState.gd" with error "Parse error".
+E            at: load (modules/gdscript/gdscript.cpp:2936)
+E         FAIL: initial state expected Idle, got '<null>'
+E         
+E       assert 5 == 0
+E        +  where 5 = CompletedProcess(args=['godot', '--headless', '--path', '/home/user/state_machine_player', 'res://_zealt_tests/test_ha..."Parse error".\n   at: load (modules/gdscript/gdscript.cpp:2936)\nFAIL: initial state expected Idle, got \'<null>\'\n').returncode
+
+tests/test_final_state.py:260: AssertionError
+==================================== PASSES ====================================
+=========================== short test summary info ============================
+PASSED tests/test_final_state.py::test_required_files_exist
+PASSED tests/test_final_state.py::test_state_base_class
+PASSED tests/test_final_state.py::test_state_machine_class_and_signal
+PASSED tests/test_final_state.py::test_concrete_state_classes[IdleState.gd-IdleState]
+PASSED tests/test_final_state.py::test_concrete_state_classes[RunState.gd-RunState]
+PASSED tests/test_final_state.py::test_concrete_state_classes[JumpState.gd-JumpState]
+PASSED tests/test_final_state.py::test_concrete_state_classes[FallState.gd-FallState]
+PASSED tests/test_final_state.py::test_concrete_state_classes[AttackState.gd-AttackState]
+PASSED tests/test_final_state.py::test_player_scene_structure
+FAILED tests/test_final_state.py::test_attack_action_registered_with_J_key - ...
+FAILED tests/test_final_state.py::test_project_loads_without_errors - Asserti...
+FAILED tests/test_final_state.py::test_attack_action_harness - AssertionError...
+FAILED tests/test_final_state.py::test_state_transitions_harness - AssertionE...
+FAILED tests/test_final_state.py::test_attack_timing_harness - AssertionError...
+========================= 5 failed, 9 passed in 1.47s ==========================

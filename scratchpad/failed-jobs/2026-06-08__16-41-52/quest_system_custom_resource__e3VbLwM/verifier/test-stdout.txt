@@ -1,0 +1,599 @@
+============================= test session starts ==============================
+platform linux -- Python 3.12.3, pytest-7.4.4, pluggy-1.4.0
+rootdir: /tests
+plugins: json-ctrf-0.5.0
+collected 11 items
+
+tests/test_final_state.py E..EEEEEEEE                                    [100%]
+
+==================================== ERRORS ====================================
+___________________ ERROR at setup of test_harness_completed ___________________
+
+    @pytest.fixture(scope="module")
+    def harness_results():
+        """Inject the test harness into the project, run Godot headlessly,
+        parse RESULT lines and return them as a dict of name->record."""
+        assert os.path.isdir(PROJECT_DIR), f"Project dir {PROJECT_DIR} not found"
+        # Clean any previous verify artifacts.
+        if os.path.isdir(VERIFY_SUBDIR):
+            shutil.rmtree(VERIFY_SUBDIR)
+        os.makedirs(VERIFY_SUBDIR, exist_ok=True)
+        # Copy harness files into res://__verify__/
+        for name in ("run.gd", "run.tscn"):
+            src = os.path.join(HARNESS_SRC_DIR, name)
+            dst = os.path.join(VERIFY_SUBDIR, name)
+            shutil.copyfile(src, dst)
+    
+        # Run Godot headlessly with the harness scene.
+        cmd = [
+            "godot",
+            "--headless",
+            "--path",
+            PROJECT_DIR,
+            "res://__verify__/run.tscn",
+        ]
+        env = os.environ.copy()
+        # Force importing of new assets in case the project hasn't been opened yet.
+>       completed = subprocess.run(
+            cmd,
+            capture_output=True,
+            text=True,
+            timeout=GODOT_TIMEOUT_SECONDS,
+            env=env,
+        )
+
+tests/test_final_state.py:47: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+usr/lib/python3.12/subprocess.py:550: in run
+    stdout, stderr = process.communicate(input, timeout=timeout)
+usr/lib/python3.12/subprocess.py:1209: in communicate
+    stdout, stderr = self._communicate(input, endtime, timeout)
+usr/lib/python3.12/subprocess.py:2116: in _communicate
+    self._check_timeout(endtime, orig_timeout, stdout, stderr)
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <Popen: returncode: -9 args: ['godot', '--headless', '--path', '/home/user/q...>
+endtime = 978251.762895892, orig_timeout = 180
+stdout_seq = [b'Godot Engine v4.3.stable.official.77dcf97d8 - https://godotengine.org\n', b'\n']
+stderr_seq = [b'SCRIPT ERROR: Parse Error: Cannot infer the type of "started_ok" variable because the value doesn\'t have a set typ...o load script "res://__verify__/run.gd" with error "Parse error".\n   at: load (modules/gdscript/gdscript.cpp:2936)\n']
+skip_check_and_raise = False
+
+    def _check_timeout(self, endtime, orig_timeout, stdout_seq, stderr_seq,
+                       skip_check_and_raise=False):
+        """Convenience for checking if a timeout has expired."""
+        if endtime is None:
+            return
+        if skip_check_and_raise or _time() > endtime:
+>           raise TimeoutExpired(
+                    self.args, orig_timeout,
+                    output=b''.join(stdout_seq) if stdout_seq else None,
+                    stderr=b''.join(stderr_seq) if stderr_seq else None)
+E           subprocess.TimeoutExpired: Command '['godot', '--headless', '--path', '/home/user/quest_project', 'res://__verify__/run.tscn']' timed out after 180 seconds
+
+usr/lib/python3.12/subprocess.py:1253: TimeoutExpired
+__________ ERROR at setup of test_objective_script_class_and_exports ___________
+
+    @pytest.fixture(scope="module")
+    def harness_results():
+        """Inject the test harness into the project, run Godot headlessly,
+        parse RESULT lines and return them as a dict of name->record."""
+        assert os.path.isdir(PROJECT_DIR), f"Project dir {PROJECT_DIR} not found"
+        # Clean any previous verify artifacts.
+        if os.path.isdir(VERIFY_SUBDIR):
+            shutil.rmtree(VERIFY_SUBDIR)
+        os.makedirs(VERIFY_SUBDIR, exist_ok=True)
+        # Copy harness files into res://__verify__/
+        for name in ("run.gd", "run.tscn"):
+            src = os.path.join(HARNESS_SRC_DIR, name)
+            dst = os.path.join(VERIFY_SUBDIR, name)
+            shutil.copyfile(src, dst)
+    
+        # Run Godot headlessly with the harness scene.
+        cmd = [
+            "godot",
+            "--headless",
+            "--path",
+            PROJECT_DIR,
+            "res://__verify__/run.tscn",
+        ]
+        env = os.environ.copy()
+        # Force importing of new assets in case the project hasn't been opened yet.
+>       completed = subprocess.run(
+            cmd,
+            capture_output=True,
+            text=True,
+            timeout=GODOT_TIMEOUT_SECONDS,
+            env=env,
+        )
+
+tests/test_final_state.py:47: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+usr/lib/python3.12/subprocess.py:550: in run
+    stdout, stderr = process.communicate(input, timeout=timeout)
+usr/lib/python3.12/subprocess.py:1209: in communicate
+    stdout, stderr = self._communicate(input, endtime, timeout)
+usr/lib/python3.12/subprocess.py:2116: in _communicate
+    self._check_timeout(endtime, orig_timeout, stdout, stderr)
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <Popen: returncode: -9 args: ['godot', '--headless', '--path', '/home/user/q...>
+endtime = 978251.762895892, orig_timeout = 180
+stdout_seq = [b'Godot Engine v4.3.stable.official.77dcf97d8 - https://godotengine.org\n', b'\n']
+stderr_seq = [b'SCRIPT ERROR: Parse Error: Cannot infer the type of "started_ok" variable because the value doesn\'t have a set typ...o load script "res://__verify__/run.gd" with error "Parse error".\n   at: load (modules/gdscript/gdscript.cpp:2936)\n']
+skip_check_and_raise = False
+
+    def _check_timeout(self, endtime, orig_timeout, stdout_seq, stderr_seq,
+                       skip_check_and_raise=False):
+        """Convenience for checking if a timeout has expired."""
+        if endtime is None:
+            return
+        if skip_check_and_raise or _time() > endtime:
+>           raise TimeoutExpired(
+                    self.args, orig_timeout,
+                    output=b''.join(stdout_seq) if stdout_seq else None,
+                    stderr=b''.join(stderr_seq) if stderr_seq else None)
+E           subprocess.TimeoutExpired: Command '['godot', '--headless', '--path', '/home/user/quest_project', 'res://__verify__/run.tscn']' timed out after 180 seconds
+
+usr/lib/python3.12/subprocess.py:1253: TimeoutExpired
+____________ ERROR at setup of test_quest_script_class_and_exports _____________
+
+    @pytest.fixture(scope="module")
+    def harness_results():
+        """Inject the test harness into the project, run Godot headlessly,
+        parse RESULT lines and return them as a dict of name->record."""
+        assert os.path.isdir(PROJECT_DIR), f"Project dir {PROJECT_DIR} not found"
+        # Clean any previous verify artifacts.
+        if os.path.isdir(VERIFY_SUBDIR):
+            shutil.rmtree(VERIFY_SUBDIR)
+        os.makedirs(VERIFY_SUBDIR, exist_ok=True)
+        # Copy harness files into res://__verify__/
+        for name in ("run.gd", "run.tscn"):
+            src = os.path.join(HARNESS_SRC_DIR, name)
+            dst = os.path.join(VERIFY_SUBDIR, name)
+            shutil.copyfile(src, dst)
+    
+        # Run Godot headlessly with the harness scene.
+        cmd = [
+            "godot",
+            "--headless",
+            "--path",
+            PROJECT_DIR,
+            "res://__verify__/run.tscn",
+        ]
+        env = os.environ.copy()
+        # Force importing of new assets in case the project hasn't been opened yet.
+>       completed = subprocess.run(
+            cmd,
+            capture_output=True,
+            text=True,
+            timeout=GODOT_TIMEOUT_SECONDS,
+            env=env,
+        )
+
+tests/test_final_state.py:47: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+usr/lib/python3.12/subprocess.py:550: in run
+    stdout, stderr = process.communicate(input, timeout=timeout)
+usr/lib/python3.12/subprocess.py:1209: in communicate
+    stdout, stderr = self._communicate(input, endtime, timeout)
+usr/lib/python3.12/subprocess.py:2116: in _communicate
+    self._check_timeout(endtime, orig_timeout, stdout, stderr)
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <Popen: returncode: -9 args: ['godot', '--headless', '--path', '/home/user/q...>
+endtime = 978251.762895892, orig_timeout = 180
+stdout_seq = [b'Godot Engine v4.3.stable.official.77dcf97d8 - https://godotengine.org\n', b'\n']
+stderr_seq = [b'SCRIPT ERROR: Parse Error: Cannot infer the type of "started_ok" variable because the value doesn\'t have a set typ...o load script "res://__verify__/run.gd" with error "Parse error".\n   at: load (modules/gdscript/gdscript.cpp:2936)\n']
+skip_check_and_raise = False
+
+    def _check_timeout(self, endtime, orig_timeout, stdout_seq, stderr_seq,
+                       skip_check_and_raise=False):
+        """Convenience for checking if a timeout has expired."""
+        if endtime is None:
+            return
+        if skip_check_and_raise or _time() > endtime:
+>           raise TimeoutExpired(
+                    self.args, orig_timeout,
+                    output=b''.join(stdout_seq) if stdout_seq else None,
+                    stderr=b''.join(stderr_seq) if stderr_seq else None)
+E           subprocess.TimeoutExpired: Command '['godot', '--headless', '--path', '/home/user/quest_project', 'res://__verify__/run.tscn']' timed out after 180 seconds
+
+usr/lib/python3.12/subprocess.py:1253: TimeoutExpired
+__________ ERROR at setup of test_quest_resources_loaded_and_chained ___________
+
+    @pytest.fixture(scope="module")
+    def harness_results():
+        """Inject the test harness into the project, run Godot headlessly,
+        parse RESULT lines and return them as a dict of name->record."""
+        assert os.path.isdir(PROJECT_DIR), f"Project dir {PROJECT_DIR} not found"
+        # Clean any previous verify artifacts.
+        if os.path.isdir(VERIFY_SUBDIR):
+            shutil.rmtree(VERIFY_SUBDIR)
+        os.makedirs(VERIFY_SUBDIR, exist_ok=True)
+        # Copy harness files into res://__verify__/
+        for name in ("run.gd", "run.tscn"):
+            src = os.path.join(HARNESS_SRC_DIR, name)
+            dst = os.path.join(VERIFY_SUBDIR, name)
+            shutil.copyfile(src, dst)
+    
+        # Run Godot headlessly with the harness scene.
+        cmd = [
+            "godot",
+            "--headless",
+            "--path",
+            PROJECT_DIR,
+            "res://__verify__/run.tscn",
+        ]
+        env = os.environ.copy()
+        # Force importing of new assets in case the project hasn't been opened yet.
+>       completed = subprocess.run(
+            cmd,
+            capture_output=True,
+            text=True,
+            timeout=GODOT_TIMEOUT_SECONDS,
+            env=env,
+        )
+
+tests/test_final_state.py:47: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+usr/lib/python3.12/subprocess.py:550: in run
+    stdout, stderr = process.communicate(input, timeout=timeout)
+usr/lib/python3.12/subprocess.py:1209: in communicate
+    stdout, stderr = self._communicate(input, endtime, timeout)
+usr/lib/python3.12/subprocess.py:2116: in _communicate
+    self._check_timeout(endtime, orig_timeout, stdout, stderr)
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <Popen: returncode: -9 args: ['godot', '--headless', '--path', '/home/user/q...>
+endtime = 978251.762895892, orig_timeout = 180
+stdout_seq = [b'Godot Engine v4.3.stable.official.77dcf97d8 - https://godotengine.org\n', b'\n']
+stderr_seq = [b'SCRIPT ERROR: Parse Error: Cannot infer the type of "started_ok" variable because the value doesn\'t have a set typ...o load script "res://__verify__/run.gd" with error "Parse error".\n   at: load (modules/gdscript/gdscript.cpp:2936)\n']
+skip_check_and_raise = False
+
+    def _check_timeout(self, endtime, orig_timeout, stdout_seq, stderr_seq,
+                       skip_check_and_raise=False):
+        """Convenience for checking if a timeout has expired."""
+        if endtime is None:
+            return
+        if skip_check_and_raise or _time() > endtime:
+>           raise TimeoutExpired(
+                    self.args, orig_timeout,
+                    output=b''.join(stdout_seq) if stdout_seq else None,
+                    stderr=b''.join(stderr_seq) if stderr_seq else None)
+E           subprocess.TimeoutExpired: Command '['godot', '--headless', '--path', '/home/user/quest_project', 'res://__verify__/run.tscn']' timed out after 180 seconds
+
+usr/lib/python3.12/subprocess.py:1253: TimeoutExpired
+_______________ ERROR at setup of test_quest_manager_autoloaded ________________
+
+    @pytest.fixture(scope="module")
+    def harness_results():
+        """Inject the test harness into the project, run Godot headlessly,
+        parse RESULT lines and return them as a dict of name->record."""
+        assert os.path.isdir(PROJECT_DIR), f"Project dir {PROJECT_DIR} not found"
+        # Clean any previous verify artifacts.
+        if os.path.isdir(VERIFY_SUBDIR):
+            shutil.rmtree(VERIFY_SUBDIR)
+        os.makedirs(VERIFY_SUBDIR, exist_ok=True)
+        # Copy harness files into res://__verify__/
+        for name in ("run.gd", "run.tscn"):
+            src = os.path.join(HARNESS_SRC_DIR, name)
+            dst = os.path.join(VERIFY_SUBDIR, name)
+            shutil.copyfile(src, dst)
+    
+        # Run Godot headlessly with the harness scene.
+        cmd = [
+            "godot",
+            "--headless",
+            "--path",
+            PROJECT_DIR,
+            "res://__verify__/run.tscn",
+        ]
+        env = os.environ.copy()
+        # Force importing of new assets in case the project hasn't been opened yet.
+>       completed = subprocess.run(
+            cmd,
+            capture_output=True,
+            text=True,
+            timeout=GODOT_TIMEOUT_SECONDS,
+            env=env,
+        )
+
+tests/test_final_state.py:47: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+usr/lib/python3.12/subprocess.py:550: in run
+    stdout, stderr = process.communicate(input, timeout=timeout)
+usr/lib/python3.12/subprocess.py:1209: in communicate
+    stdout, stderr = self._communicate(input, endtime, timeout)
+usr/lib/python3.12/subprocess.py:2116: in _communicate
+    self._check_timeout(endtime, orig_timeout, stdout, stderr)
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <Popen: returncode: -9 args: ['godot', '--headless', '--path', '/home/user/q...>
+endtime = 978251.762895892, orig_timeout = 180
+stdout_seq = [b'Godot Engine v4.3.stable.official.77dcf97d8 - https://godotengine.org\n', b'\n']
+stderr_seq = [b'SCRIPT ERROR: Parse Error: Cannot infer the type of "started_ok" variable because the value doesn\'t have a set typ...o load script "res://__verify__/run.gd" with error "Parse error".\n   at: load (modules/gdscript/gdscript.cpp:2936)\n']
+skip_check_and_raise = False
+
+    def _check_timeout(self, endtime, orig_timeout, stdout_seq, stderr_seq,
+                       skip_check_and_raise=False):
+        """Convenience for checking if a timeout has expired."""
+        if endtime is None:
+            return
+        if skip_check_and_raise or _time() > endtime:
+>           raise TimeoutExpired(
+                    self.args, orig_timeout,
+                    output=b''.join(stdout_seq) if stdout_seq else None,
+                    stderr=b''.join(stderr_seq) if stderr_seq else None)
+E           subprocess.TimeoutExpired: Command '['godot', '--headless', '--path', '/home/user/quest_project', 'res://__verify__/run.tscn']' timed out after 180 seconds
+
+usr/lib/python3.12/subprocess.py:1253: TimeoutExpired
+__________________ ERROR at setup of test_prerequisite_gating __________________
+
+    @pytest.fixture(scope="module")
+    def harness_results():
+        """Inject the test harness into the project, run Godot headlessly,
+        parse RESULT lines and return them as a dict of name->record."""
+        assert os.path.isdir(PROJECT_DIR), f"Project dir {PROJECT_DIR} not found"
+        # Clean any previous verify artifacts.
+        if os.path.isdir(VERIFY_SUBDIR):
+            shutil.rmtree(VERIFY_SUBDIR)
+        os.makedirs(VERIFY_SUBDIR, exist_ok=True)
+        # Copy harness files into res://__verify__/
+        for name in ("run.gd", "run.tscn"):
+            src = os.path.join(HARNESS_SRC_DIR, name)
+            dst = os.path.join(VERIFY_SUBDIR, name)
+            shutil.copyfile(src, dst)
+    
+        # Run Godot headlessly with the harness scene.
+        cmd = [
+            "godot",
+            "--headless",
+            "--path",
+            PROJECT_DIR,
+            "res://__verify__/run.tscn",
+        ]
+        env = os.environ.copy()
+        # Force importing of new assets in case the project hasn't been opened yet.
+>       completed = subprocess.run(
+            cmd,
+            capture_output=True,
+            text=True,
+            timeout=GODOT_TIMEOUT_SECONDS,
+            env=env,
+        )
+
+tests/test_final_state.py:47: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+usr/lib/python3.12/subprocess.py:550: in run
+    stdout, stderr = process.communicate(input, timeout=timeout)
+usr/lib/python3.12/subprocess.py:1209: in communicate
+    stdout, stderr = self._communicate(input, endtime, timeout)
+usr/lib/python3.12/subprocess.py:2116: in _communicate
+    self._check_timeout(endtime, orig_timeout, stdout, stderr)
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <Popen: returncode: -9 args: ['godot', '--headless', '--path', '/home/user/q...>
+endtime = 978251.762895892, orig_timeout = 180
+stdout_seq = [b'Godot Engine v4.3.stable.official.77dcf97d8 - https://godotengine.org\n', b'\n']
+stderr_seq = [b'SCRIPT ERROR: Parse Error: Cannot infer the type of "started_ok" variable because the value doesn\'t have a set typ...o load script "res://__verify__/run.gd" with error "Parse error".\n   at: load (modules/gdscript/gdscript.cpp:2936)\n']
+skip_check_and_raise = False
+
+    def _check_timeout(self, endtime, orig_timeout, stdout_seq, stderr_seq,
+                       skip_check_and_raise=False):
+        """Convenience for checking if a timeout has expired."""
+        if endtime is None:
+            return
+        if skip_check_and_raise or _time() > endtime:
+>           raise TimeoutExpired(
+                    self.args, orig_timeout,
+                    output=b''.join(stdout_seq) if stdout_seq else None,
+                    stderr=b''.join(stderr_seq) if stderr_seq else None)
+E           subprocess.TimeoutExpired: Command '['godot', '--headless', '--path', '/home/user/quest_project', 'res://__verify__/run.tscn']' timed out after 180 seconds
+
+usr/lib/python3.12/subprocess.py:1253: TimeoutExpired
+_______________ ERROR at setup of test_start_quest_emits_signal ________________
+
+    @pytest.fixture(scope="module")
+    def harness_results():
+        """Inject the test harness into the project, run Godot headlessly,
+        parse RESULT lines and return them as a dict of name->record."""
+        assert os.path.isdir(PROJECT_DIR), f"Project dir {PROJECT_DIR} not found"
+        # Clean any previous verify artifacts.
+        if os.path.isdir(VERIFY_SUBDIR):
+            shutil.rmtree(VERIFY_SUBDIR)
+        os.makedirs(VERIFY_SUBDIR, exist_ok=True)
+        # Copy harness files into res://__verify__/
+        for name in ("run.gd", "run.tscn"):
+            src = os.path.join(HARNESS_SRC_DIR, name)
+            dst = os.path.join(VERIFY_SUBDIR, name)
+            shutil.copyfile(src, dst)
+    
+        # Run Godot headlessly with the harness scene.
+        cmd = [
+            "godot",
+            "--headless",
+            "--path",
+            PROJECT_DIR,
+            "res://__verify__/run.tscn",
+        ]
+        env = os.environ.copy()
+        # Force importing of new assets in case the project hasn't been opened yet.
+>       completed = subprocess.run(
+            cmd,
+            capture_output=True,
+            text=True,
+            timeout=GODOT_TIMEOUT_SECONDS,
+            env=env,
+        )
+
+tests/test_final_state.py:47: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+usr/lib/python3.12/subprocess.py:550: in run
+    stdout, stderr = process.communicate(input, timeout=timeout)
+usr/lib/python3.12/subprocess.py:1209: in communicate
+    stdout, stderr = self._communicate(input, endtime, timeout)
+usr/lib/python3.12/subprocess.py:2116: in _communicate
+    self._check_timeout(endtime, orig_timeout, stdout, stderr)
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <Popen: returncode: -9 args: ['godot', '--headless', '--path', '/home/user/q...>
+endtime = 978251.762895892, orig_timeout = 180
+stdout_seq = [b'Godot Engine v4.3.stable.official.77dcf97d8 - https://godotengine.org\n', b'\n']
+stderr_seq = [b'SCRIPT ERROR: Parse Error: Cannot infer the type of "started_ok" variable because the value doesn\'t have a set typ...o load script "res://__verify__/run.gd" with error "Parse error".\n   at: load (modules/gdscript/gdscript.cpp:2936)\n']
+skip_check_and_raise = False
+
+    def _check_timeout(self, endtime, orig_timeout, stdout_seq, stderr_seq,
+                       skip_check_and_raise=False):
+        """Convenience for checking if a timeout has expired."""
+        if endtime is None:
+            return
+        if skip_check_and_raise or _time() > endtime:
+>           raise TimeoutExpired(
+                    self.args, orig_timeout,
+                    output=b''.join(stdout_seq) if stdout_seq else None,
+                    stderr=b''.join(stderr_seq) if stderr_seq else None)
+E           subprocess.TimeoutExpired: Command '['godot', '--headless', '--path', '/home/user/quest_project', 'res://__verify__/run.tscn']' timed out after 180 seconds
+
+usr/lib/python3.12/subprocess.py:1253: TimeoutExpired
+__________________ ERROR at setup of test_progress_reporting ___________________
+
+    @pytest.fixture(scope="module")
+    def harness_results():
+        """Inject the test harness into the project, run Godot headlessly,
+        parse RESULT lines and return them as a dict of name->record."""
+        assert os.path.isdir(PROJECT_DIR), f"Project dir {PROJECT_DIR} not found"
+        # Clean any previous verify artifacts.
+        if os.path.isdir(VERIFY_SUBDIR):
+            shutil.rmtree(VERIFY_SUBDIR)
+        os.makedirs(VERIFY_SUBDIR, exist_ok=True)
+        # Copy harness files into res://__verify__/
+        for name in ("run.gd", "run.tscn"):
+            src = os.path.join(HARNESS_SRC_DIR, name)
+            dst = os.path.join(VERIFY_SUBDIR, name)
+            shutil.copyfile(src, dst)
+    
+        # Run Godot headlessly with the harness scene.
+        cmd = [
+            "godot",
+            "--headless",
+            "--path",
+            PROJECT_DIR,
+            "res://__verify__/run.tscn",
+        ]
+        env = os.environ.copy()
+        # Force importing of new assets in case the project hasn't been opened yet.
+>       completed = subprocess.run(
+            cmd,
+            capture_output=True,
+            text=True,
+            timeout=GODOT_TIMEOUT_SECONDS,
+            env=env,
+        )
+
+tests/test_final_state.py:47: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+usr/lib/python3.12/subprocess.py:550: in run
+    stdout, stderr = process.communicate(input, timeout=timeout)
+usr/lib/python3.12/subprocess.py:1209: in communicate
+    stdout, stderr = self._communicate(input, endtime, timeout)
+usr/lib/python3.12/subprocess.py:2116: in _communicate
+    self._check_timeout(endtime, orig_timeout, stdout, stderr)
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <Popen: returncode: -9 args: ['godot', '--headless', '--path', '/home/user/q...>
+endtime = 978251.762895892, orig_timeout = 180
+stdout_seq = [b'Godot Engine v4.3.stable.official.77dcf97d8 - https://godotengine.org\n', b'\n']
+stderr_seq = [b'SCRIPT ERROR: Parse Error: Cannot infer the type of "started_ok" variable because the value doesn\'t have a set typ...o load script "res://__verify__/run.gd" with error "Parse error".\n   at: load (modules/gdscript/gdscript.cpp:2936)\n']
+skip_check_and_raise = False
+
+    def _check_timeout(self, endtime, orig_timeout, stdout_seq, stderr_seq,
+                       skip_check_and_raise=False):
+        """Convenience for checking if a timeout has expired."""
+        if endtime is None:
+            return
+        if skip_check_and_raise or _time() > endtime:
+>           raise TimeoutExpired(
+                    self.args, orig_timeout,
+                    output=b''.join(stdout_seq) if stdout_seq else None,
+                    stderr=b''.join(stderr_seq) if stderr_seq else None)
+E           subprocess.TimeoutExpired: Command '['godot', '--headless', '--path', '/home/user/quest_project', 'res://__verify__/run.tscn']' timed out after 180 seconds
+
+usr/lib/python3.12/subprocess.py:1253: TimeoutExpired
+_______________ ERROR at setup of test_complete_quest_behaviour ________________
+
+    @pytest.fixture(scope="module")
+    def harness_results():
+        """Inject the test harness into the project, run Godot headlessly,
+        parse RESULT lines and return them as a dict of name->record."""
+        assert os.path.isdir(PROJECT_DIR), f"Project dir {PROJECT_DIR} not found"
+        # Clean any previous verify artifacts.
+        if os.path.isdir(VERIFY_SUBDIR):
+            shutil.rmtree(VERIFY_SUBDIR)
+        os.makedirs(VERIFY_SUBDIR, exist_ok=True)
+        # Copy harness files into res://__verify__/
+        for name in ("run.gd", "run.tscn"):
+            src = os.path.join(HARNESS_SRC_DIR, name)
+            dst = os.path.join(VERIFY_SUBDIR, name)
+            shutil.copyfile(src, dst)
+    
+        # Run Godot headlessly with the harness scene.
+        cmd = [
+            "godot",
+            "--headless",
+            "--path",
+            PROJECT_DIR,
+            "res://__verify__/run.tscn",
+        ]
+        env = os.environ.copy()
+        # Force importing of new assets in case the project hasn't been opened yet.
+>       completed = subprocess.run(
+            cmd,
+            capture_output=True,
+            text=True,
+            timeout=GODOT_TIMEOUT_SECONDS,
+            env=env,
+        )
+
+tests/test_final_state.py:47: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+usr/lib/python3.12/subprocess.py:550: in run
+    stdout, stderr = process.communicate(input, timeout=timeout)
+usr/lib/python3.12/subprocess.py:1209: in communicate
+    stdout, stderr = self._communicate(input, endtime, timeout)
+usr/lib/python3.12/subprocess.py:2116: in _communicate
+    self._check_timeout(endtime, orig_timeout, stdout, stderr)
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <Popen: returncode: -9 args: ['godot', '--headless', '--path', '/home/user/q...>
+endtime = 978251.762895892, orig_timeout = 180
+stdout_seq = [b'Godot Engine v4.3.stable.official.77dcf97d8 - https://godotengine.org\n', b'\n']
+stderr_seq = [b'SCRIPT ERROR: Parse Error: Cannot infer the type of "started_ok" variable because the value doesn\'t have a set typ...o load script "res://__verify__/run.gd" with error "Parse error".\n   at: load (modules/gdscript/gdscript.cpp:2936)\n']
+skip_check_and_raise = False
+
+    def _check_timeout(self, endtime, orig_timeout, stdout_seq, stderr_seq,
+                       skip_check_and_raise=False):
+        """Convenience for checking if a timeout has expired."""
+        if endtime is None:
+            return
+        if skip_check_and_raise or _time() > endtime:
+>           raise TimeoutExpired(
+                    self.args, orig_timeout,
+                    output=b''.join(stdout_seq) if stdout_seq else None,
+                    stderr=b''.join(stderr_seq) if stderr_seq else None)
+E           subprocess.TimeoutExpired: Command '['godot', '--headless', '--path', '/home/user/quest_project', 'res://__verify__/run.tscn']' timed out after 180 seconds
+
+usr/lib/python3.12/subprocess.py:1253: TimeoutExpired
+==================================== PASSES ====================================
+=========================== short test summary info ============================
+PASSED tests/test_final_state.py::test_project_godot_declares_autoload
+PASSED tests/test_final_state.py::test_quest_files_exist
+ERROR tests/test_final_state.py::test_harness_completed - subprocess.TimeoutE...
+ERROR tests/test_final_state.py::test_objective_script_class_and_exports - su...
+ERROR tests/test_final_state.py::test_quest_script_class_and_exports - subpro...
+ERROR tests/test_final_state.py::test_quest_resources_loaded_and_chained - su...
+ERROR tests/test_final_state.py::test_quest_manager_autoloaded - subprocess.T...
+ERROR tests/test_final_state.py::test_prerequisite_gating - subprocess.Timeou...
+ERROR tests/test_final_state.py::test_start_quest_emits_signal - subprocess.T...
+ERROR tests/test_final_state.py::test_progress_reporting - subprocess.Timeout...
+ERROR tests/test_final_state.py::test_complete_quest_behaviour - subprocess.T...
+=================== 2 passed, 9 errors in 180.88s (0:03:00) ====================

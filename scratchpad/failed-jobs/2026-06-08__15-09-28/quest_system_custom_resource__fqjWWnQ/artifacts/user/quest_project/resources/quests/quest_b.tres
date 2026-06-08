@@ -1,0 +1,20 @@
+[gd_resource type="Resource" script_class="Quest" load_steps=3 format=3 uid="uid://quest_b"]
+
+[ext_resource type="Script" path="res://scripts/Quest.gd" id="1_quest"]
+[ext_resource type="Script" path="res://scripts/QuestObjective.gd" id="2_obj"]
+
+[sub_resource type="Resource" id="Objective_1"]
+script = ExtResource("2_obj")
+description = "Defeat bandits"
+target_count = 5
+current_count = 0
+
+[resource]
+script = ExtResource("1_quest")
+id = &"quest_b"
+title = "Bandit Trouble"
+description = "Deal with the bandits threatening the road."
+objectives = [SubResource("Objective_1")]
+prerequisite_quest_ids = [&"quest_a"]
+reward_gold = 150
+reward_items = [&"iron_sword"]

@@ -1,0 +1,206 @@
+============================= test session starts ==============================
+platform linux -- Python 3.12.3, pytest-7.4.4, pluggy-1.4.0
+rootdir: /tests
+plugins: json-ctrf-0.5.0
+collected 21 items
+
+tests/test_final_state.py .................FFFF                          [100%]
+
+=================================== FAILURES ===================================
+___________________ test_harness_pass[poi_added_emit_count] ____________________
+
+check_name = 'poi_added_emit_count'
+harness_output = ('Godot Engine v4.3.stable.official.77dcf97d8 - https://godotengine.org\n\nHARNESS_START\nPASS load_minimap_scene\nPAS...ROR: 4 resources still in use at exit (run with --verbose for details).\n   at: clear (core/io/resource.cpp:604)\n', 0)
+
+    @pytest.mark.parametrize("check_name", REQUIRED_PASSES)
+    def test_harness_pass(check_name, harness_output):
+        combined, _rc = harness_output
+        fail_marker = f"FAIL {check_name} ::"
+        pass_marker = f"PASS {check_name}"
+        assert fail_marker not in combined, (
+            f"Check '{check_name}' failed. Harness output:\n{combined}"
+        )
+>       assert pass_marker in combined, (
+            f"Check '{check_name}' did not pass. Harness output:\n{combined}"
+        )
+E       AssertionError: Check 'poi_added_emit_count' did not pass. Harness output:
+E         Godot Engine v4.3.stable.official.77dcf97d8 - https://godotengine.org
+E         
+E         HARNESS_START
+E         PASS load_minimap_scene
+E         PASS instantiate_minimap_scene
+E         PASS minimap_root_is_subviewport_container
+E         PASS minimap_has_subviewport_child
+E         PASS subviewport_size
+E         PASS subviewport_transparent_bg
+E         PASS minimap_camera_exists
+E         PASS minimap_camera_zoom
+E         PASS load_world_scene
+E         PASS instantiate_world_scene
+E         PASS world_root_name
+E         PASS player_exists
+E         PASS player_name
+E         HARNESS_DONE
+E         PASS poi_group_count
+E         PASS poi_added_signal_defined
+E         
+E         WARNING: ObjectDB instances leaked at exit (run with --verbose for details).
+E              at: cleanup (core/object/object.cpp:2284)
+E         ERROR: 4 resources still in use at exit (run with --verbose for details).
+E            at: clear (core/io/resource.cpp:604)
+E         
+E       assert 'PASS poi_added_emit_count' in 'Godot Engine v4.3.stable.official.77dcf97d8 - https://godotengine.org\n\nHARNESS_START\nPASS load_minimap_scene\nPASS...\nERROR: 4 resources still in use at exit (run with --verbose for details).\n   at: clear (core/io/resource.cpp:604)\n'
+
+tests/test_final_state.py:320: AssertionError
+________________ test_harness_pass[get_marker_for_poi_position] ________________
+
+check_name = 'get_marker_for_poi_position'
+harness_output = ('Godot Engine v4.3.stable.official.77dcf97d8 - https://godotengine.org\n\nHARNESS_START\nPASS load_minimap_scene\nPAS...ROR: 4 resources still in use at exit (run with --verbose for details).\n   at: clear (core/io/resource.cpp:604)\n', 0)
+
+    @pytest.mark.parametrize("check_name", REQUIRED_PASSES)
+    def test_harness_pass(check_name, harness_output):
+        combined, _rc = harness_output
+        fail_marker = f"FAIL {check_name} ::"
+        pass_marker = f"PASS {check_name}"
+        assert fail_marker not in combined, (
+            f"Check '{check_name}' failed. Harness output:\n{combined}"
+        )
+>       assert pass_marker in combined, (
+            f"Check '{check_name}' did not pass. Harness output:\n{combined}"
+        )
+E       AssertionError: Check 'get_marker_for_poi_position' did not pass. Harness output:
+E         Godot Engine v4.3.stable.official.77dcf97d8 - https://godotengine.org
+E         
+E         HARNESS_START
+E         PASS load_minimap_scene
+E         PASS instantiate_minimap_scene
+E         PASS minimap_root_is_subviewport_container
+E         PASS minimap_has_subviewport_child
+E         PASS subviewport_size
+E         PASS subviewport_transparent_bg
+E         PASS minimap_camera_exists
+E         PASS minimap_camera_zoom
+E         PASS load_world_scene
+E         PASS instantiate_world_scene
+E         PASS world_root_name
+E         PASS player_exists
+E         PASS player_name
+E         HARNESS_DONE
+E         PASS poi_group_count
+E         PASS poi_added_signal_defined
+E         
+E         WARNING: ObjectDB instances leaked at exit (run with --verbose for details).
+E              at: cleanup (core/object/object.cpp:2284)
+E         ERROR: 4 resources still in use at exit (run with --verbose for details).
+E            at: clear (core/io/resource.cpp:604)
+E         
+E       assert 'PASS get_marker_for_poi_position' in 'Godot Engine v4.3.stable.official.77dcf97d8 - https://godotengine.org\n\nHARNESS_START\nPASS load_minimap_scene\nPASS...\nERROR: 4 resources still in use at exit (run with --verbose for details).\n   at: clear (core/io/resource.cpp:604)\n'
+
+tests/test_final_state.py:320: AssertionError
+________________ test_harness_pass[player_marker_tracks_player] ________________
+
+check_name = 'player_marker_tracks_player'
+harness_output = ('Godot Engine v4.3.stable.official.77dcf97d8 - https://godotengine.org\n\nHARNESS_START\nPASS load_minimap_scene\nPAS...ROR: 4 resources still in use at exit (run with --verbose for details).\n   at: clear (core/io/resource.cpp:604)\n', 0)
+
+    @pytest.mark.parametrize("check_name", REQUIRED_PASSES)
+    def test_harness_pass(check_name, harness_output):
+        combined, _rc = harness_output
+        fail_marker = f"FAIL {check_name} ::"
+        pass_marker = f"PASS {check_name}"
+        assert fail_marker not in combined, (
+            f"Check '{check_name}' failed. Harness output:\n{combined}"
+        )
+>       assert pass_marker in combined, (
+            f"Check '{check_name}' did not pass. Harness output:\n{combined}"
+        )
+E       AssertionError: Check 'player_marker_tracks_player' did not pass. Harness output:
+E         Godot Engine v4.3.stable.official.77dcf97d8 - https://godotengine.org
+E         
+E         HARNESS_START
+E         PASS load_minimap_scene
+E         PASS instantiate_minimap_scene
+E         PASS minimap_root_is_subviewport_container
+E         PASS minimap_has_subviewport_child
+E         PASS subviewport_size
+E         PASS subviewport_transparent_bg
+E         PASS minimap_camera_exists
+E         PASS minimap_camera_zoom
+E         PASS load_world_scene
+E         PASS instantiate_world_scene
+E         PASS world_root_name
+E         PASS player_exists
+E         PASS player_name
+E         HARNESS_DONE
+E         PASS poi_group_count
+E         PASS poi_added_signal_defined
+E         
+E         WARNING: ObjectDB instances leaked at exit (run with --verbose for details).
+E              at: cleanup (core/object/object.cpp:2284)
+E         ERROR: 4 resources still in use at exit (run with --verbose for details).
+E            at: clear (core/io/resource.cpp:604)
+E         
+E       assert 'PASS player_marker_tracks_player' in 'Godot Engine v4.3.stable.official.77dcf97d8 - https://godotengine.org\n\nHARNESS_START\nPASS load_minimap_scene\nPASS...\nERROR: 4 resources still in use at exit (run with --verbose for details).\n   at: clear (core/io/resource.cpp:604)\n'
+
+tests/test_final_state.py:320: AssertionError
+________________________ test_all_checks_passed_marker _________________________
+
+harness_output = ('Godot Engine v4.3.stable.official.77dcf97d8 - https://godotengine.org\n\nHARNESS_START\nPASS load_minimap_scene\nPAS...ROR: 4 resources still in use at exit (run with --verbose for details).\n   at: clear (core/io/resource.cpp:604)\n', 0)
+
+    def test_all_checks_passed_marker(harness_output):
+        combined, _rc = harness_output
+>       assert "ALL_CHECKS_PASSED" in combined, (
+            f"Final summary marker missing. Output:\n{combined}"
+        )
+E       AssertionError: Final summary marker missing. Output:
+E         Godot Engine v4.3.stable.official.77dcf97d8 - https://godotengine.org
+E         
+E         HARNESS_START
+E         PASS load_minimap_scene
+E         PASS instantiate_minimap_scene
+E         PASS minimap_root_is_subviewport_container
+E         PASS minimap_has_subviewport_child
+E         PASS subviewport_size
+E         PASS subviewport_transparent_bg
+E         PASS minimap_camera_exists
+E         PASS minimap_camera_zoom
+E         PASS load_world_scene
+E         PASS instantiate_world_scene
+E         PASS world_root_name
+E         PASS player_exists
+E         PASS player_name
+E         HARNESS_DONE
+E         PASS poi_group_count
+E         PASS poi_added_signal_defined
+E         
+E         WARNING: ObjectDB instances leaked at exit (run with --verbose for details).
+E              at: cleanup (core/object/object.cpp:2284)
+E         ERROR: 4 resources still in use at exit (run with --verbose for details).
+E            at: clear (core/io/resource.cpp:604)
+E         
+E       assert 'ALL_CHECKS_PASSED' in 'Godot Engine v4.3.stable.official.77dcf97d8 - https://godotengine.org\n\nHARNESS_START\nPASS load_minimap_scene\nPASS...\nERROR: 4 resources still in use at exit (run with --verbose for details).\n   at: clear (core/io/resource.cpp:604)\n'
+
+tests/test_final_state.py:327: AssertionError
+==================================== PASSES ====================================
+=========================== short test summary info ============================
+PASSED tests/test_final_state.py::test_required_project_files_exist
+PASSED tests/test_final_state.py::test_harness_runs_without_fatal_errors
+PASSED tests/test_final_state.py::test_harness_pass[load_minimap_scene]
+PASSED tests/test_final_state.py::test_harness_pass[instantiate_minimap_scene]
+PASSED tests/test_final_state.py::test_harness_pass[minimap_root_is_subviewport_container]
+PASSED tests/test_final_state.py::test_harness_pass[minimap_has_subviewport_child]
+PASSED tests/test_final_state.py::test_harness_pass[subviewport_size]
+PASSED tests/test_final_state.py::test_harness_pass[subviewport_transparent_bg]
+PASSED tests/test_final_state.py::test_harness_pass[minimap_camera_exists]
+PASSED tests/test_final_state.py::test_harness_pass[minimap_camera_zoom]
+PASSED tests/test_final_state.py::test_harness_pass[load_world_scene]
+PASSED tests/test_final_state.py::test_harness_pass[instantiate_world_scene]
+PASSED tests/test_final_state.py::test_harness_pass[world_root_name]
+PASSED tests/test_final_state.py::test_harness_pass[player_exists]
+PASSED tests/test_final_state.py::test_harness_pass[player_name]
+PASSED tests/test_final_state.py::test_harness_pass[poi_group_count]
+PASSED tests/test_final_state.py::test_harness_pass[poi_added_signal_defined]
+FAILED tests/test_final_state.py::test_harness_pass[poi_added_emit_count] - A...
+FAILED tests/test_final_state.py::test_harness_pass[get_marker_for_poi_position]
+FAILED tests/test_final_state.py::test_harness_pass[player_marker_tracks_player]
+FAILED tests/test_final_state.py::test_all_checks_passed_marker - AssertionEr...
+========================= 4 failed, 17 passed in 0.38s =========================

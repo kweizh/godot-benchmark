@@ -1,0 +1,147 @@
+============================= test session starts ==============================
+platform linux -- Python 3.12.3, pytest-7.4.4, pluggy-1.4.0
+rootdir: /tests
+plugins: json-ctrf-0.5.0
+collected 7 items
+
+tests/test_final_state.py ....FFF                                        [100%]
+
+=================================== FAILURES ===================================
+______________________ test_project_loads_without_errors _______________________
+
+    def test_project_loads_without_errors():
+        _reset_user_data()
+        result = subprocess.run(
+            ["godot", "--headless", "--path", PROJECT_DIR, "--quit"],
+            capture_output=True,
+            text=True,
+            timeout=120,
+            env=_godot_env(),
+        )
+        combined = (result.stdout or "") + (result.stderr or "")
+        assert result.returncode == 0, (
+            f"`godot --quit` exited with code {result.returncode}:\n{combined}"
+        )
+        for marker in ["SCRIPT ERROR", "Parse Error", "Failed to load"]:
+>           assert marker not in combined, (
+                f"Godot reported '{marker}' while loading the project:\n{combined}"
+            )
+E           AssertionError: Godot reported 'SCRIPT ERROR' while loading the project:
+E             Godot Engine v4.3.stable.official.77dcf97d8 - https://godotengine.org
+E             
+E             SCRIPT ERROR: Parse Error: Class "LeaderboardClient" hides an autoload singleton.
+E                       at: GDScript::reload (res://autoloads/LeaderboardClient.gd:1)
+E             ERROR: Failed to load script "res://autoloads/LeaderboardClient.gd" with error "Parse error".
+E                at: load (modules/gdscript/gdscript.cpp:2936)
+E             ERROR: Failed to instantiate an autoload, script 'res://autoloads/LeaderboardClient.gd' does not inherit from 'Node'.
+E                at: start (main/main.cpp:3678)
+E             
+E           assert 'SCRIPT ERROR' not in 'Godot Engin....cpp:3678)\n'
+E             'SCRIPT ERROR' is contained here:
+E               gine.org
+E               
+E               SCRIPT ERROR: Parse Error: Class "LeaderboardClient" hides an autoload singleton.
+E             ? ++++++++++++
+E                         at: GDScript::reload (res://autoloads/LeaderboardClient.gd:1)
+E               ERROR: Failed to load script "res://autoloads/LeaderboardClient.gd" with error "Parse error"....
+E             
+E             ...Full output truncated (3 lines hidden), use '-vv' to show
+
+tests/test_final_state.py:184: AssertionError
+________________ test_runtime_harness_against_real_http_server _________________
+
+    def test_runtime_harness_against_real_http_server():
+        _reset_user_data()
+        # Remove any stale log so we know the harness produced a fresh one.
+        if os.path.exists(GODOT_TEST_LOG):
+            os.unlink(GODOT_TEST_LOG)
+    
+        result = subprocess.run(
+            [
+                "godot",
+                "--headless",
+                "--path",
+                PROJECT_DIR,
+                "res://_zealt_tests/test_harness.tscn",
+            ],
+            capture_output=True,
+            text=True,
+            timeout=240,
+            env=_godot_env(),
+        )
+        combined = (result.stdout or "") + (result.stderr or "")
+        assert result.returncode == 0, (
+            f"Test harness exited with code {result.returncode}:\n{combined}"
+        )
+    
+        assert os.path.isfile(GODOT_TEST_LOG), (
+            f"Harness did not write report file at {GODOT_TEST_LOG}.\n"
+            f"Godot stdout/stderr:\n{combined}"
+        )
+    
+        report = _read_text(GODOT_TEST_LOG)
+        required_checks = [
+            "autoload_present",
+            "signal_leaderboard_fetched",
+            "signal_score_submitted",
+            "signal_request_failed",
+            "method_fetch_top",
+            "method_submit_score",
+            "fetch_top_happy",
+            "submit_score_happy",
+            "fetch_top_retry_success",
+            "fetch_top_retry_exhaust",
+        ]
+        for check in required_checks:
+            pattern = re.compile(r"^" + re.escape(check) + r"\s+OK\s*$", re.MULTILINE)
+>           assert pattern.search(report), (
+                f"Harness check '{check}' did not pass. Full report:\n{report}\n"
+                f"Godot stdout/stderr:\n{combined}"
+            )
+E           AssertionError: Harness check 'autoload_present' did not pass. Full report:
+E             autoload_present FAIL: LeaderboardClient autoload not found at /root/LeaderboardClient
+E             
+E             Godot stdout/stderr:
+E             Godot Engine v4.3.stable.official.77dcf97d8 - https://godotengine.org
+E             
+E             autoload_present FAIL: LeaderboardClient autoload not found at /root/LeaderboardClient
+E             SCRIPT ERROR: Parse Error: Class "LeaderboardClient" hides an autoload singleton.
+E                       at: GDScript::reload (res://autoloads/LeaderboardClient.gd:1)
+E             ERROR: Failed to load script "res://autoloads/LeaderboardClient.gd" with error "Parse error".
+E                at: load (modules/gdscript/gdscript.cpp:2936)
+E             ERROR: Failed to instantiate an autoload, script 'res://autoloads/LeaderboardClient.gd' does not inherit from 'Node'.
+E                at: start (main/main.cpp:3678)
+E             
+E           assert None
+E            +  where None = <built-in method search of re.Pattern object at 0x7fcb94910040>('autoload_present FAIL: LeaderboardClient autoload not found at /root/LeaderboardClient\n')
+E            +    where <built-in method search of re.Pattern object at 0x7fcb94910040> = re.compile('^autoload_present\\s+OK\\s*$', re.MULTILINE).search
+
+tests/test_final_state.py:237: AssertionError
+______________________ test_submit_recorded_in_server_log ______________________
+
+    def test_submit_recorded_in_server_log():
+        # Verifies the POST /submit actually hit the real HTTP server (no mocking).
+        assert os.path.isfile(SERVER_LOG), f"Server log not found at {SERVER_LOG}"
+        log_text = _read_text(SERVER_LOG)
+        pattern = re.compile(r"^POST /submit name=Carol score=150\s*$", re.MULTILINE)
+>       assert pattern.search(log_text), (
+            "Expected a real POST /submit for Carol/150 in the server log, "
+            f"got:\n{log_text}"
+        )
+E       AssertionError: Expected a real POST /submit for Carol/150 in the server log, got:
+E         
+E       assert None
+E        +  where None = <built-in method search of re.Pattern object at 0x7fcb94a54950>('')
+E        +    where <built-in method search of re.Pattern object at 0x7fcb94a54950> = re.compile('^POST /submit name=Carol score=150\\s*$', re.MULTILINE).search
+
+tests/test_final_state.py:248: AssertionError
+==================================== PASSES ====================================
+=========================== short test summary info ============================
+PASSED tests/test_final_state.py::test_required_files_exist
+PASSED tests/test_final_state.py::test_autoload_registered_in_project_godot
+PASSED tests/test_final_state.py::test_leaderboard_client_uses_httprequest
+PASSED tests/test_final_state.py::test_exports_present
+FAILED tests/test_final_state.py::test_project_loads_without_errors - Asserti...
+FAILED tests/test_final_state.py::test_runtime_harness_against_real_http_server
+FAILED tests/test_final_state.py::test_submit_recorded_in_server_log - Assert...
+========================= 3 failed, 4 passed in 1.31s ==========================

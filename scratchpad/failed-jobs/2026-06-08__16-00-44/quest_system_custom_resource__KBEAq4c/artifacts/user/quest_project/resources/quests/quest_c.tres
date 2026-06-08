@@ -1,0 +1,26 @@
+[gd_resource type="Resource" script_class="Quest" load_steps=5 format=3]
+
+[ext_resource type="Script" path="res://scripts/QuestObjective.gd" id="1_y8m03"]
+[ext_resource type="Script" path="res://scripts/Quest.gd" id="2_ce78c"]
+
+[sub_resource type="Resource" id="Resource_7qfpg"]
+script = ExtResource("1_y8m03")
+description = "Defeat the dragon"
+target_count = 1
+current_count = 0
+
+[sub_resource type="Resource" id="Resource_yxgpi"]
+script = ExtResource("1_y8m03")
+description = "Retrieve the treasure"
+target_count = 1
+current_count = 0
+
+[resource]
+script = ExtResource("2_ce78c")
+id = &"quest_c"
+title = "Dragon Slayer"
+description = "Slay the dragon and claim its treasure"
+objectives = Array[ExtResource("1_y8m03")]([SubResource("Resource_7qfpg"), SubResource("Resource_yxgpi")])
+prerequisite_quest_ids = Array[StringName]([&"quest_b"])
+reward_gold = 500
+reward_items = Array[StringName]([&"dragon_scale", &"golden_crown"])

@@ -1,0 +1,26 @@
+[gd_resource type="Resource" script_class="Quest" load_steps=3 format=3 uid="uid://quest_b_001"]
+
+[ext_resource type="Script" path="res://scripts/Quest.gd" id="1_quest"]
+[ext_resource type="Script" path="res://scripts/QuestObjective.gd" id="1_obj"]
+
+[sub_resource type="Resource" script_class="QuestObjective" id="obj_b1"]
+script = ExtResource("1_obj")
+description = "Defeat goblins"
+target_count = 10
+current_count = 0
+
+[sub_resource type="Resource" script_class="QuestObjective" id="obj_b2"]
+script = ExtResource("1_obj")
+description = "Collect iron ore"
+target_count = 3
+current_count = 0
+
+[resource]
+script = ExtResource("1_quest")
+id = &"quest_b"
+title = "The Goblin Threat"
+description = "Defend the village from goblin raiders."
+objectives = Array[Resource]([SubResource("obj_b1"), SubResource("obj_b2")])
+prerequisite_quest_ids = Array[StringName]([&"quest_a"])
+reward_gold = 250
+reward_items = Array[StringName]([&"iron_sword", &"shield"])

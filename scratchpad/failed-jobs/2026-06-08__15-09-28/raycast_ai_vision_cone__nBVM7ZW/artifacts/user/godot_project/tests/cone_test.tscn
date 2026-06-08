@@ -1,0 +1,58 @@
+[gd_scene load_steps=7 format=3 uid="uid://cone_test_scene"]
+
+[ext_resource type="Script" path="res://scripts/VisionCone.gd" id="1_visioncone"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_wall1"]
+size = Vector2(10, 200)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_wall2"]
+size = Vector2(10, 200)
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_enemy"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_player"]
+size = Vector2(8, 8)
+
+[node name="ConeTest" type="Node2D"]
+
+[node name="WallLeft" type="StaticBody2D" parent="."]
+position = Vector2(-150, 0)
+collision_layer = 1
+collision_mask = 1
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="WallLeft"]
+shape = SubResource("RectangleShape2D_wall1")
+
+[node name="WallRight" type="StaticBody2D" parent="."]
+position = Vector2(300, 0)
+collision_layer = 1
+collision_mask = 1
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="WallRight"]
+shape = SubResource("RectangleShape2D_wall2")
+
+[node name="Enemy" type="CharacterBody2D" parent="."]
+position = Vector2(0, 0)
+collision_layer = 1
+collision_mask = 1
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Enemy"]
+shape = SubResource("CapsuleShape2D_enemy")
+
+[node name="VisionCone" type="Node2D" parent="Enemy"]
+script = ExtResource("1_visioncone")
+cone_angle_deg = 90.0
+cone_range = 200.0
+ray_count = 7
+facing_dir = Vector2(1, 0)
+target_group = &"player"
+collision_mask = 1
+
+[node name="Player" type="StaticBody2D" parent="."]
+position = Vector2(50, 0)
+collision_layer = 1
+collision_mask = 1
+groups = ["player"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Player"]
+shape = SubResource("RectangleShape2D_player")

@@ -1,0 +1,16 @@
+; Engine configuration file.
+; It's best edited using the editor UI and not directly,
+; but the file format allows direct editing.
+; See the documentation for the format:
+; https://docs.godotengine.org/en/stable/tutorials/global/project_settings.html
+
+config_version=5
+
+[application]
+
+config/name="MyProject"
+config/features=PackedStringArray("4.0")
+
+[autoload]
+
+EventBus="*res://autoloads/EventBus.gd"

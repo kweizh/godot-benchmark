@@ -1,0 +1,23 @@
+============================= test session starts ==============================
+platform linux -- Python 3.12.3, pytest-7.4.4, pluggy-1.4.0
+rootdir: /tests
+plugins: xprocess-1.0.2, json-ctrf-0.5.0
+collected 1 item
+
+tests/test_final_state.py .                                              [100%]
+
+==================================== PASSES ====================================
+_________________________ test_multiplayer_lobby_sync __________________________
+----------------------------- Captured stdout call -----------------------------
+/tests/.pytest_cache/d/.xprocess/godot_server$ godot --headless --path /home/user/godot-benchmark -- --server
+process 'godot_server' started pid=1747
+godot_server process startup detected
+/tests/.pytest_cache/d/.xprocess/godot_client1$ godot --headless --path /home/user/godot-benchmark -- --client --name Alice
+process 'godot_client1' started pid=1762
+godot_client1 process startup detected
+/tests/.pytest_cache/d/.xprocess/godot_client2$ godot --headless --path /home/user/godot-benchmark -- --client --name Bob
+process 'godot_client2' started pid=1777
+godot_client2 process startup detected
+=========================== short test summary info ============================
+PASSED tests/test_final_state.py::test_multiplayer_lobby_sync
+============================== 1 passed in 16.38s ==============================

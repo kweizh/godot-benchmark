@@ -1,0 +1,42 @@
+{
+  "assertions": {
+    "detect_blocked_by_wall": {
+      "info": {
+        "got_path": "<null>"
+      },
+      "passed": true
+    },
+    "detect_out_of_range": {
+      "info": {
+        "got_path": "<null>"
+      },
+      "passed": true
+    },
+    "detect_visible_in_range": {
+      "info": {
+        "expected_path": "@StaticBody2D@10:<StaticBody2D#25803359569>",
+        "got_path": "@StaticBody2D@10:<StaticBody2D#25803359569>"
+      },
+      "passed": true
+    },
+    "is_point_in_cone_inside": {
+      "info": {
+        "got": true
+      },
+      "passed": true
+    },
+    "is_point_in_cone_outside_angle": {
+      "info": {
+        "got": false
+      },
+      "passed": true
+    },
+    "target_spotted_emitted_once": {
+      "info": {
+        "emit_count": 1
+      },
+      "passed": true
+    }
+  },
+  "errors": []
+}

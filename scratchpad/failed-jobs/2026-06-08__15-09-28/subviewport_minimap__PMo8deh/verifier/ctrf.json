@@ -1,0 +1,286 @@
+{
+    "results": {
+        "tool": {
+            "name": "pytest",
+            "version": "7.4.4"
+        },
+        "summary": {
+            "tests": 21,
+            "passed": 15,
+            "failed": 6,
+            "skipped": 0,
+            "pending": 0,
+            "other": 0,
+            "start": 1780932567941,
+            "stop": 1780932568339
+        },
+        "environment": {
+            "buildName": "Pytest JSON CTRF Report",
+            "buildNumber": "000",
+            "buildUrl": "https://ctrf.io"
+        },
+        "tests": [
+            {
+                "name": "test_final_state.py::test_required_project_files_exist",
+                "status": "passed",
+                "duration": 1,
+                "start": 1780932567969,
+                "stop": 1780932567970,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_harness_runs_without_fatal_errors",
+                "status": "passed",
+                "duration": 311,
+                "start": 1780932567970,
+                "stop": 1780932568281,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_harness_pass",
+                "status": "passed",
+                "duration": 1,
+                "start": 1780932568281,
+                "stop": 1780932568282,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "tags": [
+                    "parametrize::check_name::['load_minimap_scene', 'instantiate_minimap_scene', 'minimap_root_is_subviewport_container', 'minimap_has_subviewport_child', 'subviewport_size', 'subviewport_transparent_bg', 'minimap_camera_exists', 'minimap_camera_zoom', 'load_world_scene', 'instantiate_world_scene', 'world_root_name', 'player_exists', 'player_name', 'poi_group_count', 'poi_added_signal_defined', 'poi_added_emit_count', 'get_marker_for_poi_position', 'player_marker_tracks_player']"
+                ]
+            },
+            {
+                "name": "test_final_state.py::test_harness_pass",
+                "status": "passed",
+                "duration": 1,
+                "start": 1780932568282,
+                "stop": 1780932568283,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "tags": [
+                    "parametrize::check_name::['load_minimap_scene', 'instantiate_minimap_scene', 'minimap_root_is_subviewport_container', 'minimap_has_subviewport_child', 'subviewport_size', 'subviewport_transparent_bg', 'minimap_camera_exists', 'minimap_camera_zoom', 'load_world_scene', 'instantiate_world_scene', 'world_root_name', 'player_exists', 'player_name', 'poi_group_count', 'poi_added_signal_defined', 'poi_added_emit_count', 'get_marker_for_poi_position', 'player_marker_tracks_player']"
+                ]
+            },
+            {
+                "name": "test_final_state.py::test_harness_pass",
+                "status": "passed",
+                "duration": 1,
+                "start": 1780932568283,
+                "stop": 1780932568284,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "tags": [
+                    "parametrize::check_name::['load_minimap_scene', 'instantiate_minimap_scene', 'minimap_root_is_subviewport_container', 'minimap_has_subviewport_child', 'subviewport_size', 'subviewport_transparent_bg', 'minimap_camera_exists', 'minimap_camera_zoom', 'load_world_scene', 'instantiate_world_scene', 'world_root_name', 'player_exists', 'player_name', 'poi_group_count', 'poi_added_signal_defined', 'poi_added_emit_count', 'get_marker_for_poi_position', 'player_marker_tracks_player']"
+                ]
+            },
+            {
+                "name": "test_final_state.py::test_harness_pass",
+                "status": "passed",
+                "duration": 1,
+                "start": 1780932568284,
+                "stop": 1780932568285,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "tags": [
+                    "parametrize::check_name::['load_minimap_scene', 'instantiate_minimap_scene', 'minimap_root_is_subviewport_container', 'minimap_has_subviewport_child', 'subviewport_size', 'subviewport_transparent_bg', 'minimap_camera_exists', 'minimap_camera_zoom', 'load_world_scene', 'instantiate_world_scene', 'world_root_name', 'player_exists', 'player_name', 'poi_group_count', 'poi_added_signal_defined', 'poi_added_emit_count', 'get_marker_for_poi_position', 'player_marker_tracks_player']"
+                ]
+            },
+            {
+                "name": "test_final_state.py::test_harness_pass",
+                "status": "passed",
+                "duration": 1,
+                "start": 1780932568285,
+                "stop": 1780932568286,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "tags": [
+                    "parametrize::check_name::['load_minimap_scene', 'instantiate_minimap_scene', 'minimap_root_is_subviewport_container', 'minimap_has_subviewport_child', 'subviewport_size', 'subviewport_transparent_bg', 'minimap_camera_exists', 'minimap_camera_zoom', 'load_world_scene', 'instantiate_world_scene', 'world_root_name', 'player_exists', 'player_name', 'poi_group_count', 'poi_added_signal_defined', 'poi_added_emit_count', 'get_marker_for_poi_position', 'player_marker_tracks_player']"
+                ]
+            },
+            {
+                "name": "test_final_state.py::test_harness_pass",
+                "status": "passed",
+                "duration": 1,
+                "start": 1780932568286,
+                "stop": 1780932568287,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "tags": [
+                    "parametrize::check_name::['load_minimap_scene', 'instantiate_minimap_scene', 'minimap_root_is_subviewport_container', 'minimap_has_subviewport_child', 'subviewport_size', 'subviewport_transparent_bg', 'minimap_camera_exists', 'minimap_camera_zoom', 'load_world_scene', 'instantiate_world_scene', 'world_root_name', 'player_exists', 'player_name', 'poi_group_count', 'poi_added_signal_defined', 'poi_added_emit_count', 'get_marker_for_poi_position', 'player_marker_tracks_player']"
+                ]
+            },
+            {
+                "name": "test_final_state.py::test_harness_pass",
+                "status": "passed",
+                "duration": 0,
+                "start": 1780932568288,
+                "stop": 1780932568288,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "tags": [
+                    "parametrize::check_name::['load_minimap_scene', 'instantiate_minimap_scene', 'minimap_root_is_subviewport_container', 'minimap_has_subviewport_child', 'subviewport_size', 'subviewport_transparent_bg', 'minimap_camera_exists', 'minimap_camera_zoom', 'load_world_scene', 'instantiate_world_scene', 'world_root_name', 'player_exists', 'player_name', 'poi_group_count', 'poi_added_signal_defined', 'poi_added_emit_count', 'get_marker_for_poi_position', 'player_marker_tracks_player']"
+                ]
+            },
+            {
+                "name": "test_final_state.py::test_harness_pass",
+                "status": "passed",
+                "duration": 0,
+                "start": 1780932568289,
+                "stop": 1780932568289,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "tags": [
+                    "parametrize::check_name::['load_minimap_scene', 'instantiate_minimap_scene', 'minimap_root_is_subviewport_container', 'minimap_has_subviewport_child', 'subviewport_size', 'subviewport_transparent_bg', 'minimap_camera_exists', 'minimap_camera_zoom', 'load_world_scene', 'instantiate_world_scene', 'world_root_name', 'player_exists', 'player_name', 'poi_group_count', 'poi_added_signal_defined', 'poi_added_emit_count', 'get_marker_for_poi_position', 'player_marker_tracks_player']"
+                ]
+            },
+            {
+                "name": "test_final_state.py::test_harness_pass",
+                "status": "passed",
+                "duration": 1,
+                "start": 1780932568290,
+                "stop": 1780932568291,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "tags": [
+                    "parametrize::check_name::['load_minimap_scene', 'instantiate_minimap_scene', 'minimap_root_is_subviewport_container', 'minimap_has_subviewport_child', 'subviewport_size', 'subviewport_transparent_bg', 'minimap_camera_exists', 'minimap_camera_zoom', 'load_world_scene', 'instantiate_world_scene', 'world_root_name', 'player_exists', 'player_name', 'poi_group_count', 'poi_added_signal_defined', 'poi_added_emit_count', 'get_marker_for_poi_position', 'player_marker_tracks_player']"
+                ]
+            },
+            {
+                "name": "test_final_state.py::test_harness_pass",
+                "status": "passed",
+                "duration": 1,
+                "start": 1780932568291,
+                "stop": 1780932568292,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "tags": [
+                    "parametrize::check_name::['load_minimap_scene', 'instantiate_minimap_scene', 'minimap_root_is_subviewport_container', 'minimap_has_subviewport_child', 'subviewport_size', 'subviewport_transparent_bg', 'minimap_camera_exists', 'minimap_camera_zoom', 'load_world_scene', 'instantiate_world_scene', 'world_root_name', 'player_exists', 'player_name', 'poi_group_count', 'poi_added_signal_defined', 'poi_added_emit_count', 'get_marker_for_poi_position', 'player_marker_tracks_player']"
+                ]
+            },
+            {
+                "name": "test_final_state.py::test_harness_pass",
+                "status": "passed",
+                "duration": 1,
+                "start": 1780932568292,
+                "stop": 1780932568293,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "tags": [
+                    "parametrize::check_name::['load_minimap_scene', 'instantiate_minimap_scene', 'minimap_root_is_subviewport_container', 'minimap_has_subviewport_child', 'subviewport_size', 'subviewport_transparent_bg', 'minimap_camera_exists', 'minimap_camera_zoom', 'load_world_scene', 'instantiate_world_scene', 'world_root_name', 'player_exists', 'player_name', 'poi_group_count', 'poi_added_signal_defined', 'poi_added_emit_count', 'get_marker_for_poi_position', 'player_marker_tracks_player']"
+                ]
+            },
+            {
+                "name": "test_final_state.py::test_harness_pass",
+                "status": "passed",
+                "duration": 1,
+                "start": 1780932568293,
+                "stop": 1780932568294,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "tags": [
+                    "parametrize::check_name::['load_minimap_scene', 'instantiate_minimap_scene', 'minimap_root_is_subviewport_container', 'minimap_has_subviewport_child', 'subviewport_size', 'subviewport_transparent_bg', 'minimap_camera_exists', 'minimap_camera_zoom', 'load_world_scene', 'instantiate_world_scene', 'world_root_name', 'player_exists', 'player_name', 'poi_group_count', 'poi_added_signal_defined', 'poi_added_emit_count', 'get_marker_for_poi_position', 'player_marker_tracks_player']"
+                ]
+            },
+            {
+                "name": "test_final_state.py::test_harness_pass",
+                "status": "passed",
+                "duration": 1,
+                "start": 1780932568294,
+                "stop": 1780932568295,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "tags": [
+                    "parametrize::check_name::['load_minimap_scene', 'instantiate_minimap_scene', 'minimap_root_is_subviewport_container', 'minimap_has_subviewport_child', 'subviewport_size', 'subviewport_transparent_bg', 'minimap_camera_exists', 'minimap_camera_zoom', 'load_world_scene', 'instantiate_world_scene', 'world_root_name', 'player_exists', 'player_name', 'poi_group_count', 'poi_added_signal_defined', 'poi_added_emit_count', 'get_marker_for_poi_position', 'player_marker_tracks_player']"
+                ]
+            },
+            {
+                "name": "test_final_state.py::test_harness_pass",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 18,
+                "start": 1780932568295,
+                "stop": 1780932568313,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "tags": [
+                    "parametrize::check_name::['load_minimap_scene', 'instantiate_minimap_scene', 'minimap_root_is_subviewport_container', 'minimap_has_subviewport_child', 'subviewport_size', 'subviewport_transparent_bg', 'minimap_camera_exists', 'minimap_camera_zoom', 'load_world_scene', 'instantiate_world_scene', 'world_root_name', 'player_exists', 'player_name', 'poi_group_count', 'poi_added_signal_defined', 'poi_added_emit_count', 'get_marker_for_poi_position', 'player_marker_tracks_player']"
+                ],
+                "trace": "check_name = 'poi_group_count'\nharness_output = ('Godot Engine v4.3.stable.official.77dcf97d8 - https://godotengine.org\\n\\nHARNESS_START\\nPASS load_minimap_scene\\nPAS...ROR: 1 resources still in use at exit (run with --verbose for details).\\n   at: clear (core/io/resource.cpp:604)\\n', 0)\n\n    @pytest.mark.parametrize(\"check_name\", REQUIRED_PASSES)\n    def test_harness_pass(check_name, harness_output):\n        combined, _rc = harness_output\n        fail_marker = f\"FAIL {check_name} ::\"\n        pass_marker = f\"PASS {check_name}\"\n>       assert fail_marker not in combined, (\n            f\"Check '{check_name}' failed. Harness output:\\n{combined}\"\n        )\nE       AssertionError: Check 'poi_group_count' failed. Harness output:\nE         Godot Engine v4.3.stable.official.77dcf97d8 - https://godotengine.org\nE         \nE         HARNESS_START\nE         PASS load_minimap_scene\nE         PASS instantiate_minimap_scene\nE         PASS minimap_root_is_subviewport_container\nE         PASS minimap_has_subviewport_child\nE         PASS subviewport_size\nE         PASS subviewport_transparent_bg\nE         PASS minimap_camera_exists\nE         PASS minimap_camera_zoom\nE         PASS load_world_scene\nE         PASS instantiate_world_scene\nE         PASS world_root_name\nE         PASS player_exists\nE         PASS player_name\nE         HARNESS_DONE\nE         FAIL poi_group_count :: Expected at least 3 nodes in group 'poi', got 0\nE         \nE         WARNING: 1 RID of type \"Canvas\" was leaked.\nE              at: _free_rids (servers/rendering/renderer_canvas_cull.cpp:2483)\nE         WARNING: 2 RIDs of type \"CanvasItem\" were leaked.\nE              at: _free_rids (servers/rendering/renderer_canvas_cull.cpp:2485)\nE         ERROR: 1 RID allocations of type 'N16RendererViewport8ViewportE' were leaked at exit.\nE         ERROR: 1 RID allocations of type 'PN13RendererDummy14TextureStorage12DummyTextureE' were leaked at exit.\nE         WARNING: ObjectDB instances leaked at exit (run with --verbose for details).\nE              at: cleanup (core/object/object.cpp:2284)\nE         ERROR: 1 resources still in use at exit (run with --verbose for details).\nE            at: clear (core/io/resource.cpp:604)\nE         \nE       assert 'FAIL poi_group_count ::' not in 'Godot Engin...e.cpp:604)\\n'\nE         'FAIL poi_group_count ::' is contained here:\nE           NESS_DONE\nE           FAIL poi_group_count :: Expected at least 3 nodes in group 'poi', got 0\nE         ? +++++++++++++++++++++++\nE           \nE           WARNING: 1 RID of type \"Canvas\" was leaked.\nE                at: _free_rids (servers/rendering/renderer_canvas_cull.cpp:2483)...\nE         \nE         ...Full output truncated (8 lines hidden), use '-vv' to show\n\ntests/test_final_state.py:317: AssertionError",
+                "message": "The test failed in the call phase due to an assertion error"
+            },
+            {
+                "name": "test_final_state.py::test_harness_pass",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 6,
+                "start": 1780932568313,
+                "stop": 1780932568319,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "tags": [
+                    "parametrize::check_name::['load_minimap_scene', 'instantiate_minimap_scene', 'minimap_root_is_subviewport_container', 'minimap_has_subviewport_child', 'subviewport_size', 'subviewport_transparent_bg', 'minimap_camera_exists', 'minimap_camera_zoom', 'load_world_scene', 'instantiate_world_scene', 'world_root_name', 'player_exists', 'player_name', 'poi_group_count', 'poi_added_signal_defined', 'poi_added_emit_count', 'get_marker_for_poi_position', 'player_marker_tracks_player']"
+                ],
+                "trace": "check_name = 'poi_added_signal_defined'\nharness_output = ('Godot Engine v4.3.stable.official.77dcf97d8 - https://godotengine.org\\n\\nHARNESS_START\\nPASS load_minimap_scene\\nPAS...ROR: 1 resources still in use at exit (run with --verbose for details).\\n   at: clear (core/io/resource.cpp:604)\\n', 0)\n\n    @pytest.mark.parametrize(\"check_name\", REQUIRED_PASSES)\n    def test_harness_pass(check_name, harness_output):\n        combined, _rc = harness_output\n        fail_marker = f\"FAIL {check_name} ::\"\n        pass_marker = f\"PASS {check_name}\"\n        assert fail_marker not in combined, (\n            f\"Check '{check_name}' failed. Harness output:\\n{combined}\"\n        )\n>       assert pass_marker in combined, (\n            f\"Check '{check_name}' did not pass. Harness output:\\n{combined}\"\n        )\nE       AssertionError: Check 'poi_added_signal_defined' did not pass. Harness output:\nE         Godot Engine v4.3.stable.official.77dcf97d8 - https://godotengine.org\nE         \nE         HARNESS_START\nE         PASS load_minimap_scene\nE         PASS instantiate_minimap_scene\nE         PASS minimap_root_is_subviewport_container\nE         PASS minimap_has_subviewport_child\nE         PASS subviewport_size\nE         PASS subviewport_transparent_bg\nE         PASS minimap_camera_exists\nE         PASS minimap_camera_zoom\nE         PASS load_world_scene\nE         PASS instantiate_world_scene\nE         PASS world_root_name\nE         PASS player_exists\nE         PASS player_name\nE         HARNESS_DONE\nE         FAIL poi_group_count :: Expected at least 3 nodes in group 'poi', got 0\nE         \nE         WARNING: 1 RID of type \"Canvas\" was leaked.\nE              at: _free_rids (servers/rendering/renderer_canvas_cull.cpp:2483)\nE         WARNING: 2 RIDs of type \"CanvasItem\" were leaked.\nE              at: _free_rids (servers/rendering/renderer_canvas_cull.cpp:2485)\nE         ERROR: 1 RID allocations of type 'N16RendererViewport8ViewportE' were leaked at exit.\nE         ERROR: 1 RID allocations of type 'PN13RendererDummy14TextureStorage12DummyTextureE' were leaked at exit.\nE         WARNING: ObjectDB instances leaked at exit (run with --verbose for details).\nE              at: cleanup (core/object/object.cpp:2284)\nE         ERROR: 1 resources still in use at exit (run with --verbose for details).\nE            at: clear (core/io/resource.cpp:604)\nE         \nE       assert 'PASS poi_added_signal_defined' in 'Godot Engine v4.3.stable.official.77dcf97d8 - https://godotengine.org\\n\\nHARNESS_START\\nPASS load_minimap_scene\\nPASS...\\nERROR: 1 resources still in use at exit (run with --verbose for details).\\n   at: clear (core/io/resource.cpp:604)\\n'\n\ntests/test_final_state.py:320: AssertionError",
+                "message": "The test failed in the call phase due to an assertion error"
+            },
+            {
+                "name": "test_final_state.py::test_harness_pass",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 5,
+                "start": 1780932568319,
+                "stop": 1780932568324,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "tags": [
+                    "parametrize::check_name::['load_minimap_scene', 'instantiate_minimap_scene', 'minimap_root_is_subviewport_container', 'minimap_has_subviewport_child', 'subviewport_size', 'subviewport_transparent_bg', 'minimap_camera_exists', 'minimap_camera_zoom', 'load_world_scene', 'instantiate_world_scene', 'world_root_name', 'player_exists', 'player_name', 'poi_group_count', 'poi_added_signal_defined', 'poi_added_emit_count', 'get_marker_for_poi_position', 'player_marker_tracks_player']"
+                ],
+                "trace": "check_name = 'poi_added_emit_count'\nharness_output = ('Godot Engine v4.3.stable.official.77dcf97d8 - https://godotengine.org\\n\\nHARNESS_START\\nPASS load_minimap_scene\\nPAS...ROR: 1 resources still in use at exit (run with --verbose for details).\\n   at: clear (core/io/resource.cpp:604)\\n', 0)\n\n    @pytest.mark.parametrize(\"check_name\", REQUIRED_PASSES)\n    def test_harness_pass(check_name, harness_output):\n        combined, _rc = harness_output\n        fail_marker = f\"FAIL {check_name} ::\"\n        pass_marker = f\"PASS {check_name}\"\n        assert fail_marker not in combined, (\n            f\"Check '{check_name}' failed. Harness output:\\n{combined}\"\n        )\n>       assert pass_marker in combined, (\n            f\"Check '{check_name}' did not pass. Harness output:\\n{combined}\"\n        )\nE       AssertionError: Check 'poi_added_emit_count' did not pass. Harness output:\nE         Godot Engine v4.3.stable.official.77dcf97d8 - https://godotengine.org\nE         \nE         HARNESS_START\nE         PASS load_minimap_scene\nE         PASS instantiate_minimap_scene\nE         PASS minimap_root_is_subviewport_container\nE         PASS minimap_has_subviewport_child\nE         PASS subviewport_size\nE         PASS subviewport_transparent_bg\nE         PASS minimap_camera_exists\nE         PASS minimap_camera_zoom\nE         PASS load_world_scene\nE         PASS instantiate_world_scene\nE         PASS world_root_name\nE         PASS player_exists\nE         PASS player_name\nE         HARNESS_DONE\nE         FAIL poi_group_count :: Expected at least 3 nodes in group 'poi', got 0\nE         \nE         WARNING: 1 RID of type \"Canvas\" was leaked.\nE              at: _free_rids (servers/rendering/renderer_canvas_cull.cpp:2483)\nE         WARNING: 2 RIDs of type \"CanvasItem\" were leaked.\nE              at: _free_rids (servers/rendering/renderer_canvas_cull.cpp:2485)\nE         ERROR: 1 RID allocations of type 'N16RendererViewport8ViewportE' were leaked at exit.\nE         ERROR: 1 RID allocations of type 'PN13RendererDummy14TextureStorage12DummyTextureE' were leaked at exit.\nE         WARNING: ObjectDB instances leaked at exit (run with --verbose for details).\nE              at: cleanup (core/object/object.cpp:2284)\nE         ERROR: 1 resources still in use at exit (run with --verbose for details).\nE            at: clear (core/io/resource.cpp:604)\nE         \nE       assert 'PASS poi_added_emit_count' in 'Godot Engine v4.3.stable.official.77dcf97d8 - https://godotengine.org\\n\\nHARNESS_START\\nPASS load_minimap_scene\\nPASS...\\nERROR: 1 resources still in use at exit (run with --verbose for details).\\n   at: clear (core/io/resource.cpp:604)\\n'\n\ntests/test_final_state.py:320: AssertionError",
+                "message": "The test failed in the call phase due to an assertion error"
+            },
+            {
+                "name": "test_final_state.py::test_harness_pass",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 4,
+                "start": 1780932568325,
+                "stop": 1780932568329,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "tags": [
+                    "parametrize::check_name::['load_minimap_scene', 'instantiate_minimap_scene', 'minimap_root_is_subviewport_container', 'minimap_has_subviewport_child', 'subviewport_size', 'subviewport_transparent_bg', 'minimap_camera_exists', 'minimap_camera_zoom', 'load_world_scene', 'instantiate_world_scene', 'world_root_name', 'player_exists', 'player_name', 'poi_group_count', 'poi_added_signal_defined', 'poi_added_emit_count', 'get_marker_for_poi_position', 'player_marker_tracks_player']"
+                ],
+                "trace": "check_name = 'get_marker_for_poi_position'\nharness_output = ('Godot Engine v4.3.stable.official.77dcf97d8 - https://godotengine.org\\n\\nHARNESS_START\\nPASS load_minimap_scene\\nPAS...ROR: 1 resources still in use at exit (run with --verbose for details).\\n   at: clear (core/io/resource.cpp:604)\\n', 0)\n\n    @pytest.mark.parametrize(\"check_name\", REQUIRED_PASSES)\n    def test_harness_pass(check_name, harness_output):\n        combined, _rc = harness_output\n        fail_marker = f\"FAIL {check_name} ::\"\n        pass_marker = f\"PASS {check_name}\"\n        assert fail_marker not in combined, (\n            f\"Check '{check_name}' failed. Harness output:\\n{combined}\"\n        )\n>       assert pass_marker in combined, (\n            f\"Check '{check_name}' did not pass. Harness output:\\n{combined}\"\n        )\nE       AssertionError: Check 'get_marker_for_poi_position' did not pass. Harness output:\nE         Godot Engine v4.3.stable.official.77dcf97d8 - https://godotengine.org\nE         \nE         HARNESS_START\nE         PASS load_minimap_scene\nE         PASS instantiate_minimap_scene\nE         PASS minimap_root_is_subviewport_container\nE         PASS minimap_has_subviewport_child\nE         PASS subviewport_size\nE         PASS subviewport_transparent_bg\nE         PASS minimap_camera_exists\nE         PASS minimap_camera_zoom\nE         PASS load_world_scene\nE         PASS instantiate_world_scene\nE         PASS world_root_name\nE         PASS player_exists\nE         PASS player_name\nE         HARNESS_DONE\nE         FAIL poi_group_count :: Expected at least 3 nodes in group 'poi', got 0\nE         \nE         WARNING: 1 RID of type \"Canvas\" was leaked.\nE              at: _free_rids (servers/rendering/renderer_canvas_cull.cpp:2483)\nE         WARNING: 2 RIDs of type \"CanvasItem\" were leaked.\nE              at: _free_rids (servers/rendering/renderer_canvas_cull.cpp:2485)\nE         ERROR: 1 RID allocations of type 'N16RendererViewport8ViewportE' were leaked at exit.\nE         ERROR: 1 RID allocations of type 'PN13RendererDummy14TextureStorage12DummyTextureE' were leaked at exit.\nE         WARNING: ObjectDB instances leaked at exit (run with --verbose for details).\nE              at: cleanup (core/object/object.cpp:2284)\nE         ERROR: 1 resources still in use at exit (run with --verbose for details).\nE            at: clear (core/io/resource.cpp:604)\nE         \nE       assert 'PASS get_marker_for_poi_position' in 'Godot Engine v4.3.stable.official.77dcf97d8 - https://godotengine.org\\n\\nHARNESS_START\\nPASS load_minimap_scene\\nPASS...\\nERROR: 1 resources still in use at exit (run with --verbose for details).\\n   at: clear (core/io/resource.cpp:604)\\n'\n\ntests/test_final_state.py:320: AssertionError",
+                "message": "The test failed in the call phase due to an assertion error"
+            },
+            {
+                "name": "test_final_state.py::test_harness_pass",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 5,
+                "start": 1780932568329,
+                "stop": 1780932568334,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "tags": [
+                    "parametrize::check_name::['load_minimap_scene', 'instantiate_minimap_scene', 'minimap_root_is_subviewport_container', 'minimap_has_subviewport_child', 'subviewport_size', 'subviewport_transparent_bg', 'minimap_camera_exists', 'minimap_camera_zoom', 'load_world_scene', 'instantiate_world_scene', 'world_root_name', 'player_exists', 'player_name', 'poi_group_count', 'poi_added_signal_defined', 'poi_added_emit_count', 'get_marker_for_poi_position', 'player_marker_tracks_player']"
+                ],
+                "trace": "check_name = 'player_marker_tracks_player'\nharness_output = ('Godot Engine v4.3.stable.official.77dcf97d8 - https://godotengine.org\\n\\nHARNESS_START\\nPASS load_minimap_scene\\nPAS...ROR: 1 resources still in use at exit (run with --verbose for details).\\n   at: clear (core/io/resource.cpp:604)\\n', 0)\n\n    @pytest.mark.parametrize(\"check_name\", REQUIRED_PASSES)\n    def test_harness_pass(check_name, harness_output):\n        combined, _rc = harness_output\n        fail_marker = f\"FAIL {check_name} ::\"\n        pass_marker = f\"PASS {check_name}\"\n        assert fail_marker not in combined, (\n            f\"Check '{check_name}' failed. Harness output:\\n{combined}\"\n        )\n>       assert pass_marker in combined, (\n            f\"Check '{check_name}' did not pass. Harness output:\\n{combined}\"\n        )\nE       AssertionError: Check 'player_marker_tracks_player' did not pass. Harness output:\nE         Godot Engine v4.3.stable.official.77dcf97d8 - https://godotengine.org\nE         \nE         HARNESS_START\nE         PASS load_minimap_scene\nE         PASS instantiate_minimap_scene\nE         PASS minimap_root_is_subviewport_container\nE         PASS minimap_has_subviewport_child\nE         PASS subviewport_size\nE         PASS subviewport_transparent_bg\nE         PASS minimap_camera_exists\nE         PASS minimap_camera_zoom\nE         PASS load_world_scene\nE         PASS instantiate_world_scene\nE         PASS world_root_name\nE         PASS player_exists\nE         PASS player_name\nE         HARNESS_DONE\nE         FAIL poi_group_count :: Expected at least 3 nodes in group 'poi', got 0\nE         \nE         WARNING: 1 RID of type \"Canvas\" was leaked.\nE              at: _free_rids (servers/rendering/renderer_canvas_cull.cpp:2483)\nE         WARNING: 2 RIDs of type \"CanvasItem\" were leaked.\nE              at: _free_rids (servers/rendering/renderer_canvas_cull.cpp:2485)\nE         ERROR: 1 RID allocations of type 'N16RendererViewport8ViewportE' were leaked at exit.\nE         ERROR: 1 RID allocations of type 'PN13RendererDummy14TextureStorage12DummyTextureE' were leaked at exit.\nE         WARNING: ObjectDB instances leaked at exit (run with --verbose for details).\nE              at: cleanup (core/object/object.cpp:2284)\nE         ERROR: 1 resources still in use at exit (run with --verbose for details).\nE            at: clear (core/io/resource.cpp:604)\nE         \nE       assert 'PASS player_marker_tracks_player' in 'Godot Engine v4.3.stable.official.77dcf97d8 - https://godotengine.org\\n\\nHARNESS_START\\nPASS load_minimap_scene\\nPASS...\\nERROR: 1 resources still in use at exit (run with --verbose for details).\\n   at: clear (core/io/resource.cpp:604)\\n'\n\ntests/test_final_state.py:320: AssertionError",
+                "message": "The test failed in the call phase due to an assertion error"
+            },
+            {
+                "name": "test_final_state.py::test_all_checks_passed_marker",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 5,
+                "start": 1780932568334,
+                "stop": 1780932568339,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "harness_output = ('Godot Engine v4.3.stable.official.77dcf97d8 - https://godotengine.org\\n\\nHARNESS_START\\nPASS load_minimap_scene\\nPAS...ROR: 1 resources still in use at exit (run with --verbose for details).\\n   at: clear (core/io/resource.cpp:604)\\n', 0)\n\n    def test_all_checks_passed_marker(harness_output):\n        combined, _rc = harness_output\n>       assert \"ALL_CHECKS_PASSED\" in combined, (\n            f\"Final summary marker missing. Output:\\n{combined}\"\n        )\nE       AssertionError: Final summary marker missing. Output:\nE         Godot Engine v4.3.stable.official.77dcf97d8 - https://godotengine.org\nE         \nE         HARNESS_START\nE         PASS load_minimap_scene\nE         PASS instantiate_minimap_scene\nE         PASS minimap_root_is_subviewport_container\nE         PASS minimap_has_subviewport_child\nE         PASS subviewport_size\nE         PASS subviewport_transparent_bg\nE         PASS minimap_camera_exists\nE         PASS minimap_camera_zoom\nE         PASS load_world_scene\nE         PASS instantiate_world_scene\nE         PASS world_root_name\nE         PASS player_exists\nE         PASS player_name\nE         HARNESS_DONE\nE         FAIL poi_group_count :: Expected at least 3 nodes in group 'poi', got 0\nE         \nE         WARNING: 1 RID of type \"Canvas\" was leaked.\nE              at: _free_rids (servers/rendering/renderer_canvas_cull.cpp:2483)\nE         WARNING: 2 RIDs of type \"CanvasItem\" were leaked.\nE              at: _free_rids (servers/rendering/renderer_canvas_cull.cpp:2485)\nE         ERROR: 1 RID allocations of type 'N16RendererViewport8ViewportE' were leaked at exit.\nE         ERROR: 1 RID allocations of type 'PN13RendererDummy14TextureStorage12DummyTextureE' were leaked at exit.\nE         WARNING: ObjectDB instances leaked at exit (run with --verbose for details).\nE              at: cleanup (core/object/object.cpp:2284)\nE         ERROR: 1 resources still in use at exit (run with --verbose for details).\nE            at: clear (core/io/resource.cpp:604)\nE         \nE       assert 'ALL_CHECKS_PASSED' in 'Godot Engine v4.3.stable.official.77dcf97d8 - https://godotengine.org\\n\\nHARNESS_START\\nPASS load_minimap_scene\\nPASS...\\nERROR: 1 resources still in use at exit (run with --verbose for details).\\n   at: clear (core/io/resource.cpp:604)\\n'\n\ntests/test_final_state.py:327: AssertionError",
+                "message": "The test failed in the call phase due to an assertion error"
+            }
+        ]
+    }
+}

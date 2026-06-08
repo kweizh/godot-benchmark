@@ -1,0 +1,44 @@
+[gd_scene load_steps=2 format=3 uid="uid://c7e8f9a0b1c2d"]
+
+[ext_resource type="Script" path="res://scripts/Hotbar.gd" id="1_abcde"]
+
+[node name="Hotbar" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_abcde")
+
+[node name="Label1" type="Label" parent="."]
+layout_mode = 0
+visible = false
+
+[node name="Label2" type="Label" parent="."]
+layout_mode = 0
+visible = false
+
+[node name="Label3" type="Label" parent="."]
+layout_mode = 0
+visible = false
+
+[node name="Label4" type="Label" parent="."]
+layout_mode = 0
+visible = false
+
+[node name="Label5" type="Label" parent="."]
+layout_mode = 0
+visible = false
+
+[node name="Label6" type="Label" parent="."]
+layout_mode = 0
+visible = false
+
+[node name="Label7" type="Label" parent="."]
+layout_mode = 0
+visible = false
+
+[node name="Label8" type="Label" parent="."]
+layout_mode = 0
+visible = false

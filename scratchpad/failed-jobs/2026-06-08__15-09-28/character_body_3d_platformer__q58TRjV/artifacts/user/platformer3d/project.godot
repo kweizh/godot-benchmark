@@ -1,0 +1,14 @@
+; Engine configuration file.
+; It's best edited using the editor UI and not directly,
+; but the file format allows editing it directly.
+; Format:
+;   [section] ; section goes between []
+;   param=value ; assign values to parameters
+
+config_version=5
+
+[application]
+
+config/name="Platformer3D"
+config/features=PackedStringArray("4.3", "Forward Plus")
+run/main_scene="res://scenes/Player.tscn"

@@ -1,0 +1,56 @@
+============================= test session starts ==============================
+platform linux -- Python 3.12.3, pytest-7.4.4, pluggy-1.4.0
+rootdir: /tests
+plugins: xprocess-1.0.2, json-ctrf-0.5.0
+collected 3 items
+
+tests/test_final_state.py ..F                                            [100%]
+
+=================================== FAILURES ===================================
+________________________ test_godot_headless_execution _________________________
+
+write_test_runner = None
+xprocess = <xprocess.xprocess.XProcess object at 0x7f86177018e0>
+
+    def test_godot_headless_execution(write_test_runner, xprocess):
+        # Ensure godot is in path
+        assert shutil.which("godot") is not None, "godot binary not found in PATH."
+    
+        class GodotStarter(ProcessStarter):
+            name = "godot_test_runner"
+            args = ["godot", "--headless", "--script", "test_runner.gd"]
+            env = os.environ.copy()  # set as class attribute!
+            popen_kwargs = {
+                "cwd": PROJECT_DIR,
+                "text": True,
+            }
+    
+            def startup_check(self):
+                # The process is complete when test_result.json is written
+                return os.path.exists(TEST_RESULT_PATH)
+    
+        # Run godot via xprocess
+        xprocess.ensure(GodotStarter.name, GodotStarter)
+    
+        # Read result
+        assert os.path.exists(TEST_RESULT_PATH), "Godot execution did not produce a test result file."
+        with open(TEST_RESULT_PATH, "r") as f:
+            result = json.load(f)
+    
+>       assert result.get("status") == "pass", "Godot internal tests failed."
+E       AssertionError: Godot internal tests failed.
+E       assert 'fail' == 'pass'
+E         - pass
+E         + fail
+
+tests/test_final_state.py:164: AssertionError
+----------------------------- Captured stdout call -----------------------------
+/tests/.pytest_cache/d/.xprocess/godot_test_runner$ godot --headless --script test_runner.gd
+process 'godot_test_runner' started pid=563
+godot_test_runner process startup detected
+==================================== PASSES ====================================
+=========================== short test summary info ============================
+PASSED tests/test_final_state.py::test_shader_file_exists
+PASSED tests/test_final_state.py::test_script_file_exists
+FAILED tests/test_final_state.py::test_godot_headless_execution - AssertionEr...
+========================= 1 failed, 2 passed in 2.27s ==========================

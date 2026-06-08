@@ -1,0 +1,70 @@
+- Initializing MCP connections...
+You
+# Animated Water Distortion GDShader (canvas_item) Author a Godot 4 `canvas_item` GDShader that animates a water-like UV distortion of the screen behind it, plus a `ColorRect` scene and a GDScript controller that exposes the shader uniforms. Godot 4 (>= 4.3) is available as the headless binary `godot`. ## Acceptance Criteria - Project path: `/home/user/water_shader` - File layout (relative to the project root): - `project.godot` - `shaders/water_distortion.gdshader` - `scenes/Water.tscn` (with an attached GDScript controller) - `shaders/water_distortion.gdshader`: - First non-comment, non-blank line is `shader_type canvas_item;`. - Declares the following uniforms: - `uniform float time_scale : hint_range(0.0, 4.0) = 1.0;` - `uniform float wave_amplitude : hint_range(0.0, 0.1) = 0.02;` - `uniform float wave_frequency : hint_range(0.1, 50.0) = 10.0;` - `uniform vec4 tint_color : source_color = vec4(0.4, 0.7, 1.0, 0.5);` - `uniform sampler2D screen_texture : hint_screen_texture, repeat_disable, filter_linear;` - Defines a `void fragment()` function that: - Samples `screen_texture` at `SCREEN_UV` offset by a `sin`/`cos` wave derived from `TIME * time_scale` and `UV * wave_frequency`, scaled by `wave_amplitude`. - Mixes the sampled color with `tint_color` using `tint_color.a` as the mix factor via `mix(...)`. - Compiles without errors when assigned to a `ShaderMaterial`. - `scenes/Water.tscn`: - Root node is a `ColorRect` named `Water`. - Has a `ShaderMaterial` whose `shader` references `res://shaders/water_distortion.gdshader`. - An attached GDScript exports four variables (`time_scale: float`, `wave_amplitude: float`, `wave_frequency: float`, `tint_color: Color`) and, in `_process(delta)`, propagates each value to the material via `set_shader_parameter`. - Runtime: - `godot --headless --path /home/user/water_shader --quit` exits with code 0 and produces no `SCRIPT ERROR`, `Parse Error`, `Cannot compile`, or `Failed to load` messages. - Setting any of the four exported variables on the `Water` node updates the corresponding shader parameter on its `ShaderMaterial` within the next processed frame.   
+
+Pochi
+I'll create the Godot 4 water distortion shader project. Let me start by planning the tasks and setting up the project structure.   
+📋 Updating todo list (4 items) ✔ 
+📋 Updating todo list (4 items) ✔ 
+💫 Executing mkdir -p /home/user/water_shader/shaders /home/user/water_shader/scenes ✔ 
+✏️  Writing /home/user/water_shader/project.godot ✖ "File has not been read yet. Please read the file before writing it."
+💫 Executing ls /home/user/water_shader/ ✔ 
+It seems the directory already had a `project.godot`. Let me read it and the other files to understand the current state.   
+📖 Reading /home/user/water_shader/project.godot ✔ 
+📂 Listing files in /home/user/water_shader recursively ✔ 
+Good, the project already has a basic `project.godot`. Let me now create the shader and scene files.   
+📋 Updating todo list (4 items) ✔ 
+✏️  Writing /home/user/water_shader/shaders/water_distortion.gdshader ✔ 
+📋 Updating todo list (4 items) ✔ 
+Now I need to create the scene file. In Godot 4, `.tscn` files use a specific text-based format. Let me create the `Water.tscn` with a `ColorRect` root, a `ShaderMaterial` referencing the shader, and an attached GDScript.   
+✏️  Writing /home/user/water_shader/scenes/Water.tscn ✔ 
+Now create the GDScript controller:   
+✏️  Writing /home/user/water_shader/scenes/Water.gd ✔ 
+📋 Updating todo list (4 items) ✔ 
+💫 Executing godot --headless --path /home/user/water_shader --quit 2>&1 ✖ "Command exited with code 1"
+The "no main scene" error is expected since we haven't set one — but the important thing is there are no `SCRIPT ERROR`, `Parse Error`, `Cannot compile`, or `Failed to load` messages. However, the exit code is 1 due to the missing main scene, which violates the requirement. Let me add a `main_scene` setting to `project.godot`:   
+📖 Reading /home/user/water_shader/project.godot ✔ 
+🔧 Applying diff to /home/user/water_shader/project.godot ✔ 
+💫 Executing godot --headless --path /home/user/water_shader --quit 2>&1 ✔ 
+Exit code 0, no errors. Let me verify the final state of all files:   
+📖 Reading /home/user/water_shader/project.godot ✔ 
+📖 Reading /home/user/water_shader/shaders/water_distortion.gdshader ✔ 
+📖 Reading /home/user/water_shader/scenes/Water.tscn ✔ 
+📖 Reading /home/user/water_shader/scenes/Water.gd ✔ 
+📋 Updating todo list (4 items) ✔ 
+🎉 Task Completed
+The Godot 4 water distortion shader project has been created and validated at `/home/user/water_shader`.
+
+## File layout
+
+```
+/home/user/water_shader/
+├── project.godot
+├── shaders/
+│   └── water_distortion.gdshader
+└── scenes/
+    ├── Water.tscn
+    └── Water.gd
+```
+
+## What was created
+
+**`project.godot`** — Godot 4.3 project config with `Water.tscn` as the main scene.
+
+**`shaders/water_distortion.gdshader`** — `canvas_item` shader with all required uniforms:
+- `time_scale` (0.0–4.0, default 1.0)
+- `wave_amplitude` (0.0–0.1, default 0.02)
+- `wave_frequency` (0.1–50.0, default 10.0)
+- `tint_color` (source_color, default `vec4(0.4, 0.7, 1.0, 0.5)`)
+- `screen_texture` (hint_screen_texture with repeat_disable and filter_linear)
+
+The `fragment()` function computes a `sin`/`cos`-based UV offset driven by `TIME * time_scale` and `UV * wave_frequency`, scaled by `wave_amplitude`. It samples `screen_texture` at `SCREEN_UV + uv_offset` and mixes with `tint_color` using `tint_color.a` as the mix factor.
+
+**`scenes/Water.tscn`** — Root `ColorRect` node named `Water`, full-screen anchors, with a `ShaderMaterial` referencing `res://shaders/water_distortion.gdshader` and the GDScript attached.
+
+**`scenes/Water.gd`** — `extends ColorRect` with four `@export` variables (`time_scale`, `wave_amplitude`, `wave_frequency`, `tint_color`). In `_process(delta)`, each value is propagated to the material via `set_shader_parameter`.
+
+## Validation
+
+`godot --headless --path /home/user/water_shader --quit` exits with code 0 and produces no `SCRIPT ERROR`, `Parse Error`, `Cannot compile`, or `Failed to load` messages.   
+  

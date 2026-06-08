@@ -1,0 +1,44 @@
+# Godot 4 2D Navigation and Avoidance Setup
+
+## Background
+In game development, pathfinding and obstacle avoidance are crucial for creating believable AI. Godot 4 introduces a completely redesigned NavigationServer, which handles pathfinding on navigation meshes and collision avoidance using RVO (Reciprocal Velocity Obstacles). For avoidance to work, agents must communicate their desired velocities to the NavigationServer and apply the computed safe velocities returned by the server.
+
+## Requirements
+Create a Godot 4 project that demonstrates 2D navigation and dynamic obstacle avoidance. The project must meet the following requirements:
+- **Project Location**: Create a Godot 4 project at `/home/user/godot-project` containing a valid `project.godot` file.
+- **Main Scene**: The main scene of the project must run automatically when the project is executed headlessly.
+- **Navigation Region**: Set up a `NavigationRegion2D` with a `NavigationPolygon` that defines a traversable area covering at least the rectangle from `(0, 0)` to `(500, 500)`.
+- **Agent**: Create a `CharacterBody2D` representing the agent, starting at `(50, 250)`.
+  - The agent must have a `NavigationAgent2D` child node.
+  - Enable avoidance on the `NavigationAgent2D` (`avoidance_enabled = true`).
+  - Set the agent's movement speed to `100.0` pixels per second.
+- **Obstacle**: Create a `NavigationObstacle2D` node representing a static/dynamic obstacle, positioned at `(250, 250)` with an avoidance radius of `40.0` pixels.
+- **Target**: Set the target position of the `NavigationAgent2D` to `(450, 250)`.
+- **Movement Logic**:
+  - The agent must calculate its desired velocity towards the next path point using `get_next_path_position()`.
+  - The agent must set this desired velocity on the `NavigationAgent2D`'s `velocity` property.
+  - The agent must connect to the `velocity_computed` signal of the `NavigationAgent2D`.
+  - In the signal callback, the agent must use the supplied `safe_velocity` to move itself using `move_and_slide()`.
+- **Logging and Termination**:
+  - The simulation must record the agent's global position at each physics frame.
+  - Once the agent is close to the target (e.g., within `10.0` pixels) or after a timeout of `6.0` seconds, the simulation must write a JSON file to `/home/user/godot-project/path_log.json` and exit the engine cleanly using `get_tree().quit()`.
+  - The JSON file must contain the following keys:
+    - `velocity_computed_triggered`: A boolean indicating whether the `velocity_computed` signal callback was successfully triggered at least once.
+    - `path`: An array of `[x, y]` coordinates representing the agent's path during the simulation.
+
+## Implementation Hints
+- You can construct the scene tree and nodes dynamically in a main script attached to the root node, or create a `.tscn` file. Programmatic construction in GDScript is often easier and less error-prone in headless environments.
+- Remember to bake the `NavigationPolygon` or configure it so that the NavigationServer knows the area is traversable. If creating it programmatically, you can add an outline and bake it using `NavigationServer2D` or `NavigationPolygon.add_outline()` / `NavigationPolygon.make_polygons_from_outlines()`.
+- When avoidance is enabled, do **NOT** move the agent directly in `_physics_process`. Instead, set `navigation_agent.velocity = desired_velocity` and wait for the `velocity_computed` signal callback to apply the safe velocity and call `move_and_slide()`.
+
+## Acceptance Criteria
+- Project path: `/home/user/godot-project`
+- Start command: `godot --headless --path /home/user/godot-project`
+- Output artifact: `/home/user/godot-project/path_log.json`
+- The output JSON file must contain:
+  - `velocity_computed_triggered` set to `true`.
+  - `path` as an array of `[x, y]` coordinate pairs.
+- The logged path must demonstrate:
+  - The agent starts near `(50, 250)` and finishes near `(450, 250)`.
+  - The agent successfully avoids the obstacle at `(250, 250)`. Specifically, the agent's distance to `(250, 250)` must never be less than `35.0` pixels (radius constraint), and the path must deviate from the straight line `y = 250` (e.g., `y` must be significantly different from `250` when `x` is around `250`).
+

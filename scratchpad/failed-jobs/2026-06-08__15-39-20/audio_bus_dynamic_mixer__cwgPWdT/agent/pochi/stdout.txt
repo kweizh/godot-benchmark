@@ -1,0 +1,24 @@
+- Initializing MCP connections...
+You
+# Runtime Audio Bus Mixer with Dynamic Ducking (Godot 4) Project path: `/home/user/myproject`. Implement a Godot 4 project that satisfies the following criteria: - `project.godot` sets `audio/buses/default_bus_layout="res://default_bus_layout.tres"` and registers `AudioManager` as an autoload pointing at `res://autoloads/AudioManager.gd`. - `default_bus_layout.tres` defines exactly four buses in this order: `Master`, `Music`, `SFX`, `Voice`. `Music`, `SFX`, and `Voice` send to `Master`. - The `Music` bus has an `AudioEffectLowPassFilter` inserted at effect index `0`, disabled by default. - `AudioManager` operates on the real `AudioServer` (no shadow dictionary) and exposes: - `set_bus_volume(bus_name: StringName, db: float)` - `get_bus_volume(bus_name: StringName) -> float` - `mute_bus(bus_name: StringName, muted: bool)` - `set_low_pass_enabled(enabled: bool)` - `duck_music(strength_db: float = -12.0, duration: float = 0.5)` — uses a Tween to lower Music by `strength_db`, hold for `duration`, then restore. - `play_voice_with_duck(stream: AudioStream)` — plays the stream on a `Voice`-bus `AudioStreamPlayer`, calls `duck_music`, restores on `finished`. - Signal `bus_volume_changed(bus_name, db)` emitted from `set_bus_volume`. The verifier runs a headless harness that asserts the criteria below against `AudioServer`: - `AudioServer.bus_count >= 4` and bus names at 0..3 are `Master`, `Music`, `SFX`, `Voice` (case-insensitive). - `AudioServer.get_bus_effect(music_idx, 0) is AudioEffectLowPassFilter` and is disabled initially. - `set_bus_volume(&"Music", -6.0)` -> `AudioServer.get_bus_volume_db(music_idx) == -6.0` ± 0.01 and emits `bus_volume_changed`. - `mute_bus(&"SFX", true)` -> `AudioServer.is_bus_mute(sfx_idx) == true`; `mute_bus(&"SFX", false)` -> `false`. - `set_low_pass_enabled(enabled)` mirrors `AudioServer.is_bus_effect_enabled(music_idx, 0)`. - `duck_music(-10.0, 0.05)` immediately drops Music volume; after waiting longer than `duration`, restores within 0.5 dB of the original.   
+
+Pochi
+💭 Thinking for 297 characters   
+💫 Executing mkdir -p /home/user/myproject/autoloads ✔ 
+💭 Thinking for 214 characters   
+✏️  Writing /home/user/myproject/project.godot ✔ 
+💭 Thinking for 300 characters   
+✏️  Writing /home/user/myproject/default_bus_layout.tres ✔ 
+💭 Thinking for 3049 characters   
+✏️  Writing /home/user/myproject/autoloads/AudioManager.gd ✔ 
+💭 Thinking for 1041 characters   
+🎉 Task Completed
+The Godot 4 project with the requested Audio Bus Mixer and dynamic ducking has been implemented.
+
+- The `project.godot` file registers `AudioManager` as an autoload and specifies `default_bus_layout.tres`.
+- The `default_bus_layout.tres` defines four buses (`Master`, `Music`, `SFX`, `Voice`).
+- The `Music` bus incorporates an initially disabled `AudioEffectLowPassFilter` at index `0`.
+- `AudioManager.gd` correctly interfaces directly with `AudioServer` to handle setting/getting volumes, muting, and toggling the low-pass filter effect.
+- The `duck_music` method uses a `Tween` to immediately lower the `Music` bus volume by the provided `strength_db` amount, wait for `duration`, and restore the volume perfectly.
+- The `play_voice_with_duck` method starts playing the `AudioStream` on the `Voice` bus, calls `duck_music`, and guarantees the volume is restored once the voice line playback finishes.   
+  

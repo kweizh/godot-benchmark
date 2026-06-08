@@ -1,0 +1,31 @@
+# Godot 4 UI With Focus Navigation
+
+## Background
+Build a nested Godot 4 UI menu that works with both mouse and keyboard/gamepad focus navigation. The project must run under headless Godot for automated verification.
+
+## Requirements
+- Implement a `MainMenu` and a `SettingsMenu` scene, and a `RootUI` scene that owns and toggles them via `visible` (no scene swap).
+- Wire up an `ui_back` input action mapped to both `escape` and a joypad button so the settings menu can be dismissed.
+- Provide a `GameSettings` autoload that stores volume, resolution index, and fullscreen state, and exposes a `settings_changed` signal.
+- Wire focus neighbors so the main menu buttons cycle vertically and the settings controls form a working focus chain.
+
+## Implementation Hints
+- Use Godot 4 `Control` nodes; configure `focus_neighbor_top` / `focus_neighbor_bottom` and `focus_neighbor_left` / `focus_neighbor_right` to chain controls explicitly.
+- Edit `project.godot` so the input map and autoload entries exist before running headless.
+- Use signals such as `value_changed`, `item_selected`, and `toggled` to push values into the `GameSettings` autoload, and emit `settings_changed` from the autoload.
+- Use `Input.action_press("ui_back")` style APIs from a verifier script; the SettingsMenu should listen for that action and hide itself while re-showing the MainMenu.
+
+## Acceptance Criteria
+- Project path: /home/user/myproject
+- Command: godot --headless --path /home/user/myproject --script res://verify.gd
+- The Godot project at the project path must satisfy all of the following:
+  - `project.godot` defines an `input/ui_back` action whose `events` list contains an `InputEventKey` for the Escape key AND an `InputEventJoypadButton` (button index 1).
+  - `project.godot` registers `GameSettings` as an autoload pointing at the script `res://autoloads/GameSettings.gd`.
+  - Scene `res://scenes/MainMenu.tscn` exists and contains a `VBoxContainer` with three `Button` children whose text is `Play`, `Settings`, and `Quit` (in order). The buttons' `focus_neighbor_top` and `focus_neighbor_bottom` form a vertical wrap-around cycle Play -> Settings -> Quit -> Play.
+  - Scene `res://scenes/SettingsMenu.tscn` exists and contains, anywhere in its tree, an `HSlider`, an `OptionButton` with exactly 3 items, a `CheckBox`, and a `Button` whose text is `Back`.
+  - Scene `res://scenes/RootUI.tscn` exists, instances both menus, and shows `MainMenu` while hiding `SettingsMenu` on `_ready`.
+  - When the verifier runs `RootUI`, makes `SettingsMenu` visible, then calls `Input.action_press("ui_back")` and pumps a frame, the `SettingsMenu` becomes invisible and `MainMenu` becomes visible.
+  - Setting the `HSlider.value` to `0.42` causes `GameSettings.volume` to equal `0.42` and emits the `settings_changed` signal on the `GameSettings` autoload at least once.
+  - The autoload `GameSettings` is read in the SettingsMenu `_ready` so existing values are reflected in the controls.
+- The script `res://verify.gd` is provided by the verifier (do not commit your own copy under that exact path); your project must work with it.
+

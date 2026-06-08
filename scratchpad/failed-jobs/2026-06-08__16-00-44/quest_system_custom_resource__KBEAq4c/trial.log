@@ -1,0 +1,90 @@
+Skipping image OS validation for hb__quest_system_custom_resource: docker inspect returned 1
+Running command: apt-get update && apt-get install -y curl ripgrep
+Command outputs captured
+Running command: set -euo pipefail; curl -fsSL https://getpochi.com/install.sh | bash -x -s -- pochi-v0.6.12 && mkdir -p /logs/agent/pochi && ~/.pochi/bin/pochi --version
+Command outputs captured
+Running command: ln -sf ~/.pochi/bin/pochi /usr/local/bin/pochi
+Command outputs captured
+Running command: echo zr-kbeaq4c > /logs/artifacts/run-id && echo quest_system_custom_resource__KBEAq4c > /logs/artifacts/trial_id
+Command outputs captured
+Running command: mkdir -p ~/.pochi && cat << 'EOF' | sed -e "s/OPENAI_API_KEY/${OPENAI_API_KEY}/g" -e "s/DEEPINFRA_API_KEY/${DEEPINFRA_API_KEY}/g" > ~/.pochi/config.jsonc
+{
+  "providers": {
+    "deepinfra": {
+      "kind": "openai",
+      "baseURL": "https://api.deepinfra.com/v1/openai",
+      "apiKey": "DEEPINFRA_API_KEY",
+      "models": {
+        "zai-org/GLM-4.7-Flash": {
+          "name": "glm-4.7-flash"
+        },
+        "moonshotai/Kimi-K2.6": {
+          "name": "kimi-K2.6"
+        },
+        "deepseek-ai/DeepSeek-V4-Pro": {
+          "name": "DeepSeek-V4-Pro"
+        }
+      }
+    },
+    "openai": {
+      "kind": "openai",
+      "baseURL": "https://api.openai.com/v1",
+      "apiKey": "OPENAI_API_KEY",
+      "models": {
+        "gpt-5.4": {
+          "name": "gpt-5.4"
+        }
+      }
+    }
+  }
+}
+EOF
+Command outputs captured
+Running command: if [ -f /bootstrap/test_initial_state.py ]; then pytest -s --log-cli-level=DEBUG /bootstrap/test_initial_state.py > >(tee /logs/agent/pochi/initial-test-stdout.txt) 2> >(tee /logs/agent/pochi/initial-test-stderr.txt >&2); fi
+Command outputs captured
+Running command: pochi --model zai/glm-5.1 --max-steps 200 --max-retries 10 --blobs-dir /logs/agent/pochi/blobs --experimental-stream-trajectory /logs/agent/pochi/trajectory.jsonl > >(tee /logs/agent/pochi/stdout.txt) 2> >(tee /logs/agent/pochi/stderr.txt >&2) <<'EOF'
+# Quest Tracking System (Godot 4)
+
+Build a data-driven quest tracking system in the Godot 4 project at
+`/home/user/quest_project`. The headless `godot` binary (Godot 4) is
+already on `PATH`.
+
+## Criteria
+
+- Custom `Resource` `scripts/QuestObjective.gd` (`class_name
+  QuestObjective`) with `@export`s `description: String`, `target_count:
+  int`, `current_count: int` (default `0`) and method `is_complete() ->
+  bool`.
+- Custom `Resource` `scripts/Quest.gd` (`class_name Quest`) with
+  `@export`s `id: StringName`, `title: String`, `description: String`,
+  `objectives: Array[QuestObjective]`,
+  `prerequisite_quest_ids: Array[StringName]`, `reward_gold: int`,
+  `reward_items: Array[StringName]`, and methods `is_complete() -> bool`
+  and `get_progress() -> float` (range `0.0`..`1.0`).
+- Three `.tres` quests under `resources/quests/`: `quest_a.tres`,
+  `quest_b.tres` (prerequisite: `quest_a`), `quest_c.tres` (prerequisite:
+  `quest_b`). Each quest must contain at least one objective.
+- Autoload `QuestManager` registered in `project.godot` as
+  `res://autoloads/QuestManager.gd`, exposing:
+  - `register_quest(quest: Quest)`
+  - `can_start(quest_id: StringName) -> bool` (true iff every
+    prerequisite is in `completed_ids`)
+  - `start_quest(quest_id: StringName) -> bool` (fails if `can_start` is
+    false; otherwise emits `quest_started(id)`)
+  - `report_progress(objective_key: StringName, amount: int = 1)` — for
+    every active quest, increments `current_count` on each objective
+    whose `description` (as `StringName`) matches `objective_key`, capped
+    at `target_count`; emits `quest_progress(id, progress)`.
+  - `complete_quest(quest_id: StringName) -> bool` — succeeds only when
+    `quest.is_complete()`; on success emits `quest_completed(id,
+    reward_gold, reward_items)` and records the quest in `completed_ids`.
+  - Signals: `quest_started(id)`, `quest_progress(id, progress)`,
+    `quest_completed(id, reward_gold, reward_items)`.
+
+Verification injects a harness scene into the project and runs `godot
+--headless --path /home/user/quest_project res://__verify__/run.tscn`.
+
+EOF
+Command outputs captured
+Running command: rm -f ~/.pochi/config.jsonc
+Command outputs captured
