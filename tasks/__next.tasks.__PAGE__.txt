@@ -1,5 +1,297 @@
 1:"$Sreact.fragment"
-2:I[75049,["/godot-benchmark/_next/static/chunks/d2c13bb33c4fcd54.js","/godot-benchmark/_next/static/chunks/c21188132e0e0d48.js"],"OutletBoundary"]
-3:"$Sreact.suspense"
-0:{"buildId":"Jp_i3cBBaXo5ui7YGHliY","rsc":["$","$1","c",{"children":[["$","div",null,{"className":"min-h-screen bg-background text-foreground font-sans selection:bg-primary/20","children":[["$","div",null,{"className":"fixed inset-0 -z-10 h-full w-full bg-background bg-[radial-gradient(#2a2a2a_1px,transparent_1px)] [background-size:16px_16px] [mask-image:radial-gradient(ellipse_50%_50%_at_50%_50%,#000_70%,transparent_100%)] opacity-20 dark:opacity-40"}],["$","div",null,{"className":"container mx-auto px-4 sm:px-8 lg:px-12 py-8 max-w-screen-2xl h-[100dvh] flex flex-col overflow-hidden","children":[["$","div",null,{"className":"mb-6 space-y-4 shrink-0","children":[["$","div",null,{"className":"flex items-center gap-4","children":["$","a",null,{"href":"/","className":"text-sm text-muted-foreground hover:text-foreground transition-colors","children":"← Back to Leaderboard"}]}],["$","div",null,{"children":["$","h1",null,{"className":"text-4xl font-bold tracking-tight bg-clip-text text-transparent bg-gradient-to-b from-foreground to-foreground/50","children":"Task"}]}]]}],["$","div",null,{"className":"relative overflow-hidden rounded-2xl border border-primary/30 bg-gradient-to-br from-primary/10 via-card/90 to-background/90 px-5 pb-10 pt-6 text-center shadow-[0_0_0_1px_hsl(var(--primary)/0.18),0_28px_72px_-32px_hsl(var(--foreground)/0.45)] backdrop-blur-sm sm:px-8 sm:pb-14 sm:pt-8","children":[["$","div",null,{"className":"pointer-events-none absolute -right-16 -top-16 h-36 w-36 rounded-full bg-primary/20 blur-3xl sm:-right-14 sm:-top-14 sm:h-40 sm:w-40"}],["$","div",null,{"className":"pointer-events-none absolute -left-20 bottom-0 h-32 w-32 rounded-full bg-foreground/10 blur-3xl sm:h-36 sm:w-36"}],["$","div",null,{"className":"relative mx-auto mb-8 inline-flex items-center rounded-full border border-primary/40 bg-primary/15 px-3 py-1 text-xs font-semibold tracking-[0.12em] text-foreground sm:text-sm sm:tracking-[0.16em]","children":"⏳ PIPELINE PENDING REVIEW"}],["$","p",null,{"className":"relative mx-auto max-w-2xl px-4 text-center text-lg font-semibold tracking-wide text-foreground sm:px-5 sm:text-xl","children":[0," sample cases generated — pending review"]}],["$","p",null,{"className":"relative mx-auto mt-2 max-w-2xl px-4 text-left text-sm leading-relaxed text-muted-foreground sm:px-5","children":"Your sample cases are ready. Before moving forward, we do a quick review together to make sure everything looks right and aligns with real-world usage."}],["$","div",null,{"className":"relative mx-auto mt-8 max-w-2xl rounded-xl bg-primary/10 px-4 py-4 text-left sm:px-5","children":[["$","p",null,{"className":"text-base font-semibold text-foreground sm:text-lg text-center","children":"Next step: join Slack for review"}],["$","p",null,{"className":"mt-1 text-sm leading-relaxed text-muted-foreground","children":"We've sent you a Slack invitation to your registered email with Zealt. Please join and we'll walk through the next step together."}],["$","p",null,{"className":"mt-3 text-xs text-muted-foreground","children":["If you don't see it, just reach out at"," ",["$","a",null,{"href":"mailto:zealtdev@tabbyml.com","className":"font-normal text-foreground underline decoration-primary/60 underline-offset-4 hover:text-primary transition-colors","children":"zealtdev@tabbyml.com"}],"."]}]]}]]}]]}]]}],[["$","script","script-0",{"src":"/godot-benchmark/_next/static/chunks/6fd986b87f5f1300.js","async":true}],["$","script","script-1",{"src":"/godot-benchmark/_next/static/chunks/f9f579c42c486944.js","async":true}]],["$","$L2",null,{"children":["$","$3",null,{"name":"Next.MetadataOutlet","children":"$@4"}]}]]}],"loading":null,"isPartial":false}
-4:null
+2:"$Sreact.suspense"
+3:I[42654,["/godot-benchmark/_next/static/chunks/babff0e7418ab052.js","/godot-benchmark/_next/static/chunks/3ecbb78a8ff87549.js","/godot-benchmark/_next/static/chunks/6fd986b87f5f1300.js","/godot-benchmark/_next/static/chunks/f9f579c42c486944.js"],"TasksPageClient"]
+10:I[75049,["/godot-benchmark/_next/static/chunks/d2c13bb33c4fcd54.js","/godot-benchmark/_next/static/chunks/c21188132e0e0d48.js"],"OutletBoundary"]
+4:T5a7,# animation_tree_blend_locomotion
+
+Build a Godot 4 locomotion AnimationTree in `/home/user/godot_project`.
+
+## Criteria
+- `res://scenes/Player.tscn` (instantiable, root contains children named `AnimationPlayer`, `AnimationTree`, `PlayerAnimController`).
+- `res://scripts/PlayerAnimController.gd` exists and is attached to the `PlayerAnimController` node.
+- `AnimationPlayer` exposes animations: `idle`, `walk_north`, `walk_south`, `walk_east`, `walk_west`, `attack` (each with >=1 track).
+- `AnimationTree.tree_root` is an `AnimationNodeStateMachine` with state nodes:
+  - `Locomotion`: `AnimationNodeBlendSpace2D` with `get_blend_point_count() >= 5` (idle at `(0,0)` plus 4 cardinal walks).
+  - `Attack`: `AnimationNodeAnimation` whose `animation == &"attack"`.
+- Transitions: `Locomotion -> Attack` advances on the state-machine condition `condition_attack`; `Attack -> Locomotion` uses switch mode `AtEnd`.
+- `AnimationTree.anim_player` points to the `AnimationPlayer`. `AnimationTree.active` becomes `true` after the harness sets it.
+- `PlayerAnimController` API:
+  - `set_move_input(input_vec: Vector2)` -> sets `parameters/Locomotion/blend_position` to `input_vec` (`Vector2(1,0)` must read back within `0.01`).
+  - `trigger_attack()` -> within 2 process frames `current_state()` returns `&"Attack"`.
+  - `current_state() -> StringName` returns the state-machine playback's `get_current_node()`.
+- Project must run under `godot --headless`.
+5:T1121,# Coin Collector with Persistent Inventory and HUD
+
+## Background
+You are building a small Godot 4 game module that demonstrates several core Godot concepts working together: scene composition, signals, autoload singletons, input handling, physics, and persistence. The game is a 2D "Coin Collector" where the player moves around with arrow keys and picks up coins. A HUD reports the current coin count, and an autoload singleton keeps the inventory and saves the count to disk so it survives restarts.
+
+Godot 4 (>= 4.3) is installed in the environment as the headless binary `godot`.
+
+## Requirements
+- Build a 2D Godot 4 game with a `Player`, multiple `Coin`s, a `HUD` overlay, and a `Main` scene wiring them together.
+- The player must move with the arrow keys, controlled via `CharacterBody2D` and `move_and_slide()`.
+- Each coin must be an `Area2D` that, when its body is entered by the player, increments the inventory and removes itself.
+- The HUD must show the current coin count, and update in response to inventory signals (not by polling).
+- A global autoload singleton `Inventory` must hold the count and expose a small API.
+- The inventory must be persisted to disk (under `user://`) on application quit and restored on startup, so the count survives restarts.
+
+## Implementation Hints
+- Use Godot 4 scenes (`.tscn`) and GDScript (`.gd`). Stick to GDScript; do not use C# or GDExtension.
+- Register the `Inventory` autoload in `project.godot` under the `[autoload]` section using `Inventory="*res://autoloads/Inventory.gd"`.
+- Use `Input.get_axis("ui_left", "ui_right")` / `Input.get_axis("ui_up", "ui_down")` for movement, and `move_and_slide()` in `_physics_process`.
+- Use custom signals such as `signal coin_changed(new_count: int)` on the singleton and `signal collected` on the coin.
+- Use `FileAccess` with `JSON.stringify` / `JSON.parse_string` to persist to `user://save.json`.
+- Hook coin removal via the `body_entered` signal of the `Area2D`, calling the autoload API and then `queue_free()`.
+- Godot will run headless during verification. Make sure the project loads without errors using `godot --headless --path <project> --quit`.
+
+## Acceptance Criteria
+- Project path: /home/user/coin_collector
+- The project must be a valid Godot 4 project (contains a `project.godot` at the project root).
+- File layout (relative to project root):
+  - `project.godot`
+  - `autoloads/Inventory.gd`
+  - `scenes/Player.tscn` (plus an attached script)
+  - `scenes/Coin.tscn` (plus an attached script)
+  - `scenes/HUD.tscn` (plus an attached script)
+  - `scenes/Main.tscn`
+- Autoload: `project.godot` must register the autoload as `Inventory="*res://autoloads/Inventory.gd"` in the `[autoload]` section.
+- `Inventory` singleton API (GDScript):
+  - Method `add_coin()` increments the stored count by 1 and emits `coin_changed` with the new count.
+  - Method `get_count() -> int` returns the current count.
+  - Method `save()` writes the current count to `user://save.json` as JSON (an object containing the count field, e.g. `{ "count": <int> }`).
+  - Method `load()` reads `user://save.json` (if present), restores the count, and emits `coin_changed` with the restored count.
+  - Signal `coin_changed(new_count: int)`.
+  - Persistence: on startup, the autoload restores the count from `user://save.json`; on quit (`NOTIFICATION_WM_CLOSE_REQUEST` or equivalent quit handling), it saves the current count.
+- `Player.tscn`:
+  - Root node is a `CharacterBody2D` named `Player` with an attached GDScript.
+  - The script defines `_physics_process` and calls `move_and_slide()`.
+  - Movement responds to the standard `ui_left`/`ui_right`/`ui_up`/`ui_down` actions via `Input.get_axis`.
+- `Coin.tscn`:
+  - Root node is an `Area2D` named `Coin` with an attached GDScript.
+  - The script declares a custom `signal collected`.
+  - When a body enters the coin (`body_entered`), the handler calls `Inventory.add_coin()` and then `queue_free()`s the coin.
+- `HUD.tscn`:
+  - Root node is a `CanvasLayer` named `HUD`.
+  - Contains a `Label` whose text is updated to reflect the current coin count whenever `Inventory.coin_changed` is emitted (not by polling in `_process`).
+- `Main.tscn`:
+  - Instantiates the `Player`, the `HUD`, and at least one `Coin`.
+- The project must load cleanly under `godot --headless --path /home/user/coin_collector --quit` (exit code 0, no script parse errors).
+
+6:Tad5,# Dialog Branching System
+
+Build a branching dialog system in Godot 4 driven by custom Resources.
+
+Godot 4 (>= 4.3) is installed in the environment as the headless binary `godot`.
+
+## Acceptance Criteria
+
+- Project path: `/home/user/dialog_branching_system`
+- The project must be a valid Godot 4 project (`project.godot` at the root) and must load cleanly under `godot --headless --path <project> --quit` (exit code 0, no script parse errors).
+
+### Custom Resources
+
+- `scripts/DialogNode.gd` — `extends Resource`, `class_name DialogNode`. `@export` properties:
+  - `id: StringName`
+  - `speaker: String`
+  - `text: String`
+  - `choices: Array[DialogChoice]`
+  - `next_id: StringName` (used when `choices` is empty)
+- `scripts/DialogChoice.gd` — `extends Resource`, `class_name DialogChoice`. `@export` properties:
+  - `label: String`
+  - `next_id: StringName`
+  - `condition_flag: StringName` (empty means the choice is always shown)
+- `scripts/DialogTree.gd` — `extends Resource`, `class_name DialogTree`. `@export` properties: `nodes: Array[DialogNode]`, `start_id: StringName`. Provides a method `get_node(id: StringName) -> DialogNode` that returns the node whose `id` matches.
+
+### Sample Data
+
+- `resources/dialogs/intro.tres` is a `DialogTree` resource that loads as a `DialogTree` instance and has **5 or more** `DialogNode` entries forming a branching tree. At least one node has 2+ choices, and at least one choice uses a non-empty `condition_flag`.
+
+### DialogPlayer Node
+
+- `scripts/DialogPlayer.gd` — `class_name DialogPlayer`, extends `Node`. `@export var tree: DialogTree`.
+- Methods:
+  - `start()`: begins playback at `tree.start_id`.
+  - `advance(choice_index: int = -1)`: follows the chosen branch when the current node has choices, or follows `next_id` when there are no choices. If the current node has empty `choices` and empty `next_id`, emit `dialog_finished` and stop.
+  - `set_flag(name: StringName)` / `has_flag(name: StringName) -> bool`: maintain an internal `Dictionary` of set flags.
+- Signals:
+  - `line_shown(speaker: String, text: String, choices_labels: Array)` — emitted each time a new node is presented. `choices_labels` lists the labels of currently visible choices (a choice with a non-empty `condition_flag` is only visible when that flag has been set via `set_flag`).
+  - `dialog_finished` — emitted when playback ends.
+
+### DialogUI Scene
+
+- `scenes/DialogUI.tscn` is a `Control` root containing a `RichTextLabel` for body text, a `Label` for the speaker, and a `VBoxContainer` for choice buttons.
+- The attached script connects to a `DialogPlayer` and updates the speaker `Label.text`, the `RichTextLabel.text`, and rebuilds the `VBoxContainer`'s `Button` children from `choices_labels` whenever `line_shown` fires.
+
+7:Td77,# Custom Resource-Driven Enemy Spawner (Godot 4)
+
+## Background
+In the existing Godot 4 project at `/home/user/myproject`, design a small, data-driven enemy spawning system. Different enemy archetypes (goblin, orc, dragon) are defined entirely as `.tres` resource files that share one custom `Resource` script. A spawner node reads an exported array of these resources and instances the corresponding enemies at runtime.
+
+## Requirements
+- A custom `Resource` describing per-enemy stats (name, max health, speed, damage, color).
+- Three concrete `.tres` files with distinct stats for `goblin`, `orc`, and `dragon`.
+- An `Enemy` scene whose script applies the stats at runtime (color, current health) and supports taking damage / freeing itself when dead.
+- A `Spawner` scene whose script accepts an array of stats resources and instances one enemy per resource, parented under itself, at different positions.
+- A bulk damage helper on the spawner that damages every spawned enemy by the same amount.
+
+## Implementation Hints
+- Use `extends Resource` with `class_name` and `@export` properties for the stats container. Save the resources as `.tres` text files so they can be inspected and loaded with `load()`.
+- The `Enemy` script should take the stats resource as an `@export` and configure itself in `_ready`. Use a `ColorRect` child for visualization.
+- The `Spawner` script should use `@export var enemy_types: Array[EnemyStats]` so the array of typed resources can be assigned in the editor or programmatically via `set()`.
+- Use `queue_free()` to remove dead enemies; remember that nodes are not actually removed from the tree until the next idle frame, so any verification should `await get_tree().process_frame` before counting children.
+
+## Acceptance Criteria
+- Project path: /home/user/myproject
+- Command: `godot --headless --path /home/user/myproject --quit-after 60`
+- Required files (paths are relative to the project root):
+  - `scripts/EnemyStats.gd` — extends `Resource` with `class_name EnemyStats` and five `@export` properties: `name: String`, `max_health: int`, `speed: float`, `damage: int`, `color: Color`.
+  - `resources/enemies/goblin.tres`, `resources/enemies/orc.tres`, `resources/enemies/dragon.tres` — `.tres` files whose loaded value is an `EnemyStats` and whose `name`, `max_health`, `speed`, `damage`, `color` values are pairwise distinct.
+  - `scenes/Enemy.tscn` with a `CharacterBody2D` root and a `ColorRect` child; attached script `scripts/Enemy.gd` exporting `stats: EnemyStats`, exposing a `current_health: int` field, applying `stats.color` to the `ColorRect` in `_ready`, and providing `take_damage(amount: int)` that reduces `current_health` and calls `queue_free()` when `current_health <= 0`.
+  - `scenes/Spawner.tscn` with a `Node`/`Node2D` root and attached script `scripts/Spawner.gd` exporting `enemy_types: Array[EnemyStats]`; on `_ready` it instances one `Enemy` per entry of `enemy_types`, parents them under itself at distinct positions, and exposes `take_damage_all(amount: int)` which calls `take_damage(amount)` on every spawned enemy.
+- The verifier will set the spawner's `enemy_types` to `[goblin, orc, dragon]`, add it to the tree, count the spawned enemy children, call `take_damage_all(9999)`, await a process frame, and confirm all enemies were freed.
+- The verifier will also confirm that the color applied to a spawned enemy's `ColorRect` matches its source `EnemyStats.color`.
+
+8:T8b5,# GDExtension C++: FastVectorMath
+
+## Background
+Build a Godot 4 GDExtension in C++ that exposes a high-performance vector math helper class to GDScript.
+
+## Requirements
+- Implement a C++ class `FastVectorMath` that inherits from `RefCounted` and exposes the following static methods to GDScript via the godot-cpp bindings:
+  - `dot_product(a: Vector3, b: Vector3) -> float`
+  - `cross_product(a: Vector3, b: Vector3) -> Vector3`
+  - `compute_centroid_and_bounds(points: PackedVector3Array) -> Array` returning `[centroid, min_bounds, max_bounds]` as three `Vector3` values.
+  - `ray_sphere_intersection(origin: Vector3, dir: Vector3, sphere_center: Vector3, radius: float) -> float` returning the nearest positive hit distance, or `-1.0` on miss.
+- Build the shared library into `bin/` and ship a `bin/fast_vector_math.gdextension` configuration file that loads the binary on Linux x86_64.
+- A GDScript `test_runner.gd` at the project root must instantiate the class via `ClassDB.instantiate("FastVectorMath")` and print sanity check results.
+
+## Implementation Hints
+- Use the official `godot-cpp` submodule already present in the project to obtain the bindings and `SConstruct` scaffolding.
+- Register the class and bind static methods inside `_bind_methods()` using `ClassDB::bind_static_method`.
+- The `.gdextension` file must declare an `entry_symbol` matching the C-linkage init function in your `register_types.cpp`.
+- Use `scons platform=linux target=template_release` (or equivalent) to build the extension; the resulting `.so` file path must match what the `.gdextension` file references.
+
+## Acceptance Criteria
+- Project path: /home/user/myproject
+- Command: `godot --headless --path /home/user/myproject --script res://test_runner.gd`
+- The shared library referenced by `bin/fast_vector_math.gdextension` for `linux.*.x86_64` must exist on disk after the build.
+- After Godot loads the extension, `ClassDB.class_exists("FastVectorMath")` must return `true`.
+- `FastVectorMath` must expose the four static methods described in Requirements, callable from GDScript.
+- `test_runner.gd` must print one PASS line per check (one for each method) and a final `ALL TESTS PASSED` line to stdout when every check succeeds.
+
+9:Tbac,# Input Remapping Action Set with Runtime Save/Load
+
+## Background
+Build a Godot 4 input remapping system: a baseline action set declared in `project.godot`, a singleton autoload that rebinds/saves/loads/resets bindings at runtime, and a reusable Control scene for capturing new bindings. Godot 4 (>= 4.3) is available as the headless binary `godot`.
+
+## Requirements
+- Project path: /home/user/input_remap (already initialized with a `project.godot`).
+- `project.godot` `[input]` section declares default keyboard bindings for the actions `move_up`, `move_down`, `move_left`, `move_right`, `interact`, `jump` (e.g., W/S/A/D/E/Space).
+- `project.godot` `[autoload]` registers `InputRemapper="*res://autoloads/InputRemapper.gd"`.
+- `autoloads/InputRemapper.gd` exposes:
+  - `rebind_action(action: StringName, new_event: InputEvent) -> void` — removes existing keyboard/joypad events from the action and adds `new_event`.
+  - `get_action_event(action: StringName) -> InputEvent` — returns the first event currently bound to the action.
+  - `save_to_file(path: String = "user://input_map.cfg") -> void` — uses `ConfigFile` and serializes `InputEventKey` events by `keycode` and `InputEventJoypadButton` events by `button_index`.
+  - `load_from_file(path: String = "user://input_map.cfg") -> bool` — restores bindings; returns `false` when the file does not exist, `true` otherwise.
+  - `reset_to_defaults() -> void` — restores the bindings captured at startup.
+  - Signal `action_rebound(action: StringName, event: InputEvent)` emitted by `rebind_action`.
+- `scenes/RemapButton.tscn` — a Control-derived root with an attached GDScript that:
+  - Declares `@export var action_name: StringName`.
+  - Displays the current binding using `InputEvent.as_text()`.
+  - On press, enters a listening state and captures the next `InputEventKey`/`InputEventJoypadButton`, then calls `InputRemapper.rebind_action(action_name, event)`.
+
+## Acceptance Criteria
+- The project must load cleanly under `godot --headless --path /home/user/input_remap --quit` (exit code 0, no script parse errors).
+- All six required actions must satisfy `InputMap.has_action(...)` after startup.
+- After `rebind_action(&"jump", InputEventKey{keycode=KEY_X})`, `InputMap.action_get_events(&"jump")` contains an `InputEventKey` with `keycode == KEY_X` and contains no `InputEventKey` with `keycode == KEY_SPACE`. The `action_rebound` signal fires with the matching action and event.
+- `save_to_file` then a different rebind then `load_from_file` restores the saved binding; `load_from_file` on a missing path returns `false`.
+- `reset_to_defaults` restores the original default for `jump` (Space).
+- `RemapButton.tscn` instantiated with `action_name = &"interact"` displays the current binding's `as_text()` and, after being triggered into listening mode and receiving an `InputEventKey` for `KEY_R` via `_unhandled_input`, causes `InputMap.action_get_events(&"interact")` to contain `InputEventKey{keycode=KEY_R}`.
+
+a:T985,# 2D Ragdoll with PinJoint2D
+
+Build a 2D ragdoll in the Godot 4 project at `/home/user/ragdoll` using `RigidBody2D` parts connected by `PinJoint2D` constraints.
+
+## Acceptance Criteria
+
+- Project path: /home/user/ragdoll (Godot 4 project; `godot --headless --path /home/user/ragdoll --quit` must exit 0 with no script/scene parse errors).
+- Files (relative to the project root):
+  - `scenes/Ragdoll.tscn`
+  - `scripts/Ragdoll.gd`
+- `scenes/Ragdoll.tscn`:
+  - Root is a `Node2D` with `scripts/Ragdoll.gd` attached.
+  - Has exactly six `RigidBody2D` children with these exact names: `Head`, `Torso`, `LeftArm`, `RightArm`, `LeftLeg`, `RightLeg`. Each has a reasonable `mass`, a `CollisionShape2D` child with a real shape resource, and a `ColorRect` or `Polygon2D` visual placeholder child.
+  - Has exactly five `PinJoint2D` nodes. The unordered set of `(node_a, node_b)` body-name pairs (resolved through each joint's `NodePath` properties) must equal `{ (Head,Torso), (LeftArm,Torso), (RightArm,Torso), (LeftLeg,Torso), (RightLeg,Torso) }`. Both endpoints must resolve to existing `RigidBody2D` children.
+- `scripts/Ragdoll.gd`:
+  - Declares `class_name Ragdoll`.
+  - Declares `signal ragdoll_collapsed(avg_pos: Vector2)`.
+  - Defines `apply_impulse_to(part_name: StringName, impulse: Vector2)` — finds the named body and calls `apply_central_impulse(impulse)` on it.
+  - Defines `freeze_all(freeze: bool)` — sets the `freeze` property on all six bodies.
+  - Defines `get_part(name: StringName) -> RigidBody2D`.
+  - Defines `get_average_position() -> Vector2` returning the centroid of the six bodies' `global_position`.
+  - Emits `ragdoll_collapsed` **exactly once**, with the current `get_average_position()` value, when on every physics frame for the last 0.5 seconds no body part's `global_position` has moved more than 0.5 pixels from the previous physics frame. The rest condition is checked every physics frame.
+- Runtime contract verified by the headless harness:
+  - After one physics frame, `apply_impulse_to(&"Head", Vector2(0, -500))` makes `get_part(&"Head").linear_velocity.y < -1.0`.
+  - After `freeze_all(true)`, every body's `freeze == true`; after `freeze_all(false)`, every body's `freeze == false`.
+  - When the ragdoll is instantiated above a `StaticBody2D` floor and simulated for ~3 seconds, `ragdoll_collapsed` is emitted exactly once and the emitted centroid matches `get_average_position()` at that moment.
+
+b:T7b5,# Asynchronous Scene Loader (Godot 4)
+
+Build an asynchronous scene loader in the Godot 4 project at `/home/user/myproject`.
+
+## Acceptance Criteria
+
+- Project path: `/home/user/myproject`.
+- `project.godot` registers an autoload named exactly `SceneLoader` pointing to `res://autoloads/SceneLoader.gd` (singleton form: `SceneLoader="*res://autoloads/SceneLoader.gd"`).
+- `res://autoloads/SceneLoader.gd` `extends Node`, declares `class_name SceneLoader`, and exposes:
+  - Signals: `progress_updated(fraction)`, `load_completed(scene)`, `load_failed(reason)`.
+  - Methods: `start_load(path: String) -> bool`, `cancel() -> void`, `is_loading() -> bool`.
+- Behaviour:
+  - `start_load("res://scenes/HugeLevel.tscn")` returns `true`; a second call before the first finishes returns `false`.
+  - During a successful load at least one `progress_updated` signal fires; every emitted `fraction` satisfies `0.0 <= fraction <= 1.0`.
+  - On success, `load_completed` fires exactly once carrying a `PackedScene` whose instantiation produces a node tree with at least 50 `Node2D` descendants (counted recursively).
+  - `start_load("res://does/not/exist.tscn")` causes `load_failed` to fire within 1 second; `load_completed` must not fire for that path; afterwards `is_loading()` returns `false`.
+  - After `cancel()`, `is_loading()` returns `false`, and a subsequent `start_load` of a valid path returns `true`.
+- `res://scenes/HugeLevel.tscn` exists and instantiates to a tree with at least 50 `Node2D` descendants.
+- `res://scenes/LoadingScreen.tscn` exists with a `Control` root containing a `ProgressBar` and a `Label`; its attached script connects to the autoload's three signals.
+- Test harness at `res://tests/run_tests.gd` must, when invoked as `godot --headless --path . --script res://tests/run_tests.gd` from `/home/user/myproject`, exit with code `0` and print `ALL TESTS PASSED` on stdout. On any failure the harness prints a line beginning with `FAIL:` and exits non-zero.
+c:T1050,# Deterministic Procedural Dungeon Generator (Godot 4)
+
+## Background
+Build a deterministic procedural dungeon generator for a Godot 4 project, using `TileMapLayer` for the grid and `FastNoiseLite` for the base terrain. The generator must be seeded so that the same seed always produces the same dungeon layout.
+
+## Requirements
+- Create a Godot 4 project that can run headlessly.
+- Ship a `TileSet` resource at `tilesets/dungeon.tres` that exposes at least three logical tiles addressable as `source_id` 0 (floor), 1 (wall), and 2 (door).
+- Implement a `DungeonGenerator` node (a GDScript at `scripts/DungeonGenerator.gd`) with `@export` properties `seed: int = 12345`, `width: int = 64`, `height: int = 64`, and `wall_threshold: float = 0.0`, and the following methods:
+  - `generate(target: TileMapLayer) -> void` — clears the target and writes one tile per cell (`floor` or `wall`) using a `FastNoiseLite` seeded with the exported `seed`. After the noise pass, carve at least three non-overlapping rectangular rooms and connect them with straight L-shaped corridors. All edge cells (x == 0, x == width - 1, y == 0, y == height - 1) must be walls regardless of noise.
+  - `count_floor_tiles(target: TileMapLayer) -> int` — returns the number of cells whose `source_id` is `0` (floor) on the target layer.
+  - `find_rooms() -> Array[Rect2i]` — returns the rectangles of the rooms carved by the most recent `generate()` call.
+- Provide a `scenes/Main.tscn` scene whose root wires a child `TileMapLayer` using the dungeon `TileSet` and a `DungeonGenerator` node, and triggers `generate()` on `_ready`.
+
+## Implementation Hints
+- The placeholder dungeon textures can be a single small PNG generated programmatically (for example, a 48x16 image of three solid 16x16 cells). Generate the PNG and the `TileSet` resource as part of the project bootstrap; do not commit hand-edited art.
+- Use `FastNoiseLite` and explicitly set `.seed` from the exported `seed` so that the same seed always yields the same noise field.
+- Use `TileMapLayer.set_cell(coords, source_id, atlas_coords)` to place tiles. Read back with `get_cell_source_id(coords)`.
+- Determinism matters: the same `seed` must always produce the same tile data (same source IDs at the same coordinates) and the same set of room rectangles.
+- Carving a room means overwriting wall cells in its rectangle with floor; corridor carving should also write floor cells.
+- The project must run with `godot --headless` (no display) and load `tilesets/dungeon.tres` as a `TileSet`.
+
+## Acceptance Criteria
+- Project path: /home/user/myproject
+- The project must be a valid Godot 4 project (`project.godot` present at the project root) and load without errors using `godot --headless --path /home/user/myproject`.
+- `tilesets/dungeon.tres` exists at the project root and loads as a `TileSet` exposing at least three tiles addressable via `source_id` 0, 1, and 2.
+- `scripts/DungeonGenerator.gd` exists, defines a class with the methods and `@export` properties described above, and can be instantiated as a Node.
+- `scenes/Main.tscn` exists, has a `TileMapLayer` child that uses `tilesets/dungeon.tres`, and runs `DungeonGenerator.generate()` on `_ready`.
+- After `generate()` is called on a fresh `TileMapLayer`:
+  - Every edge cell at x == 0, x == width - 1, y == 0, or y == height - 1 has `source_id` 1 (wall).
+  - `find_rooms()` returns an `Array[Rect2i]` of length >= 3 whose rectangles are pairwise non-overlapping and fully contained inside the interior region `(1..width-2, 1..height-2)`.
+  - `count_floor_tiles(target)` is greater than or equal to the sum of the room areas (corridors add additional floor tiles).
+- Determinism: Running `generate()` twice with `seed = 12345` (same width/height/threshold) yields identical cell data (a hash over all used cells, including position and `source_id`, must match). Running with `seed = 99` must produce a different hash than `seed = 12345`.
+- The verifier will drive the project headlessly using a harness GDScript supplied at verification time; the agent does not need to write tests, but the project must expose the API exactly as described so the harness can call it.
+
+0:{"buildId":"iQZorHwGBpdKDFD5HXejs","rsc":["$","$1","c",{"children":[["$","div",null,{"className":"min-h-screen bg-background text-foreground font-sans selection:bg-primary/20","children":[["$","div",null,{"className":"fixed inset-0 -z-10 h-full w-full bg-background bg-[radial-gradient(#2a2a2a_1px,transparent_1px)] [background-size:16px_16px] [mask-image:radial-gradient(ellipse_50%_50%_at_50%_50%,#000_70%,transparent_100%)] opacity-20 dark:opacity-40"}],["$","$2",null,{"fallback":["$","div",null,{"className":"container mx-auto py-8 text-center","children":"Loading tasks..."}],"children":["$","$L3",null,{"tasksData":[{"taskName":"animation_tree_blend_locomotion","instruction":"$4","trials":[{"job_name":"2026-06-08__16-00-44","trial_name":"animation_tree_blend_locomotion__nTPMcCT","model":"glm-5.1","rawModel":"zai/glm-5.1","agent":"Pochi","passed":false,"reward":0,"error":true,"latency_sec":375.336,"latency_breakdown":{"env_setup":2.603,"agent_setup":13.466,"agent_exec":303.79,"verifier":41.396},"taskName":"animation_tree_blend_locomotion","jobId":"nTPMcCT","exec_duration":303.79},{"job_name":"2026-06-08__15-09-28","trial_name":"animation_tree_blend_locomotion__rzH3jJ9","model":"claude-4-6-sonnet","rawModel":"anthropic/claude-4-6-sonnet","agent":"Pochi","passed":true,"reward":1,"error":false,"latency_sec":595.07,"latency_breakdown":{"env_setup":4.57,"agent_setup":14.849,"agent_exec":525.692,"verifier":35.792},"taskName":"animation_tree_blend_locomotion","jobId":"rzH3jJ9","exec_duration":525.692},{"job_name":"2026-06-08__16-41-52","trial_name":"animation_tree_blend_locomotion__UxfZh7R","model":"deepseek-4-pro","rawModel":"deepseek/deepseek-4-pro","agent":"Pochi","passed":false,"reward":0,"error":true,"latency_sec":660.36,"latency_breakdown":{"env_setup":2.432,"agent_setup":13.001,"agent_exec":600.202,"verifier":31.871},"taskName":"animation_tree_blend_locomotion","jobId":"UxfZh7R","exec_duration":600.202},{"job_name":"2026-06-08__15-39-20","trial_name":"animation_tree_blend_locomotion__fbPknfr","model":"gemini-3.1-pro","rawModel":"google/gemini-3.1-pro","agent":"Pochi","passed":true,"reward":1,"error":false,"latency_sec":205.468,"latency_breakdown":{"env_setup":3.043,"agent_setup":12.552,"agent_exec":128.048,"verifier":46.406},"taskName":"animation_tree_blend_locomotion","jobId":"fbPknfr","exec_duration":128.048},{"job_name":"2026-06-08__14-38-01","trial_name":"animation_tree_blend_locomotion__YctE352","model":"gemini-3.5-flash","rawModel":"google/gemini-3.5-flash","agent":"Pochi","passed":true,"reward":1,"error":false,"latency_sec":383.807,"latency_breakdown":{"env_setup":52.849,"agent_setup":15.884,"agent_exec":270.6,"verifier":31.724},"taskName":"animation_tree_blend_locomotion","jobId":"YctE352","exec_duration":270.6}]},{"taskName":"coin_collector_inventory_hud","instruction":"$5","trials":[{"job_name":"2026-06-08__16-00-44","trial_name":"coin_collector_inventory_hud__t7oR4sv","model":"glm-5.1","rawModel":"zai/glm-5.1","agent":"Pochi","passed":true,"reward":1,"error":false,"latency_sec":323.664,"latency_breakdown":{"env_setup":2.421,"agent_setup":12.801,"agent_exec":292.223,"verifier":3.193},"taskName":"coin_collector_inventory_hud","jobId":"t7oR4sv","exec_duration":292.223},{"job_name":"2026-06-08__15-09-28","trial_name":"coin_collector_inventory_hud__NMWuUoG","model":"claude-4-6-sonnet","rawModel":"anthropic/claude-4-6-sonnet","agent":"Pochi","passed":true,"reward":1,"error":false,"latency_sec":191.896,"latency_breakdown":{"env_setup":2.51,"agent_setup":12.774,"agent_exec":161.74,"verifier":2.06},"taskName":"coin_collector_inventory_hud","jobId":"NMWuUoG","exec_duration":161.74},{"job_name":"2026-06-08__16-41-52","trial_name":"coin_collector_inventory_hud__V955Gyk","model":"deepseek-4-pro","rawModel":"deepseek/deepseek-4-pro","agent":"Pochi","passed":false,"reward":0,"error":false,"latency_sec":569.958,"latency_breakdown":{"env_setup":2.466,"agent_setup":13.677,"agent_exec":356.85,"verifier":181.927},"taskName":"coin_collector_inventory_hud","jobId":"V955Gyk","exec_duration":356.85},{"job_name":"2026-06-08__15-39-20","trial_name":"coin_collector_inventory_hud__n5dGE47","model":"gemini-3.1-pro","rawModel":"google/gemini-3.1-pro","agent":"Pochi","passed":true,"reward":1,"error":false,"latency_sec":104.102,"latency_breakdown":{"env_setup":2.471,"agent_setup":12.666,"agent_exec":73.878,"verifier":2.063},"taskName":"coin_collector_inventory_hud","jobId":"n5dGE47","exec_duration":73.878},{"job_name":"2026-06-08__14-38-01","trial_name":"coin_collector_inventory_hud__Zsbh5Qj","model":"gemini-3.5-flash","rawModel":"google/gemini-3.5-flash","agent":"Pochi","passed":true,"reward":1,"error":false,"latency_sec":197.743,"latency_breakdown":{"env_setup":3.351,"agent_setup":12.722,"agent_exec":166.555,"verifier":2.137},"taskName":"coin_collector_inventory_hud","jobId":"Zsbh5Qj","exec_duration":166.555}]},{"taskName":"dialog_branching_system","instruction":"$6","trials":[{"job_name":"2026-06-08__16-00-44","trial_name":"dialog_branching_system__z2QJcvC","model":"glm-5.1","rawModel":"zai/glm-5.1","agent":"Pochi","passed":false,"reward":0,"error":true,"latency_sec":634.25,"latency_breakdown":{"env_setup":2.507,"agent_setup":12.467,"agent_exec":600.447,"verifier":3.569},"taskName":"dialog_branching_system","jobId":"z2QJcvC","exec_duration":600.447},{"job_name":"2026-06-08__15-09-28","trial_name":"dialog_branching_system__cGDrM7L","model":"claude-4-6-sonnet","rawModel":"anthropic/claude-4-6-sonnet","agent":"Pochi","passed":false,"reward":0,"error":false,"latency_sec":595.871,"latency_breakdown":{"env_setup":2.401,"agent_setup":12.722,"agent_exec":565.991,"verifier":1.59},"taskName":"dialog_branching_system","jobId":"cGDrM7L","exec_duration":565.991},{"job_name":"2026-06-08__16-41-52","trial_name":"dialog_branching_system__yV3wz2E","model":"deepseek-4-pro","rawModel":"deepseek/deepseek-4-pro","agent":"Pochi","passed":false,"reward":0,"error":true,"latency_sec":809.327,"latency_breakdown":{"env_setup":2.473,"agent_setup":12.742,"agent_exec":600.233,"verifier":181.02},"taskName":"dialog_branching_system","jobId":"yV3wz2E","exec_duration":600.233},{"job_name":"2026-06-08__15-39-20","trial_name":"dialog_branching_system__LaVTjeW","model":"gemini-3.1-pro","rawModel":"google/gemini-3.1-pro","agent":"Pochi","passed":true,"reward":1,"error":false,"latency_sec":177.342,"latency_breakdown":{"env_setup":2.863,"agent_setup":15.789,"agent_exec":142.505,"verifier":2.113},"taskName":"dialog_branching_system","jobId":"LaVTjeW","exec_duration":142.505},{"job_name":"2026-06-08__14-38-01","trial_name":"dialog_branching_system__TD7Mpts","model":"gemini-3.5-flash","rawModel":"google/gemini-3.5-flash","agent":"Pochi","passed":true,"reward":1,"error":false,"latency_sec":458.587,"latency_breakdown":{"env_setup":3.096,"agent_setup":13.382,"agent_exec":423.44,"verifier":3.277},"taskName":"dialog_branching_system","jobId":"TD7Mpts","exec_duration":423.44}]},{"taskName":"enemy_stats_resource_spawner","instruction":"$7","trials":[{"job_name":"2026-06-08__16-00-44","trial_name":"enemy_stats_resource_spawner__qYuoin8","model":"glm-5.1","rawModel":"zai/glm-5.1","agent":"Pochi","passed":false,"reward":0,"error":false,"latency_sec":420.685,"latency_breakdown":{"env_setup":2.5,"agent_setup":12.706,"agent_exec":377.665,"verifier":12.679},"taskName":"enemy_stats_resource_spawner","jobId":"qYuoin8","exec_duration":377.665},{"job_name":"2026-06-08__15-09-28","trial_name":"enemy_stats_resource_spawner__kWDw9zK","model":"claude-4-6-sonnet","rawModel":"anthropic/claude-4-6-sonnet","agent":"Pochi","passed":true,"reward":1,"error":false,"latency_sec":180.789,"latency_breakdown":{"env_setup":2.438,"agent_setup":12.457,"agent_exec":141.903,"verifier":10.321},"taskName":"enemy_stats_resource_spawner","jobId":"kWDw9zK","exec_duration":141.903},{"job_name":"2026-06-08__16-41-52","trial_name":"enemy_stats_resource_spawner__yM6KRG4","model":"deepseek-4-pro","rawModel":"deepseek/deepseek-4-pro","agent":"Pochi","passed":true,"reward":1,"error":false,"latency_sec":261.554,"latency_breakdown":{"env_setup":2.543,"agent_setup":13.792,"agent_exec":221.86,"verifier":10.449},"taskName":"enemy_stats_resource_spawner","jobId":"yM6KRG4","exec_duration":221.86},{"job_name":"2026-06-08__15-39-20","trial_name":"enemy_stats_resource_spawner__AdBc84T","model":"gemini-3.1-pro","rawModel":"google/gemini-3.1-pro","agent":"Pochi","passed":true,"reward":1,"error":false,"latency_sec":94.579,"latency_breakdown":{"env_setup":2.431,"agent_setup":12.568,"agent_exec":56.563,"verifier":10.124},"taskName":"enemy_stats_resource_spawner","jobId":"AdBc84T","exec_duration":56.563},{"job_name":"2026-06-08__14-38-01","trial_name":"enemy_stats_resource_spawner__ykjPpJC","model":"gemini-3.5-flash","rawModel":"google/gemini-3.5-flash","agent":"Pochi","passed":true,"reward":1,"error":false,"latency_sec":447.094,"latency_breakdown":{"env_setup":42.709,"agent_setup":13.395,"agent_exec":369.488,"verifier":8.438},"taskName":"enemy_stats_resource_spawner","jobId":"ykjPpJC","exec_duration":369.488}]},{"taskName":"gdextension_cpp_vector_math","instruction":"$8","trials":[{"job_name":"2026-06-08__16-00-44","trial_name":"gdextension_cpp_vector_math__2SGYuSA","model":"glm-5.1","rawModel":"zai/glm-5.1","agent":"Pochi","passed":false,"reward":0,"error":true,"latency_sec":639.824,"latency_breakdown":{"env_setup":2.428,"agent_setup":12.369,"agent_exec":600.311,"verifier":7.289},"taskName":"gdextension_cpp_vector_math","jobId":"2SGYuSA","exec_duration":600.311},{"job_name":"2026-06-08__15-09-28","trial_name":"gdextension_cpp_vector_math__AhxbABV","model":"claude-4-6-sonnet","rawModel":"anthropic/claude-4-6-sonnet","agent":"Pochi","passed":false,"reward":0,"error":true,"latency_sec":639.586,"latency_breakdown":{"env_setup":2.49,"agent_setup":12.624,"agent_exec":600.447,"verifier":7.444},"taskName":"gdextension_cpp_vector_math","jobId":"AhxbABV","exec_duration":600.447},{"job_name":"2026-06-08__16-41-52","trial_name":"gdextension_cpp_vector_math__FrtDpgj","model":"deepseek-4-pro","rawModel":"deepseek/deepseek-4-pro","agent":"Pochi","passed":false,"reward":0,"error":true,"latency_sec":643.073,"latency_breakdown":{"env_setup":2.503,"agent_setup":12.733,"agent_exec":600.428,"verifier":9.077},"taskName":"gdextension_cpp_vector_math","jobId":"FrtDpgj","exec_duration":600.428},{"job_name":"2026-06-08__15-39-20","trial_name":"gdextension_cpp_vector_math__PderFjN","model":"gemini-3.1-pro","rawModel":"google/gemini-3.1-pro","agent":"Pochi","passed":false,"reward":0,"error":true,"latency_sec":638.41,"latency_breakdown":{"env_setup":2.418,"agent_setup":12.937,"agent_exec":600.314,"verifier":4.974},"taskName":"gdextension_cpp_vector_math","jobId":"PderFjN","exec_duration":600.314},{"job_name":"2026-06-08__14-38-01","trial_name":"gdextension_cpp_vector_math__cDxM8QU","model":"gemini-3.5-flash","rawModel":"google/gemini-3.5-flash","agent":"Pochi","passed":true,"reward":1,"error":false,"latency_sec":576.003,"latency_breakdown":{"env_setup":46.391,"agent_setup":12.51,"agent_exec":495.563,"verifier":3.661},"taskName":"gdextension_cpp_vector_math","jobId":"cDxM8QU","exec_duration":495.563}]},{"taskName":"input_remap_action_set","instruction":"$9","trials":[{"job_name":"2026-06-08__16-00-44","trial_name":"input_remap_action_set__aeSNJRo","model":"glm-5.1","rawModel":"zai/glm-5.1","agent":"Pochi","passed":true,"reward":1,"error":true,"latency_sec":629.915,"latency_breakdown":{"env_setup":2.402,"agent_setup":12.29,"agent_exec":600.255,"verifier":2.024},"taskName":"input_remap_action_set","jobId":"aeSNJRo","exec_duration":600.255},{"job_name":"2026-06-08__15-09-28","trial_name":"input_remap_action_set__K4nqe2A","model":"claude-4-6-sonnet","rawModel":"anthropic/claude-4-6-sonnet","agent":"Pochi","passed":false,"reward":0,"error":false,"latency_sec":579.274,"latency_breakdown":{"env_setup":2.683,"agent_setup":14.127,"agent_exec":542.841,"verifier":4.203},"taskName":"input_remap_action_set","jobId":"K4nqe2A","exec_duration":542.841},{"job_name":"2026-06-08__16-41-52","trial_name":"input_remap_action_set__Axaawb7","model":"deepseek-4-pro","rawModel":"deepseek/deepseek-4-pro","agent":"Pochi","passed":false,"reward":0,"error":true,"latency_sec":630.397,"latency_breakdown":{"env_setup":2.416,"agent_setup":12.692,"agent_exec":600.195,"verifier":2.172},"taskName":"input_remap_action_set","jobId":"Axaawb7","exec_duration":600.195},{"job_name":"2026-06-08__15-39-20","trial_name":"input_remap_action_set__EiWVRoA","model":"gemini-3.1-pro","rawModel":"google/gemini-3.1-pro","agent":"Pochi","passed":true,"reward":1,"error":false,"latency_sec":293.328,"latency_breakdown":{"env_setup":3.198,"agent_setup":16.661,"agent_exec":253.663,"verifier":4.751},"taskName":"input_remap_action_set","jobId":"EiWVRoA","exec_duration":253.663},{"job_name":"2026-06-08__14-38-01","trial_name":"input_remap_action_set__dFiwsFv","model":"gemini-3.5-flash","rawModel":"google/gemini-3.5-flash","agent":"Pochi","passed":false,"reward":0,"error":false,"latency_sec":210.713,"latency_breakdown":{"env_setup":3.014,"agent_setup":13.073,"agent_exec":179.848,"verifier":2.035},"taskName":"input_remap_action_set","jobId":"dFiwsFv","exec_duration":179.848}]},{"taskName":"physics_pin_joint_ragdoll","instruction":"$a","trials":[{"job_name":"2026-06-08__16-00-44","trial_name":"physics_pin_joint_ragdoll__BpKVQbh","model":"glm-5.1","rawModel":"zai/glm-5.1","agent":"Pochi","passed":false,"reward":0,"error":true,"latency_sec":340.446,"latency_breakdown":{"env_setup":3.306,"agent_setup":16.802,"agent_exec":303.703,"verifier":2.655},"taskName":"physics_pin_joint_ragdoll","jobId":"BpKVQbh","exec_duration":303.703},{"job_name":"2026-06-08__15-09-28","trial_name":"physics_pin_joint_ragdoll__SmiLfWW","model":"claude-4-6-sonnet","rawModel":"anthropic/claude-4-6-sonnet","agent":"Pochi","passed":false,"reward":0,"error":false,"latency_sec":629.298,"latency_breakdown":{"env_setup":2.448,"agent_setup":13.948,"agent_exec":592.442,"verifier":7.103},"taskName":"physics_pin_joint_ragdoll","jobId":"SmiLfWW","exec_duration":592.442},{"job_name":"2026-06-08__16-41-52","trial_name":"physics_pin_joint_ragdoll__cHprDyf","model":"deepseek-4-pro","rawModel":"deepseek/deepseek-4-pro","agent":"Pochi","passed":true,"reward":1,"error":false,"latency_sec":631.43,"latency_breakdown":{"env_setup":2.445,"agent_setup":12.55,"agent_exec":596.033,"verifier":7.211},"taskName":"physics_pin_joint_ragdoll","jobId":"cHprDyf","exec_duration":596.033},{"job_name":"2026-06-08__15-39-20","trial_name":"physics_pin_joint_ragdoll__SiYULno","model":"gemini-3.1-pro","rawModel":"google/gemini-3.1-pro","agent":"Pochi","passed":true,"reward":1,"error":false,"latency_sec":171.035,"latency_breakdown":{"env_setup":3.298,"agent_setup":16.128,"agent_exec":121.652,"verifier":10.56},"taskName":"physics_pin_joint_ragdoll","jobId":"SiYULno","exec_duration":121.652},{"job_name":"2026-06-08__14-38-01","trial_name":"physics_pin_joint_ragdoll__FrsN35D","model":"gemini-3.5-flash","rawModel":"google/gemini-3.5-flash","agent":"Pochi","passed":true,"reward":1,"error":true,"latency_sec":636.43,"latency_breakdown":{"env_setup":3.188,"agent_setup":12.994,"agent_exec":600.208,"verifier":7.164},"taskName":"physics_pin_joint_ragdoll","jobId":"FrsN35D","exec_duration":600.208}]},{"taskName":"resource_preloader_scene_loader","instruction":"$b","trials":[{"job_name":"2026-06-08__16-00-44","trial_name":"resource_preloader_scene_loader__BynBa3b","model":"glm-5.1","rawModel":"zai/glm-5.1","agent":"Pochi","passed":false,"reward":0,"error":true,"latency_sec":347.254,"latency_breakdown":{"env_setup":3.633,"agent_setup":16.059,"agent_exec":303.942,"verifier":10.329},"taskName":"resource_preloader_scene_loader","jobId":"BynBa3b","exec_duration":303.942},{"job_name":"2026-06-08__15-09-28","trial_name":"resource_preloader_scene_loader__NJ2Fyp5","model":"claude-4-6-sonnet","rawModel":"anthropic/claude-4-6-sonnet","agent":"Pochi","passed":false,"reward":0,"error":false,"latency_sec":358.052,"latency_breakdown":{"env_setup":3.445,"agent_setup":16.626,"agent_exec":315.151,"verifier":8.936},"taskName":"resource_preloader_scene_loader","jobId":"NJ2Fyp5","exec_duration":315.151},{"job_name":"2026-06-08__16-41-52","trial_name":"resource_preloader_scene_loader__kjRS3zY","model":"deepseek-4-pro","rawModel":"deepseek/deepseek-4-pro","agent":"Pochi","passed":false,"reward":0,"error":false,"latency_sec":519.426,"latency_breakdown":{"env_setup":3.717,"agent_setup":16.319,"agent_exec":473.689,"verifier":11.336},"taskName":"resource_preloader_scene_loader","jobId":"kjRS3zY","exec_duration":473.689},{"job_name":"2026-06-08__15-39-20","trial_name":"resource_preloader_scene_loader__tozMZa6","model":"gemini-3.1-pro","rawModel":"google/gemini-3.1-pro","agent":"Pochi","passed":true,"reward":1,"error":false,"latency_sec":313.244,"latency_breakdown":{"env_setup":3.516,"agent_setup":15.601,"agent_exec":269.784,"verifier":10.402},"taskName":"resource_preloader_scene_loader","jobId":"tozMZa6","exec_duration":269.784},{"job_name":"2026-06-08__14-38-01","trial_name":"resource_preloader_scene_loader__ixwzcru","model":"gemini-3.5-flash","rawModel":"google/gemini-3.5-flash","agent":"Pochi","passed":false,"reward":0,"error":false,"latency_sec":685.229,"latency_breakdown":{"env_setup":59.076,"agent_setup":15.436,"agent_exec":587.325,"verifier":10.378},"taskName":"resource_preloader_scene_loader","jobId":"ixwzcru","exec_duration":587.325}]},{"taskName":"tilemap_procedural_dungeon","instruction":"$c","trials":[{"job_name":"2026-06-08__16-00-44","trial_name":"tilemap_procedural_dungeon__w3kvTKz","model":"glm-5.1","rawModel":"zai/glm-5.1","agent":"Pochi","passed":false,"reward":0,"error":true,"latency_sec":341.503,"latency_breakdown":{"env_setup":3.691,"agent_setup":17.52,"agent_exec":303.917,"verifier":3.108},"taskName":"tilemap_procedural_dungeon","jobId":"w3kvTKz","exec_duration":303.917},{"job_name":"2026-06-08__15-09-28","trial_name":"tilemap_procedural_dungeon__g5opnyk","model":"claude-4-6-sonnet","rawModel":"anthropic/claude-4-6-sonnet","agent":"Pochi","passed":true,"reward":1,"error":false,"latency_sec":387.336,"latency_breakdown":{"env_setup":3.498,"agent_setup":15.569,"agent_exec":344.945,"verifier":8.867},"taskName":"tilemap_procedural_dungeon","jobId":"g5opnyk","exec_duration":344.945},{"job_name":"2026-06-08__16-41-52","trial_name":"tilemap_procedural_dungeon__MEr4dHE","model":"deepseek-4-pro","rawModel":"deepseek/deepseek-4-pro","agent":"Pochi","passed":false,"reward":0,"error":false,"latency_sec":478.478,"latency_breakdown":{"env_setup":3.726,"agent_setup":16.725,"agent_exec":435.82,"verifier":8.903},"taskName":"tilemap_procedural_dungeon","jobId":"MEr4dHE","exec_duration":435.82},{"job_name":"2026-06-08__15-39-20","trial_name":"tilemap_procedural_dungeon__He9faKH","model":"gemini-3.1-pro","rawModel":"google/gemini-3.1-pro","agent":"Pochi","passed":true,"reward":1,"error":false,"latency_sec":373.129,"latency_breakdown":{"env_setup":3.666,"agent_setup":16.609,"agent_exec":329.037,"verifier":10.156},"taskName":"tilemap_procedural_dungeon","jobId":"He9faKH","exec_duration":329.037},{"job_name":"2026-06-08__14-38-01","trial_name":"tilemap_procedural_dungeon__zhMdmUZ","model":"gemini-3.5-flash","rawModel":"google/gemini-3.5-flash","agent":"Pochi","passed":true,"reward":1,"error":false,"latency_sec":329.652,"latency_breakdown":{"env_setup":58.752,"agent_setup":14.722,"agent_exec":234.453,"verifier":8.534},"taskName":"tilemap_procedural_dungeon","jobId":"zhMdmUZ","exec_duration":234.453}]}]}]}]]}],["$Ld","$Le"],"$Lf"]}],"loading":null,"isPartial":false}
+d:["$","script","script-0",{"src":"/godot-benchmark/_next/static/chunks/6fd986b87f5f1300.js","async":true}]
+e:["$","script","script-1",{"src":"/godot-benchmark/_next/static/chunks/f9f579c42c486944.js","async":true}]
+f:["$","$L10",null,{"children":["$","$2",null,{"name":"Next.MetadataOutlet","children":"$@11"}]}]
+11:null
