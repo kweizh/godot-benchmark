@@ -1,0 +1,215 @@
+- Initializing MCP connections...
+You
+# Godot 4 Enemy Patrol with Path2D + PathFollow2D ## Background You are working in a Godot 4 (headless) project at `/home/user/myproject`. The team needs a reusable enemy patrol component built on `Path2D` and `PathFollow2D`. The waypoint geometry is not authored in the editor; instead, the curve must be constructed at runtime from waypoints loaded from a JSON file. The patrol must support both `loop` and `pingpong` modes, configurable speed and direction, and must emit a signal when crossing each waypoint segment threshold so that other systems can react. ## Requirements Implement a single patrol scene and its controller script that satisfy the contract below. The evaluator drives the controller deterministically via a custom `tick(delta)` method (instead of relying on engine `_process`) so that frame-by-frame behavior is reproducible. ### Files you must produce * `res://scripts/PatrolController.gd` - the controller script * `res://scenes/PatrolEnemy.tscn` - the scene that uses the controller * `res://data/waypoints.json` - the waypoints file (may be edited; default scaffold is provided) ### Scene structure (exact) The scene `res://scenes/PatrolEnemy.tscn` must have this node tree (names and types are exact): ``` PatrolEnemy (Path2D, script = res://scripts/PatrolController.gd) PathFollow2D (PathFollow2D) Enemy (Node2D) ``` The root node must be of type `Path2D`. Its `curve` property must be a `Curve2D` resource. The `PathFollow2D` child must be named exactly `PathFollow2D`. ### Controller API (exact names) The `PatrolController` script must define the following public members. * Signal: `signal progress_changed(ratio: float)` * Method: `func load_waypoints(json_path: String) -> void` * Reads a JSON file with the schema `{ "waypoints": [[x, y], [x, y], ...] }`. * Replaces the contents of the root `Path2D` curve with a polyline that visits each waypoint in order (linear segments; no Bezier handles). * Resets `PathFollow2D.progress` to `0.0`. * Method: `func set_mode(mode: String) -> void` * Accepts `"loop"` or `"pingpong"`. * Method: `func set_speed(speed: float) -> void` * Pixels per second. * Method: `func set_direction(direction: int) -> void` * `+1` for forward along the curve, `-1` for reverse. * Method: `func tick(delta: float) -> void` * Advances `PathFollow2D.progress` by `speed * delta` in the current direction. * In `loop` mode, progress wraps modulo the baked curve length at both ends. * In `pingpong` mode, the patrol reverses direction when reaching either endpoint. Any leftover travel after the reversal continues in the new direction within the same tick. The internal direction sign is flipped on reversal. * Emits `progress_changed(ratio)` exactly once for every waypoint segment boundary crossed by this tick, in the order they were crossed. `ratio` is the threshold ratio of the crossed boundary, equal to `i / (waypoint_count - 1)` for the waypoint index `i` that was reached. * The starting position (`ratio == 0`) is not emitted before the first movement; only crossings caused by movement are reported. ### Waypoint file format `res://data/waypoints.json` must be valid JSON with this structure: ```json { "waypoints": [[0, 0], [300, 0], [300, 300], [0, 300]] } ``` The scaffold ships with the values above. You may adjust this file if your implementation depends on a specific scaffold, but the loader must still accept arbitrary waypoint counts (>= 2). ## Implementation Hints * The `Path2D` root owns a `Curve2D`. Use `Curve2D.clear_points()` and `Curve2D.add_point(Vector2(x, y))` to rebuild the polyline at runtime; leave the `in`/`out` arguments at their defaults so the segments stay linear. * `PathFollow2D.progress` is measured in pixels along the baked curve; `PathFollow2D.progress_ratio` is the normalized 0-1 form. The total curve length comes from `Curve2D.get_baked_length()`. * Disable any automatic engine ticking on the controller (for example by calling `set_process(false)` in `_ready`) so that only `tick(delta)` drives progress. * For `pingpong`, remember to handle the case where a single tick contains more travel than the distance to the upcoming endpoint; you must consume the remainder in the reversed direction within the same call (and emit any boundary signals crossed by either half). * For boundary crossing detection in `loop` mode, treat the wrap from the last waypoint back to the first as a single crossing of `ratio = 1.0` (when moving forward) or `ratio = 0.0` (when moving backward). ## Acceptance Criteria * Project path: `/home/user/myproject` * Godot 4 (headless) is preinstalled as the `godot` binary on `PATH`. * Scene file `res://scenes/PatrolEnemy.tscn` exists with the node tree described above. * Script file `res://scripts/PatrolController.gd` exists and exposes the exact API listed above (signal name, method names, method signatures). * JSON file `res://data/waypoints.json` exists with the documented schema. * The evaluator runs `godot --headless --path /home/user/myproject -s res://test_runner.gd` against an evaluator-provided runner. The runner instantiates `res://scenes/PatrolEnemy.tscn`, calls `load_waypoints`, configures mode/speed/direction, drives `tick(delta)` deterministically, and verifies that: * `PathFollow2D.progress_ratio` after the configured ticks matches the expected value within a tolerance of `0.01`. * The captured `progress_changed` emissions match the expected ordered ratio sequence within the same tolerance. * The runner exercises at least four scenarios: loop forward without wrap, loop forward with wrap, pingpong with endpoint reversal, and loop reverse from the starting position.   
+
+Pochi
+💭 Thinking for 336 characters   
+💫 Executing ls -la /home/user/myproject ✔ 
+💭 Thinking for 193 characters   
+💫 Executing cat /home/user/myproject/project.godot; ls -la /home/user/myproject/scenes /home/user/myproject/scripts /home/user/myproject/data ✔ 
+📖 Reading /home/user/myproject/data/waypoints.json ✔ 
+💭 Thinking for 492 characters   
+✏️  Writing /home/user/myproject/scenes/PatrolEnemy.tscn ✔ 
+💭 Thinking for 2160 characters   
+✏️  Writing /home/user/myproject/scripts/PatrolController.gd ✔ 
+💭 Thinking for 917 characters   
+💫 Executing ls -la /home/user/myproject ✔ 
+💭 Thinking for 5084 characters   
+💫 Executing cat << 'EOF' > /home/user/myproject/test_fmod.gd
+extends SceneTree
+func _init():
+    print("fmod: ", fmod(-5.0, 100.0))
+    quit()
+EOF
+godot --headless --path /home/user/myproject -s test_fmod.gd ✔ 
+💫 Executing cat << 'EOF' > /home/user/myproject/test_approx.gd
+extends SceneTree
+func _init():
+    print("approx: ", is_equal_approx(1.0, 1.0000001))
+    quit()
+EOF
+godot --headless --path /home/user/myproject -s test_approx.gd ✔ 
+💭 Thinking for 2004 characters   
+✏️  Writing /home/user/myproject/scripts/PatrolController.gd ✔ 
+💫 Executing cat << 'EOF' > /home/user/myproject/my_test.gd
+extends SceneTree
+
+func _init():
+    var scene = load("res://scenes/PatrolEnemy.tscn")
+    var patrol = scene.instantiate()
+    var root = Node.new()
+    root.add_child(patrol)
+    
+    patrol.load_waypoints("res://data/waypoints.json")
+    patrol.set_speed(100.0)
+    patrol.set_mode("pingpong")
+    patrol.set_direction(1)
+    
+    patrol.progress_changed.connect(func(ratio): print("crossed: ", ratio))
+    
+    # Total length is 300+300+300 = 900.
+    # Waypoints: 0, 1/3, 2/3, 1.
+    print("tick 1")
+    patrol.tick(2.0) # 200px. No crossing (200 < 300)
+    print("progress: ", patrol._path_follow.progress)
+    
+    print("tick 2")
+    patrol.tick(2.0) # 400px. Crosses 300 (1/3)
+    print("progress: ", patrol._path_follow.progress)
+    
+    print("tick 3")
+    patrol.tick(6.0) # 1000px total. Crosses 600 (2/3), 900 (1.0), and reverses to 800.
+                     # Crosses 900 again? Wait, reversal. 
+                     # Reaches 900, emits 1.0. Reverses. Remaining = 100. 
+                     # Crosses nothing backward.
+    print("progress: ", patrol._path_follow.progress)
+    
+    quit()
+EOF
+godot --headless --path /home/user/myproject -s my_test.gd ✔ 
+💭 Thinking for 371 characters   
+💫 Executing cat << 'EOF' > /home/user/myproject/my_test2.gd
+extends SceneTree
+
+func _init():
+    var scene = load("res://scenes/PatrolEnemy.tscn")
+    var patrol = scene.instantiate()
+    var root = Node.new()
+    root.add_child(patrol)
+    
+    patrol.load_waypoints("res://data/waypoints.json")
+    patrol.set_speed(100.0)
+    patrol.set_mode("loop")
+    patrol.set_direction(1)
+    
+    patrol.progress_changed.connect(func(ratio): print("crossed: ", ratio))
+    
+    # Total length is 900.
+    patrol.tick(8.0) # 800px. Crosses 1/3, 2/3.
+    print("progress: ", patrol._path_follow.progress)
+    
+    print("tick 2")
+    patrol.tick(2.0) # 1000px. Crosses 1.0. Wraps. Remaining = 100.
+    print("progress: ", patrol._path_follow.progress)
+    
+    quit()
+EOF
+godot --headless --path /home/user/myproject -s my_test2.gd ✔ 
+💫 Executing cat << 'EOF' > /home/user/myproject/my_test3.gd
+extends SceneTree
+
+func _init():
+    var scene = load("res://scenes/PatrolEnemy.tscn")
+    var patrol = scene.instantiate()
+    var root = Node.new()
+    root.add_child(patrol)
+    
+    patrol.load_waypoints("res://data/waypoints.json")
+    patrol.set_speed(100.0)
+    patrol.set_mode("loop")
+    patrol.set_direction(-1)
+    
+    patrol.progress_changed.connect(func(ratio): print("crossed: ", ratio))
+    
+    print("tick 1")
+    patrol.tick(2.0) # 200px backward. Crosses 0.0. Wraps to 900. Remaining = 200. Progress = 700.
+    print("progress: ", patrol._path_follow.progress)
+    
+    quit()
+EOF
+godot --headless --path /home/user/myproject -s my_test3.gd ✔ 
+💭 Thinking for 4203 characters   
+💫 Executing cat << 'EOF' > /home/user/myproject/my_test4.gd
+extends SceneTree
+
+func _init():
+    var scene = load("res://scenes/PatrolEnemy.tscn")
+    var patrol = scene.instantiate()
+    var root = Node.new()
+    root.add_child(patrol)
+    
+    patrol.load_waypoints("res://data/waypoints.json")
+    patrol.set_speed(100.0)
+    patrol.set_mode("loop")
+    patrol.set_direction(-1)
+    
+    patrol.progress_changed.connect(func(ratio): print("crossed: ", ratio))
+    
+    print("tick 1")
+    patrol.tick(4.0) # 400px backward. Wraps to 900, goes to 500. Crosses 0.666.
+    print("progress: ", patrol._path_follow.progress)
+    
+    quit()
+EOF
+godot --headless --path /home/user/myproject -s my_test4.gd ✔ 
+💭 Thinking for 1087 characters   
+💫 Executing cat << 'EOF' > /home/user/myproject/my_test5.gd
+extends SceneTree
+
+func _init():
+    var scene = load("res://scenes/PatrolEnemy.tscn")
+    var patrol = scene.instantiate()
+    var root = Node.new()
+    root.add_child(patrol)
+    
+    patrol.load_waypoints("res://data/waypoints.json")
+    patrol.set_speed(100.0)
+    patrol.set_mode("pingpong")
+    patrol.set_direction(1)
+    
+    patrol.progress_changed.connect(func(ratio): print("crossed: ", ratio))
+    
+    patrol._path_follow.progress = 800.0
+    
+    print("tick 1")
+    patrol.tick(2.0) # 200px forward. Hits 900 (emits 1.0), reverses, remaining 100. Ends at 800.
+    print("progress: ", patrol._path_follow.progress)
+    
+    quit()
+EOF
+godot --headless --path /home/user/myproject -s my_test5.gd ✔ 
+💭 Thinking for 592 characters   
+💫 Executing cat << 'EOF' > /home/user/myproject/my_test6.gd
+extends SceneTree
+
+func _init():
+    var scene = load("res://scenes/PatrolEnemy.tscn")
+    var patrol = scene.instantiate()
+    var root = Node.new()
+    root.add_child(patrol)
+    
+    patrol.load_waypoints("res://data/waypoints.json")
+    patrol.set_speed(100.0)
+    patrol.set_mode("pingpong")
+    patrol.set_direction(-1)
+    
+    patrol.progress_changed.connect(func(ratio): print("crossed: ", ratio))
+    
+    patrol._path_follow.progress = 100.0
+    
+    print("tick 1")
+    patrol.tick(2.0) # 200px backward. Hits 0 (emits 0.0), reverses, remaining 100. Ends at 100.
+    print("progress: ", patrol._path_follow.progress)
+    
+    quit()
+EOF
+godot --headless --path /home/user/myproject -s my_test6.gd ✔ 
+💭 Thinking for 2498 characters   
+💫 Executing cat /home/user/myproject/data/waypoints.json ✔ 
+💭 Thinking for 152 characters   
+💫 Executing cat /home/user/myproject/scenes/PatrolEnemy.tscn ✔ 
+💫 Executing cat /home/user/myproject/scripts/PatrolController.gd ✔ 
+💭 Thinking for 696 characters   
+🎉 Task Completed
+I have implemented the PatrolController and the required scene and data files.
+
+1. **`res://scenes/PatrolEnemy.tscn`**: Created the scene with `PatrolEnemy` as the root `Path2D` node (with the script attached), and `PathFollow2D` + `Enemy` (Node2D) as children.
+2. **`res://scripts/PatrolController.gd`**: Implemented the precise API required. The script accurately controls progress using `tick(delta)` based on the provided speed and direction. It properly handles both `loop` and `pingpong` modes:
+   - In `loop` mode, the `PathFollow2D` progress correctly wraps seamlessly, treating the wrap back as crossing the boundary (1.0 or 0.0) depending on the direction.
+   - In `pingpong` mode, it seamlessly reverses direction upon reaching either end of the curve, continuing its leftover travel in the new direction inside the same tick.
+   - It reliably emits `progress_changed(ratio)` only when crossing waypoint boundaries due to movement, precisely matching the expected boundaries sequence.
+   - The script disables automatic ticking (`_process`, `_physics_process`) to remain deterministic.
+3. **`res://data/waypoints.json`**: Formatted with the default scaffold provided, which works seamlessly with the `load_waypoints` method.
+
+The implementation is robust to floating-point errors and handles exact segment boundary crossings reliably.   
+  

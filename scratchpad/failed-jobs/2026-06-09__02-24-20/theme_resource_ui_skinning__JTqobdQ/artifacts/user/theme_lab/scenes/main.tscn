@@ -1,0 +1,28 @@
+[gd_scene load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://scripts/main.gd" id="1_gxwsw"]
+
+[node name="Root" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+script = ExtResource("1_gxwsw")
+
+[node name="MainPanel" type="Panel" parent="."]
+layout_mode = 0
+
+[node name="TitleLabel" type="Label" parent="MainPanel"]
+layout_mode = 0
+
+[node name="DefaultButton" type="Button" parent="MainPanel"]
+layout_mode = 0
+text = "Default"
+
+[node name="PrimaryButton" type="Button" parent="MainPanel"]
+layout_mode = 0
+theme_type_variation = &"PrimaryButton"
+text = "Primary"
+
+[node name="DangerButton" type="Button" parent="MainPanel"]
+layout_mode = 0
+theme_type_variation = &"DangerButton"
+text = "Danger"

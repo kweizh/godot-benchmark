@@ -1,0 +1,69 @@
+============================= test session starts ==============================
+platform linux -- Python 3.12.3, pytest-7.4.4, pluggy-1.4.0
+rootdir: /tests
+plugins: json-ctrf-0.5.0
+collected 9 items
+
+tests/test_final_state.py ......F.F                                      [100%]
+
+=================================== FAILURES ===================================
+_______________ test_scenario_signal_sequence[loop_forward_wrap] _______________
+
+runner_output = ({'has_load_waypoints': True, 'has_path_follow_child': True, 'has_progress_changed_signal': True, 'has_set_direction':..."name":"loop_reverse_wrap","ratio":0.833333313465118,"signals":[0.666666666666667,0.333333333333333,0]}\n', stderr=''))
+name = 'loop_forward_wrap'
+
+    @pytest.mark.parametrize("name", list(EXPECTED.keys()))
+    def test_scenario_signal_sequence(runner_output, name):
+        _meta, results, proc = runner_output
+        assert name in results, (
+            f"Scenario {name!r} is missing from runner output. "
+            f"stdout:\n{proc.stdout}"
+        )
+        actual = [float(x) for x in results[name]["signals"]]
+        expected = [float(x) for x in EXPECTED[name]["signals"]]
+>       assert len(actual) == len(expected), (
+            f"Scenario {name!r}: expected {len(expected)} progress_changed "
+            f"emissions {expected}, got {len(actual)} {actual}."
+        )
+E       AssertionError: Scenario 'loop_forward_wrap': expected 3 progress_changed emissions [0.3333333333333333, 0.6666666666666666, 1.0], got 6 [0.333333333333333, 0.666666666666667, 1.0, 0.333333333333333, 0.666666666666667, 1.0].
+E       assert 6 == 3
+E        +  where 6 = len([0.333333333333333, 0.666666666666667, 1.0, 0.333333333333333, 0.666666666666667, 1.0])
+E        +  and   3 = len([0.3333333333333333, 0.6666666666666666, 1.0])
+
+tests/test_final_state.py:252: AssertionError
+_______________ test_scenario_signal_sequence[loop_reverse_wrap] _______________
+
+runner_output = ({'has_load_waypoints': True, 'has_path_follow_child': True, 'has_progress_changed_signal': True, 'has_set_direction':..."name":"loop_reverse_wrap","ratio":0.833333313465118,"signals":[0.666666666666667,0.333333333333333,0]}\n', stderr=''))
+name = 'loop_reverse_wrap'
+
+    @pytest.mark.parametrize("name", list(EXPECTED.keys()))
+    def test_scenario_signal_sequence(runner_output, name):
+        _meta, results, proc = runner_output
+        assert name in results, (
+            f"Scenario {name!r} is missing from runner output. "
+            f"stdout:\n{proc.stdout}"
+        )
+        actual = [float(x) for x in results[name]["signals"]]
+        expected = [float(x) for x in EXPECTED[name]["signals"]]
+>       assert len(actual) == len(expected), (
+            f"Scenario {name!r}: expected {len(expected)} progress_changed "
+            f"emissions {expected}, got {len(actual)} {actual}."
+        )
+E       AssertionError: Scenario 'loop_reverse_wrap': expected 1 progress_changed emissions [0.0], got 3 [0.666666666666667, 0.333333333333333, 0.0].
+E       assert 3 == 1
+E        +  where 3 = len([0.666666666666667, 0.333333333333333, 0.0])
+E        +  and   1 = len([0.0])
+
+tests/test_final_state.py:252: AssertionError
+==================================== PASSES ====================================
+=========================== short test summary info ============================
+PASSED tests/test_final_state.py::test_controller_api_present
+PASSED tests/test_final_state.py::test_scenario_final_ratio[loop_forward_no_wrap]
+PASSED tests/test_final_state.py::test_scenario_final_ratio[loop_forward_wrap]
+PASSED tests/test_final_state.py::test_scenario_final_ratio[pingpong_reverse]
+PASSED tests/test_final_state.py::test_scenario_final_ratio[loop_reverse_wrap]
+PASSED tests/test_final_state.py::test_scenario_signal_sequence[loop_forward_no_wrap]
+PASSED tests/test_final_state.py::test_scenario_signal_sequence[pingpong_reverse]
+FAILED tests/test_final_state.py::test_scenario_signal_sequence[loop_forward_wrap]
+FAILED tests/test_final_state.py::test_scenario_signal_sequence[loop_reverse_wrap]
+========================= 2 failed, 7 passed in 0.42s ==========================

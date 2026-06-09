@@ -1,0 +1,61 @@
+{
+    "results": {
+        "tool": {
+            "name": "pytest",
+            "version": "7.4.4"
+        },
+        "summary": {
+            "tests": 4,
+            "passed": 4,
+            "failed": 0,
+            "skipped": 0,
+            "pending": 0,
+            "other": 0,
+            "start": 1780970590387,
+            "stop": 1780970599550
+        },
+        "environment": {
+            "buildName": "Pytest JSON CTRF Report",
+            "buildNumber": "000",
+            "buildUrl": "https://ctrf.io"
+        },
+        "tests": [
+            {
+                "name": "test_final_state.py::test_script_file_exists",
+                "status": "passed",
+                "duration": 2,
+                "start": 1780970590409,
+                "stop": 1780970590411,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_level_json_unchanged",
+                "status": "passed",
+                "duration": 1,
+                "start": 1780970590411,
+                "stop": 1780970590412,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_project_imports_cleanly",
+                "status": "passed",
+                "duration": 8831,
+                "start": 1780970590412,
+                "stop": 1780970599243,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_pathfinder_harness_passes",
+                "status": "passed",
+                "duration": 306,
+                "start": 1780970599243,
+                "stop": 1780970599549,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            }
+        ]
+    }
+}

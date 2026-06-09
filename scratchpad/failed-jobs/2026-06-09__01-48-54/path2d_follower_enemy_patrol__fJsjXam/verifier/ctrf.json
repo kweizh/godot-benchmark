@@ -1,0 +1,133 @@
+{
+    "results": {
+        "tool": {
+            "name": "pytest",
+            "version": "7.4.4"
+        },
+        "summary": {
+            "tests": 9,
+            "passed": 8,
+            "failed": 1,
+            "skipped": 0,
+            "pending": 0,
+            "other": 0,
+            "start": 1780970057948,
+            "stop": 1780970058346
+        },
+        "environment": {
+            "buildName": "Pytest JSON CTRF Report",
+            "buildNumber": "000",
+            "buildUrl": "https://ctrf.io"
+        },
+        "tests": [
+            {
+                "name": "test_final_state.py::test_controller_api_present",
+                "status": "passed",
+                "duration": 341,
+                "start": 1780970057979,
+                "stop": 1780970058320,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_scenario_final_ratio",
+                "status": "passed",
+                "duration": 1,
+                "start": 1780970058320,
+                "stop": 1780970058321,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "tags": [
+                    "parametrize::name::['loop_forward_no_wrap', 'loop_forward_wrap', 'pingpong_reverse', 'loop_reverse_wrap']"
+                ]
+            },
+            {
+                "name": "test_final_state.py::test_scenario_final_ratio",
+                "status": "passed",
+                "duration": 1,
+                "start": 1780970058322,
+                "stop": 1780970058323,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "tags": [
+                    "parametrize::name::['loop_forward_no_wrap', 'loop_forward_wrap', 'pingpong_reverse', 'loop_reverse_wrap']"
+                ]
+            },
+            {
+                "name": "test_final_state.py::test_scenario_final_ratio",
+                "status": "passed",
+                "duration": 1,
+                "start": 1780970058323,
+                "stop": 1780970058324,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "tags": [
+                    "parametrize::name::['loop_forward_no_wrap', 'loop_forward_wrap', 'pingpong_reverse', 'loop_reverse_wrap']"
+                ]
+            },
+            {
+                "name": "test_final_state.py::test_scenario_final_ratio",
+                "status": "passed",
+                "duration": 0,
+                "start": 1780970058324,
+                "stop": 1780970058324,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "tags": [
+                    "parametrize::name::['loop_forward_no_wrap', 'loop_forward_wrap', 'pingpong_reverse', 'loop_reverse_wrap']"
+                ]
+            },
+            {
+                "name": "test_final_state.py::test_scenario_signal_sequence",
+                "status": "passed",
+                "duration": 0,
+                "start": 1780970058325,
+                "stop": 1780970058325,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "tags": [
+                    "parametrize::name::['loop_forward_no_wrap', 'loop_forward_wrap', 'pingpong_reverse', 'loop_reverse_wrap']"
+                ]
+            },
+            {
+                "name": "test_final_state.py::test_scenario_signal_sequence",
+                "status": "passed",
+                "duration": 0,
+                "start": 1780970058326,
+                "stop": 1780970058326,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "tags": [
+                    "parametrize::name::['loop_forward_no_wrap', 'loop_forward_wrap', 'pingpong_reverse', 'loop_reverse_wrap']"
+                ]
+            },
+            {
+                "name": "test_final_state.py::test_scenario_signal_sequence",
+                "status": "passed",
+                "duration": 0,
+                "start": 1780970058327,
+                "stop": 1780970058327,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "tags": [
+                    "parametrize::name::['loop_forward_no_wrap', 'loop_forward_wrap', 'pingpong_reverse', 'loop_reverse_wrap']"
+                ]
+            },
+            {
+                "name": "test_final_state.py::test_scenario_signal_sequence",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 18,
+                "start": 1780970058328,
+                "stop": 1780970058346,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "tags": [
+                    "parametrize::name::['loop_forward_no_wrap', 'loop_forward_wrap', 'pingpong_reverse', 'loop_reverse_wrap']"
+                ],
+                "trace": "runner_output = ({'has_load_waypoints': True, 'has_path_follow_child': True, 'has_progress_changed_signal': True, 'has_set_direction':...3333,0.666666666666667,1]}\\nRESULT::{\"name\":\"loop_reverse_wrap\",\"ratio\":0.833333313465118,\"signals\":[]}\\n', stderr=''))\nname = 'loop_reverse_wrap'\n\n    @pytest.mark.parametrize(\"name\", list(EXPECTED.keys()))\n    def test_scenario_signal_sequence(runner_output, name):\n        _meta, results, proc = runner_output\n        assert name in results, (\n            f\"Scenario {name!r} is missing from runner output. \"\n            f\"stdout:\\n{proc.stdout}\"\n        )\n        actual = [float(x) for x in results[name][\"signals\"]]\n        expected = [float(x) for x in EXPECTED[name][\"signals\"]]\n>       assert len(actual) == len(expected), (\n            f\"Scenario {name!r}: expected {len(expected)} progress_changed \"\n            f\"emissions {expected}, got {len(actual)} {actual}.\"\n        )\nE       AssertionError: Scenario 'loop_reverse_wrap': expected 1 progress_changed emissions [0.0], got 0 [].\nE       assert 0 == 1\nE        +  where 0 = len([])\nE        +  and   1 = len([0.0])\n\ntests/test_final_state.py:252: AssertionError",
+                "message": "The test failed in the call phase due to an assertion error"
+            }
+        ]
+    }
+}

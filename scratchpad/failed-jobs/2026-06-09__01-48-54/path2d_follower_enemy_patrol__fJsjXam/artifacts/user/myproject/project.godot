@@ -1,0 +1,13 @@
+; Engine configuration for Path2D enemy patrol task.
+
+config_version=5
+
+[application]
+
+config/name="Path2D Patrol"
+config/features=PackedStringArray("4.3")
+
+[rendering]
+
+renderer/rendering_method="gl_compatibility"
+renderer/rendering_method.mobile="gl_compatibility"

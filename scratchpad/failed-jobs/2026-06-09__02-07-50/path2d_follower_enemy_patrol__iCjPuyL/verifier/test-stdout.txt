@@ -1,0 +1,155 @@
+============================= test session starts ==============================
+platform linux -- Python 3.12.3, pytest-7.4.4, pluggy-1.4.0
+rootdir: /tests
+plugins: json-ctrf-0.5.0
+collected 9 items
+
+tests/test_final_state.py EEEEEEEEE                                      [100%]
+
+==================================== ERRORS ====================================
+________________ ERROR at setup of test_controller_api_present _________________
+
+    @pytest.fixture(scope="module")
+    def runner_output():
+        # File-existence preconditions.
+>       assert os.path.isfile(SCRIPT_PATH), (
+            f"Controller script {SCRIPT_PATH} was not created."
+        )
+E       AssertionError: Controller script /home/user/myproject/scripts/PatrolController.gd was not created.
+E       assert False
+E        +  where False = <function isfile at 0x7fb561fa0220>('/home/user/myproject/scripts/PatrolController.gd')
+E        +    where <function isfile at 0x7fb561fa0220> = <module 'posixpath' (frozen)>.isfile
+E        +      where <module 'posixpath' (frozen)> = os.path
+
+tests/test_final_state.py:128: AssertionError
+______ ERROR at setup of test_scenario_final_ratio[loop_forward_no_wrap] _______
+
+    @pytest.fixture(scope="module")
+    def runner_output():
+        # File-existence preconditions.
+>       assert os.path.isfile(SCRIPT_PATH), (
+            f"Controller script {SCRIPT_PATH} was not created."
+        )
+E       AssertionError: Controller script /home/user/myproject/scripts/PatrolController.gd was not created.
+E       assert False
+E        +  where False = <function isfile at 0x7fb561fa0220>('/home/user/myproject/scripts/PatrolController.gd')
+E        +    where <function isfile at 0x7fb561fa0220> = <module 'posixpath' (frozen)>.isfile
+E        +      where <module 'posixpath' (frozen)> = os.path
+
+tests/test_final_state.py:128: AssertionError
+________ ERROR at setup of test_scenario_final_ratio[loop_forward_wrap] ________
+
+    @pytest.fixture(scope="module")
+    def runner_output():
+        # File-existence preconditions.
+>       assert os.path.isfile(SCRIPT_PATH), (
+            f"Controller script {SCRIPT_PATH} was not created."
+        )
+E       AssertionError: Controller script /home/user/myproject/scripts/PatrolController.gd was not created.
+E       assert False
+E        +  where False = <function isfile at 0x7fb561fa0220>('/home/user/myproject/scripts/PatrolController.gd')
+E        +    where <function isfile at 0x7fb561fa0220> = <module 'posixpath' (frozen)>.isfile
+E        +      where <module 'posixpath' (frozen)> = os.path
+
+tests/test_final_state.py:128: AssertionError
+________ ERROR at setup of test_scenario_final_ratio[pingpong_reverse] _________
+
+    @pytest.fixture(scope="module")
+    def runner_output():
+        # File-existence preconditions.
+>       assert os.path.isfile(SCRIPT_PATH), (
+            f"Controller script {SCRIPT_PATH} was not created."
+        )
+E       AssertionError: Controller script /home/user/myproject/scripts/PatrolController.gd was not created.
+E       assert False
+E        +  where False = <function isfile at 0x7fb561fa0220>('/home/user/myproject/scripts/PatrolController.gd')
+E        +    where <function isfile at 0x7fb561fa0220> = <module 'posixpath' (frozen)>.isfile
+E        +      where <module 'posixpath' (frozen)> = os.path
+
+tests/test_final_state.py:128: AssertionError
+________ ERROR at setup of test_scenario_final_ratio[loop_reverse_wrap] ________
+
+    @pytest.fixture(scope="module")
+    def runner_output():
+        # File-existence preconditions.
+>       assert os.path.isfile(SCRIPT_PATH), (
+            f"Controller script {SCRIPT_PATH} was not created."
+        )
+E       AssertionError: Controller script /home/user/myproject/scripts/PatrolController.gd was not created.
+E       assert False
+E        +  where False = <function isfile at 0x7fb561fa0220>('/home/user/myproject/scripts/PatrolController.gd')
+E        +    where <function isfile at 0x7fb561fa0220> = <module 'posixpath' (frozen)>.isfile
+E        +      where <module 'posixpath' (frozen)> = os.path
+
+tests/test_final_state.py:128: AssertionError
+____ ERROR at setup of test_scenario_signal_sequence[loop_forward_no_wrap] _____
+
+    @pytest.fixture(scope="module")
+    def runner_output():
+        # File-existence preconditions.
+>       assert os.path.isfile(SCRIPT_PATH), (
+            f"Controller script {SCRIPT_PATH} was not created."
+        )
+E       AssertionError: Controller script /home/user/myproject/scripts/PatrolController.gd was not created.
+E       assert False
+E        +  where False = <function isfile at 0x7fb561fa0220>('/home/user/myproject/scripts/PatrolController.gd')
+E        +    where <function isfile at 0x7fb561fa0220> = <module 'posixpath' (frozen)>.isfile
+E        +      where <module 'posixpath' (frozen)> = os.path
+
+tests/test_final_state.py:128: AssertionError
+______ ERROR at setup of test_scenario_signal_sequence[loop_forward_wrap] ______
+
+    @pytest.fixture(scope="module")
+    def runner_output():
+        # File-existence preconditions.
+>       assert os.path.isfile(SCRIPT_PATH), (
+            f"Controller script {SCRIPT_PATH} was not created."
+        )
+E       AssertionError: Controller script /home/user/myproject/scripts/PatrolController.gd was not created.
+E       assert False
+E        +  where False = <function isfile at 0x7fb561fa0220>('/home/user/myproject/scripts/PatrolController.gd')
+E        +    where <function isfile at 0x7fb561fa0220> = <module 'posixpath' (frozen)>.isfile
+E        +      where <module 'posixpath' (frozen)> = os.path
+
+tests/test_final_state.py:128: AssertionError
+______ ERROR at setup of test_scenario_signal_sequence[pingpong_reverse] _______
+
+    @pytest.fixture(scope="module")
+    def runner_output():
+        # File-existence preconditions.
+>       assert os.path.isfile(SCRIPT_PATH), (
+            f"Controller script {SCRIPT_PATH} was not created."
+        )
+E       AssertionError: Controller script /home/user/myproject/scripts/PatrolController.gd was not created.
+E       assert False
+E        +  where False = <function isfile at 0x7fb561fa0220>('/home/user/myproject/scripts/PatrolController.gd')
+E        +    where <function isfile at 0x7fb561fa0220> = <module 'posixpath' (frozen)>.isfile
+E        +      where <module 'posixpath' (frozen)> = os.path
+
+tests/test_final_state.py:128: AssertionError
+______ ERROR at setup of test_scenario_signal_sequence[loop_reverse_wrap] ______
+
+    @pytest.fixture(scope="module")
+    def runner_output():
+        # File-existence preconditions.
+>       assert os.path.isfile(SCRIPT_PATH), (
+            f"Controller script {SCRIPT_PATH} was not created."
+        )
+E       AssertionError: Controller script /home/user/myproject/scripts/PatrolController.gd was not created.
+E       assert False
+E        +  where False = <function isfile at 0x7fb561fa0220>('/home/user/myproject/scripts/PatrolController.gd')
+E        +    where <function isfile at 0x7fb561fa0220> = <module 'posixpath' (frozen)>.isfile
+E        +      where <module 'posixpath' (frozen)> = os.path
+
+tests/test_final_state.py:128: AssertionError
+=========================== short test summary info ============================
+ERROR tests/test_final_state.py::test_controller_api_present - AssertionError...
+ERROR tests/test_final_state.py::test_scenario_final_ratio[loop_forward_no_wrap]
+ERROR tests/test_final_state.py::test_scenario_final_ratio[loop_forward_wrap]
+ERROR tests/test_final_state.py::test_scenario_final_ratio[pingpong_reverse]
+ERROR tests/test_final_state.py::test_scenario_final_ratio[loop_reverse_wrap]
+ERROR tests/test_final_state.py::test_scenario_signal_sequence[loop_forward_no_wrap]
+ERROR tests/test_final_state.py::test_scenario_signal_sequence[loop_forward_wrap]
+ERROR tests/test_final_state.py::test_scenario_signal_sequence[pingpong_reverse]
+ERROR tests/test_final_state.py::test_scenario_signal_sequence[loop_reverse_wrap]
+============================== 9 errors in 0.09s ===============================

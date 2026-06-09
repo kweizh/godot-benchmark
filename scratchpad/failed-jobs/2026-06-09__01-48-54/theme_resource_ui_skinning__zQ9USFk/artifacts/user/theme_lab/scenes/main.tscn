@@ -1,0 +1,29 @@
+[gd_scene load_steps=2 format=3 uid="uid://b0t3h7k3c1b"]
+
+[ext_resource type="Script" path="res://scripts/main.gd" id="1_main"]
+
+[node name="Root" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_main")
+
+[node name="MainPanel" type="Panel" parent="."]
+layout_mode = 0
+
+[node name="TitleLabel" type="Label" parent="MainPanel"]
+layout_mode = 0
+
+[node name="DefaultButton" type="Button" parent="MainPanel"]
+layout_mode = 0
+
+[node name="PrimaryButton" type="Button" parent="MainPanel"]
+layout_mode = 0
+theme_type_variation = &"PrimaryButton"
+
+[node name="DangerButton" type="Button" parent="MainPanel"]
+layout_mode = 0
+theme_type_variation = &"DangerButton"

@@ -1,0 +1,15 @@
+; Engine configuration file.
+; It's best edited using the editor UI and not directly,
+; but it can also be edited via script.
+
+config_version=5
+
+[application]
+
+config/name="BT Enemy AI"
+run/main_script=""
+config/features=PackedStringArray("4.2")
+
+[rendering]
+
+renderer/rendering_method="gl_compatibility"

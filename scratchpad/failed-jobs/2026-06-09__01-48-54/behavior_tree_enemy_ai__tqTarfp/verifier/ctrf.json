@@ -1,0 +1,202 @@
+{
+    "results": {
+        "tool": {
+            "name": "pytest",
+            "version": "7.4.4"
+        },
+        "summary": {
+            "tests": 16,
+            "passed": 16,
+            "failed": 0,
+            "skipped": 0,
+            "pending": 0,
+            "other": 0,
+            "start": 1780970091171,
+            "stop": 1780970099787
+        },
+        "environment": {
+            "buildName": "Pytest JSON CTRF Report",
+            "buildNumber": "000",
+            "buildUrl": "https://ctrf.io"
+        },
+        "tests": [
+            {
+                "name": "test_final_state.py::test_required_class_names_registered",
+                "status": "passed",
+                "duration": 7631,
+                "start": 1780970091221,
+                "stop": 1780970098852,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "tags": [
+                    "parametrize::class_name::['BTNode', 'BTSelector', 'BTSequence', 'BTInverter', 'BTAction', 'IsHealthy', 'FleeAction', 'PatrolUntilSpotted', 'ChasePlayer', 'AttackIfInRange', 'BTFactory']"
+                ]
+            },
+            {
+                "name": "test_final_state.py::test_required_class_names_registered",
+                "status": "passed",
+                "duration": 1,
+                "start": 1780970098853,
+                "stop": 1780970098854,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "tags": [
+                    "parametrize::class_name::['BTNode', 'BTSelector', 'BTSequence', 'BTInverter', 'BTAction', 'IsHealthy', 'FleeAction', 'PatrolUntilSpotted', 'ChasePlayer', 'AttackIfInRange', 'BTFactory']"
+                ]
+            },
+            {
+                "name": "test_final_state.py::test_required_class_names_registered",
+                "status": "passed",
+                "duration": 1,
+                "start": 1780970098854,
+                "stop": 1780970098855,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "tags": [
+                    "parametrize::class_name::['BTNode', 'BTSelector', 'BTSequence', 'BTInverter', 'BTAction', 'IsHealthy', 'FleeAction', 'PatrolUntilSpotted', 'ChasePlayer', 'AttackIfInRange', 'BTFactory']"
+                ]
+            },
+            {
+                "name": "test_final_state.py::test_required_class_names_registered",
+                "status": "passed",
+                "duration": 1,
+                "start": 1780970098855,
+                "stop": 1780970098856,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "tags": [
+                    "parametrize::class_name::['BTNode', 'BTSelector', 'BTSequence', 'BTInverter', 'BTAction', 'IsHealthy', 'FleeAction', 'PatrolUntilSpotted', 'ChasePlayer', 'AttackIfInRange', 'BTFactory']"
+                ]
+            },
+            {
+                "name": "test_final_state.py::test_required_class_names_registered",
+                "status": "passed",
+                "duration": 1,
+                "start": 1780970098856,
+                "stop": 1780970098857,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "tags": [
+                    "parametrize::class_name::['BTNode', 'BTSelector', 'BTSequence', 'BTInverter', 'BTAction', 'IsHealthy', 'FleeAction', 'PatrolUntilSpotted', 'ChasePlayer', 'AttackIfInRange', 'BTFactory']"
+                ]
+            },
+            {
+                "name": "test_final_state.py::test_required_class_names_registered",
+                "status": "passed",
+                "duration": 1,
+                "start": 1780970098857,
+                "stop": 1780970098858,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "tags": [
+                    "parametrize::class_name::['BTNode', 'BTSelector', 'BTSequence', 'BTInverter', 'BTAction', 'IsHealthy', 'FleeAction', 'PatrolUntilSpotted', 'ChasePlayer', 'AttackIfInRange', 'BTFactory']"
+                ]
+            },
+            {
+                "name": "test_final_state.py::test_required_class_names_registered",
+                "status": "passed",
+                "duration": 1,
+                "start": 1780970098858,
+                "stop": 1780970098859,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "tags": [
+                    "parametrize::class_name::['BTNode', 'BTSelector', 'BTSequence', 'BTInverter', 'BTAction', 'IsHealthy', 'FleeAction', 'PatrolUntilSpotted', 'ChasePlayer', 'AttackIfInRange', 'BTFactory']"
+                ]
+            },
+            {
+                "name": "test_final_state.py::test_required_class_names_registered",
+                "status": "passed",
+                "duration": 1,
+                "start": 1780970098859,
+                "stop": 1780970098860,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "tags": [
+                    "parametrize::class_name::['BTNode', 'BTSelector', 'BTSequence', 'BTInverter', 'BTAction', 'IsHealthy', 'FleeAction', 'PatrolUntilSpotted', 'ChasePlayer', 'AttackIfInRange', 'BTFactory']"
+                ]
+            },
+            {
+                "name": "test_final_state.py::test_required_class_names_registered",
+                "status": "passed",
+                "duration": 1,
+                "start": 1780970098860,
+                "stop": 1780970098861,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "tags": [
+                    "parametrize::class_name::['BTNode', 'BTSelector', 'BTSequence', 'BTInverter', 'BTAction', 'IsHealthy', 'FleeAction', 'PatrolUntilSpotted', 'ChasePlayer', 'AttackIfInRange', 'BTFactory']"
+                ]
+            },
+            {
+                "name": "test_final_state.py::test_required_class_names_registered",
+                "status": "passed",
+                "duration": 2,
+                "start": 1780970098861,
+                "stop": 1780970098863,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "tags": [
+                    "parametrize::class_name::['BTNode', 'BTSelector', 'BTSequence', 'BTInverter', 'BTAction', 'IsHealthy', 'FleeAction', 'PatrolUntilSpotted', 'ChasePlayer', 'AttackIfInRange', 'BTFactory']"
+                ]
+            },
+            {
+                "name": "test_final_state.py::test_required_class_names_registered",
+                "status": "passed",
+                "duration": 1,
+                "start": 1780970098863,
+                "stop": 1780970098864,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "tags": [
+                    "parametrize::class_name::['BTNode', 'BTSelector', 'BTSequence', 'BTInverter', 'BTAction', 'IsHealthy', 'FleeAction', 'PatrolUntilSpotted', 'ChasePlayer', 'AttackIfInRange', 'BTFactory']"
+                ]
+            },
+            {
+                "name": "test_final_state.py::test_runner_records_have_all_labels",
+                "status": "passed",
+                "duration": 306,
+                "start": 1780970098864,
+                "stop": 1780970099170,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_scenario_a_low_health_flees",
+                "status": "passed",
+                "duration": 0,
+                "start": 1780970099171,
+                "stop": 1780970099171,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_scenario_b_patrol_and_engage",
+                "status": "passed",
+                "duration": 0,
+                "start": 1780970099172,
+                "stop": 1780970099172,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_scenario_c_health_drop_forces_flee",
+                "status": "passed",
+                "duration": 0,
+                "start": 1780970099173,
+                "stop": 1780970099173,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_runner_is_deterministic",
+                "status": "passed",
+                "duration": 613,
+                "start": 1780970099174,
+                "stop": 1780970099787,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            }
+        ]
+    }
+}

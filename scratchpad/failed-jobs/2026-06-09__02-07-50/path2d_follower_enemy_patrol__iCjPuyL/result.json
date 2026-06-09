@@ -1,0 +1,122 @@
+{
+    "id": "a7e8a49e-1ecb-44a8-987c-7819b64ac339",
+    "task_name": "path2d_follower_enemy_patrol",
+    "trial_name": "path2d_follower_enemy_patrol__iCjPuyL",
+    "trial_uri": "file:///home/kweizh/zealt/zealt-agent/jobs/2026-06-09__02-07-50/path2d_follower_enemy_patrol__iCjPuyL",
+    "task_id": {
+        "path": "/home/kweizh/zealt/godot-benchmark/scratchpad/pending-tasks/path2d_follower_enemy_patrol"
+    },
+    "source": "pending-tasks",
+    "task_checksum": "870dc3397be47ea8d302e9e46333f17f74a0df2341d824b1970879813b7208a4",
+    "config": {
+        "task": {
+            "path": "/home/kweizh/zealt/godot-benchmark/scratchpad/pending-tasks/path2d_follower_enemy_patrol",
+            "git_url": null,
+            "git_commit_id": null,
+            "name": null,
+            "ref": null,
+            "overwrite": false,
+            "download_dir": null,
+            "source": "pending-tasks"
+        },
+        "trial_name": "path2d_follower_enemy_patrol__iCjPuyL",
+        "trials_dir": "jobs/2026-06-09__02-07-50",
+        "timeout_multiplier": 1.0,
+        "agent_timeout_multiplier": null,
+        "verifier_timeout_multiplier": null,
+        "agent_setup_timeout_multiplier": null,
+        "environment_build_timeout_multiplier": null,
+        "agent": {
+            "name": null,
+            "import_path": "agents.pochi:Pochi",
+            "model_name": "zai/glm-5.1",
+            "skills": [],
+            "override_timeout_sec": null,
+            "override_setup_timeout_sec": null,
+            "max_timeout_sec": null,
+            "kwargs": {},
+            "env": {},
+            "mcp_servers": []
+        },
+        "environment": {
+            "type": "docker",
+            "import_path": null,
+            "force_build": false,
+            "delete": true,
+            "cpu_enforcement_policy": "auto",
+            "memory_enforcement_policy": "auto",
+            "override_cpus": null,
+            "override_memory_mb": null,
+            "override_storage_mb": null,
+            "override_gpus": null,
+            "suppress_override_warnings": false,
+            "mounts": [
+                {
+                    "type": "bind",
+                    "source": "test_initial_state.py",
+                    "target": "/bootstrap/test_initial_state.py"
+                }
+            ],
+            "extra_docker_compose": [],
+            "env": {},
+            "kwargs": {}
+        },
+        "verifier": {
+            "override_timeout_sec": null,
+            "max_timeout_sec": null,
+            "env": {},
+            "disable": false
+        },
+        "artifacts": [
+            "/home/user"
+        ],
+        "extra_instruction_paths": [],
+        "job_id": "66e80f95-0605-4c62-a278-003116a7f560"
+    },
+    "agent_info": {
+        "name": "pochi",
+        "version": "0.6.12",
+        "model_info": {
+            "name": "glm-5.1",
+            "provider": "zai"
+        }
+    },
+    "agent_result": {
+        "n_input_tokens": 0,
+        "n_cache_tokens": 0,
+        "n_output_tokens": 14189,
+        "cost_usd": null,
+        "rollout_details": null,
+        "metadata": null
+    },
+    "verifier_result": {
+        "rewards": {
+            "reward": 0.0
+        }
+    },
+    "exception_info": {
+        "exception_type": "NonZeroAgentExitCodeError",
+        "exception_message": "Command failed (exit 1): pochi --model zai/glm-5.1 --max-steps 200 --max-retries 10 --blobs-dir /logs/agent/pochi/blobs --experimental-stream-trajectory /logs/agent/pochi/trajectory.jsonl > >(tee /logs/agent/pochi/stdout.txt) 2> >(tee /logs/agent/pochi/stderr.txt >&2) <<'EOF'\n# Godot 4 Enemy Patrol with Path2D + PathFollow2D\n\n## Background\n\nYou are working in a Godot 4 (headless) project at `/home/user/myproject`. The team needs a reusable enemy patrol component built on `Path2D` and `PathFollow2D`. The waypoint geometry is not authored in the editor; instead, the curve must be constructed at runtime from waypoints loaded from a JSON file. The patrol must support both `loop` and `pingpong` modes, configurable speed and direction, and must emit a signal when crossing each waypoint segment threshold so that other systems can react.\n\n## Requirements\n\nImplement a single patrol scene and its controller script that satisfy the contract below. The evaluator drives the controller deterministically via a custom `tick(delta)` method (instead of relying on engine `_process`) so that frame-by-frame behavior is reproducible.\n\n### Files you must produce\n\n- `res://scripts/PatrolController.gd` - the controller script\n- `res://scenes/PatrolEnemy.tscn` - the scene that uses the controller\n- `res://data/waypoints.json` - the waypoints file (may be edited; default scaffold is provided)\n\n### Scene structure (exact)\n\nThe scene `res://scenes/PatrolEnemy.tscn` must have this node tree (names and types are exact):\n\n```\nPatrolEnemy   (Path2D, script = res://scripts/PatrolController.gd)\n  PathFollow2D  (PathFollow2D)\n    Enemy       (Node2D)\n```\n\nThe root node must be of type `Path2D`. Its `curve` property must be a `Curve2D` resource. The `PathFollow2D` child must be named exactly `PathFollow2D`.\n\n### Controller API (exact names)\n\nThe `PatrolController` script must define the following public members.\n\n- Signal: `signal progress_changed(ratio: float)`\n- Method: `func load_waypoints(json_path: String) -> void`\n  - Reads a JSON file with the schema `{ \"waypoints\": [[x, y], [x, y], ...] }`.\n  - Replaces the contents of the root `Path2D` curve with a polyline that visits each waypoint in order (linear segments; no Bezier handles).\n  - Resets `PathFollow2D.progress` to `0.0`.\n- Method: `func set_mode(mode: String) -> void`\n  - Accepts `\"loop\"` or `\"pingpong\"`.\n- Method: `func set_speed(speed: float) -> void`\n  - Pixels per second.\n- Method: `func set_direction(direction: int) -> void`\n  - `+1` for forward along the curve, `-1` for reverse.\n- Method: `func tick(delta: float) -> void`\n  - Advances `PathFollow2D.progress` by `speed * delta` in the current direction.\n  - In `loop` mode, progress wraps modulo the baked curve length at both ends.\n  - In `pingpong` mode, the patrol reverses direction when reaching either endpoint. Any leftover travel after the reversal continues in the new direction within the same tick. The internal direction sign is flipped on reversal.\n  - Emits `progress_changed(ratio)` exactly once for every waypoint segment boundary crossed by this tick, in the order they were crossed. `ratio` is the threshold ratio of the crossed boundary, equal to `i / (waypoint_count - 1)` for the waypoint index `i` that was reached.\n  - The starting position (`ratio == 0`) is not emitted before the first movement; only crossings caused by movement are reported.\n\n### Waypoint file format\n\n`res://data/waypoints.json` must be valid JSON with this structure:\n\n```json\n{\n  \"waypoints\": [[0, 0], [300, 0], [300, 300], [0, 300]]\n}\n```\n\nThe scaffold ships with the values above. You may adjust this file if your implementation depends on a specific scaffold, but the loader must still accept arbitrary waypoint counts (>= 2).\n\n## Implementation Hints\n\n- The `Path2D` root owns a `Curve2D`. Use `Curve2D.clear_points()` and `Curve2D.add_point(Vector2(x, y))` to rebuild the polyline at runtime; leave the `in`/`out` arguments at their defaults so the segments stay linear.\n- `PathFollow2D.progress` is measured in pixels along the baked curve; `PathFollow2D.progress_ratio` is the normalized 0-1 form. The total curve length comes from `Curve2D.get_baked_length()`.\n- Disable any automatic engine ticking on the controller (for example by calling `set_process(false)` in `_ready`) so that only `tick(delta)` drives progress.\n- For `pingpong`, remember to handle the case where a single tick contains more travel than the distance to the upcoming endpoint; you must consume the remainder in the reversed direction within the same call (and emit any boundary signals crossed by either half).\n- For boundary crossing detection in `loop` mode, treat the wrap from the last waypoint back to the first as a single crossing of `ratio = 1.0` (when moving forward) or `ratio = 0.0` (when moving backward).\n\n## Acceptance Criteria\n\n- Project path: `/home/user/myproject`\n- Godot 4 (headless) is preinstalled as the `godot` binary on `PATH`.\n- Scene file `res://scenes/PatrolEnemy.tscn` exists with the node tree described above.\n- Script file `res://scripts/PatrolController.gd` exists and exposes the exact API listed above (signal name, method names, method signatures).\n- JSON file `res://data/waypoints.json` exists with the documented schema.\n- The evaluator runs `godot --headless --path /home/user/myproject -s res://test_runner.gd` against an evaluator-provided runner. The runner instantiates `res://scenes/PatrolEnemy.tscn`, calls `load_waypoints`, configures mode/speed/direction, drives `tick(delta)` deterministically, and verifies that:\n  - `PathFollow2D.progress_ratio` after the configured ticks matches the expected value within a tolerance of `0.01`.\n  - The captured `progress_changed` emissions match the expected ordered ratio sequence within the same tolerance.\n- The runner exercises at least four scenarios: loop forward without wrap, loop forward with wrap, pingpong with endpoint reversal, and loop reverse from the starting position.\n\n\nEOF\nstdout: \u001b[37m2026-06-09 02:08:21.545\u001b[39m\u001b[0m\u001b[0m\t\u001b[32m\u001b[1mDEBUG\u001b[22m\u001b[39m\u001b[0m\u001b[0m\t\u001b[37mnative:1\u001b[39m\u001b[0m\u001b[0m\u001b[1m\u001b[37m\tPochi\u001b[39m\u001b[22m\u001b[0m\u001b[0m\tpochi v0.6.12\n\u001b[37m2026-06-09 02:08:21.678\u001b[39m\u001b[0m\u001b[0m\t\u001b[32m\u001b[1mDEBUG\u001b[22m\u001b[39m\u001b[0m\u001b[0m\t\u001b[37m$bunfs/root/pochi:521107\u001b[39m\u001b[0m\u001b[0m\u001b[1m\u001b[37m\tloadAgents\u001b[39m\u001b[22m\u001b[0m\u001b[0m\tLoaded 6 custom agents (6 valid, 0 invalid)\n\u001b[37m2026-06-09 02:08:21.680\u001b[39m\u001b[0m\u001b[0m\t\u001b[32m\u001b[1mDEBUG\u001b[22m\u001b[39m\u001b[0m\u001b[0m\t\u001b[37m$bunfs/root/pochi:521108\u001b[39m\u001b[0m\u001b[0m\u001b[1m\u001b[37m\tloadSkills\u001b[39m\u001b[22m\u001b[0m\u001b[0m\tLoaded 2 skills (2 valid, 0 invalid)\n\u001b[37m2026-06-09 02:08:21.846\u001b[39m\u001b[0m\u001b[0m\t\u001b[32m\u001b[1mDEBUG\u001b[22m\u001b[39m\u001b[0m\u001b[0m\t\u001b[37m$bunfs/root/pochi:448506\u001b[39m\u001b[0m\u001b[0m\u001b[1m\u001b[37m\tPochiVendor\u001b[39m\u001b[22m\u001b[0m\u001b[0m\tJWT is expiring or missing, fetching a new one\n\u001b[37m2026-06-09 02:08:23.448\u001b[39m\u001b[0m\u001b[0m\t\u001b[32m\u001b[1mDEBUG\u001b[22m\u001b[39m\u001b[0m\u001b[0m\t\u001b[37m$bunfs/root/pochi:419064\u001b[39m\u001b[0m\u001b[0m\u001b[1m\u001b[37m\tMCPHub\u001b[39m\u001b[22m\u001b[0m\u001b[0m\tMCP servers configuration changed via signal:\n\u001b[37m2026-06-09 02:08:23.449\u001b[39m\u001b[0m\u001b[0m\t\u001b[32m\u001b[1mDEBUG ... [truncated]\nstderr: None",
+        "exception_traceback": "Traceback (most recent call last):\n  File \"/home/kweizh/.local/share/uv/tools/harbor/lib/python3.13/site-packages/harbor/trial/single_step.py\", line 63, in _run_agent\n    await self._run_agent_phase(\n    ...<4 lines>...\n    )\n  File \"/home/kweizh/.local/share/uv/tools/harbor/lib/python3.13/site-packages/harbor/trial/trial.py\", line 238, in _run_agent_phase\n    await asyncio.wait_for(\n    ...<6 lines>...\n    )\n  File \"/usr/lib/python3.13/asyncio/tasks.py\", line 507, in wait_for\n    return await fut\n           ^^^^^^^^^\n  File \"/home/kweizh/.local/share/uv/tools/harbor/lib/python3.13/site-packages/harbor/agents/installed/base.py\", line 39, in wrapper\n    return await fn(self, instruction, *args, **kwargs)\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/home/kweizh/zealt/zealt-agent/agents/pochi.py\", line 223, in run\n    await self.exec_as_agent(\n    ...<15 lines>...\n    )\n  File \"/home/kweizh/.local/share/uv/tools/harbor/lib/python3.13/site-packages/harbor/agents/installed/base.py\", line 354, in exec_as_agent\n    return await self._exec(\n           ^^^^^^^^^^^^^^^^^\n        environment, command, env=env, cwd=cwd, timeout_sec=timeout_sec\n        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n    )\n    ^\n  File \"/home/kweizh/.local/share/uv/tools/harbor/lib/python3.13/site-packages/harbor/agents/installed/base.py\", line 317, in _exec\n    raise NonZeroAgentExitCodeError(\n    ...<3 lines>...\n    )\nharbor.agents.installed.base.NonZeroAgentExitCodeError: Command failed (exit 1): pochi --model zai/glm-5.1 --max-steps 200 --max-retries 10 --blobs-dir /logs/agent/pochi/blobs --experimental-stream-trajectory /logs/agent/pochi/trajectory.jsonl > >(tee /logs/agent/pochi/stdout.txt) 2> >(tee /logs/agent/pochi/stderr.txt >&2) <<'EOF'\n# Godot 4 Enemy Patrol with Path2D + PathFollow2D\n\n## Background\n\nYou are working in a Godot 4 (headless) project at `/home/user/myproject`. The team needs a reusable enemy patrol component built on `Path2D` and `PathFollow2D`. The waypoint geometry is not authored in the editor; instead, the curve must be constructed at runtime from waypoints loaded from a JSON file. The patrol must support both `loop` and `pingpong` modes, configurable speed and direction, and must emit a signal when crossing each waypoint segment threshold so that other systems can react.\n\n## Requirements\n\nImplement a single patrol scene and its controller script that satisfy the contract below. The evaluator drives the controller deterministically via a custom `tick(delta)` method (instead of relying on engine `_process`) so that frame-by-frame behavior is reproducible.\n\n### Files you must produce\n\n- `res://scripts/PatrolController.gd` - the controller script\n- `res://scenes/PatrolEnemy.tscn` - the scene that uses the controller\n- `res://data/waypoints.json` - the waypoints file (may be edited; default scaffold is provided)\n\n### Scene structure (exact)\n\nThe scene `res://scenes/PatrolEnemy.tscn` must have this node tree (names and types are exact):\n\n```\nPatrolEnemy   (Path2D, script = res://scripts/PatrolController.gd)\n  PathFollow2D  (PathFollow2D)\n    Enemy       (Node2D)\n```\n\nThe root node must be of type `Path2D`. Its `curve` property must be a `Curve2D` resource. The `PathFollow2D` child must be named exactly `PathFollow2D`.\n\n### Controller API (exact names)\n\nThe `PatrolController` script must define the following public members.\n\n- Signal: `signal progress_changed(ratio: float)`\n- Method: `func load_waypoints(json_path: String) -> void`\n  - Reads a JSON file with the schema `{ \"waypoints\": [[x, y], [x, y], ...] }`.\n  - Replaces the contents of the root `Path2D` curve with a polyline that visits each waypoint in order (linear segments; no Bezier handles).\n  - Resets `PathFollow2D.progress` to `0.0`.\n- Method: `func set_mode(mode: String) -> void`\n  - Accepts `\"loop\"` or `\"pingpong\"`.\n- Method: `func set_speed(speed: float) -> void`\n  - Pixels per second.\n- Method: `func set_direction(direction: int) -> void`\n  - `+1` for forward along the curve, `-1` for reverse.\n- Method: `func tick(delta: float) -> void`\n  - Advances `PathFollow2D.progress` by `speed * delta` in the current direction.\n  - In `loop` mode, progress wraps modulo the baked curve length at both ends.\n  - In `pingpong` mode, the patrol reverses direction when reaching either endpoint. Any leftover travel after the reversal continues in the new direction within the same tick. The internal direction sign is flipped on reversal.\n  - Emits `progress_changed(ratio)` exactly once for every waypoint segment boundary crossed by this tick, in the order they were crossed. `ratio` is the threshold ratio of the crossed boundary, equal to `i / (waypoint_count - 1)` for the waypoint index `i` that was reached.\n  - The starting position (`ratio == 0`) is not emitted before the first movement; only crossings caused by movement are reported.\n\n### Waypoint file format\n\n`res://data/waypoints.json` must be valid JSON with this structure:\n\n```json\n{\n  \"waypoints\": [[0, 0], [300, 0], [300, 300], [0, 300]]\n}\n```\n\nThe scaffold ships with the values above. You may adjust this file if your implementation depends on a specific scaffold, but the loader must still accept arbitrary waypoint counts (>= 2).\n\n## Implementation Hints\n\n- The `Path2D` root owns a `Curve2D`. Use `Curve2D.clear_points()` and `Curve2D.add_point(Vector2(x, y))` to rebuild the polyline at runtime; leave the `in`/`out` arguments at their defaults so the segments stay linear.\n- `PathFollow2D.progress` is measured in pixels along the baked curve; `PathFollow2D.progress_ratio` is the normalized 0-1 form. The total curve length comes from `Curve2D.get_baked_length()`.\n- Disable any automatic engine ticking on the controller (for example by calling `set_process(false)` in `_ready`) so that only `tick(delta)` drives progress.\n- For `pingpong`, remember to handle the case where a single tick contains more travel than the distance to the upcoming endpoint; you must consume the remainder in the reversed direction within the same call (and emit any boundary signals crossed by either half).\n- For boundary crossing detection in `loop` mode, treat the wrap from the last waypoint back to the first as a single crossing of `ratio = 1.0` (when moving forward) or `ratio = 0.0` (when moving backward).\n\n## Acceptance Criteria\n\n- Project path: `/home/user/myproject`\n- Godot 4 (headless) is preinstalled as the `godot` binary on `PATH`.\n- Scene file `res://scenes/PatrolEnemy.tscn` exists with the node tree described above.\n- Script file `res://scripts/PatrolController.gd` exists and exposes the exact API listed above (signal name, method names, method signatures).\n- JSON file `res://data/waypoints.json` exists with the documented schema.\n- The evaluator runs `godot --headless --path /home/user/myproject -s res://test_runner.gd` against an evaluator-provided runner. The runner instantiates `res://scenes/PatrolEnemy.tscn`, calls `load_waypoints`, configures mode/speed/direction, drives `tick(delta)` deterministically, and verifies that:\n  - `PathFollow2D.progress_ratio` after the configured ticks matches the expected value within a tolerance of `0.01`.\n  - The captured `progress_changed` emissions match the expected ordered ratio sequence within the same tolerance.\n- The runner exercises at least four scenarios: loop forward without wrap, loop forward with wrap, pingpong with endpoint reversal, and loop reverse from the starting position.\n\n\nEOF\nstdout: \u001b[37m2026-06-09 02:08:21.545\u001b[39m\u001b[0m\u001b[0m\t\u001b[32m\u001b[1mDEBUG\u001b[22m\u001b[39m\u001b[0m\u001b[0m\t\u001b[37mnative:1\u001b[39m\u001b[0m\u001b[0m\u001b[1m\u001b[37m\tPochi\u001b[39m\u001b[22m\u001b[0m\u001b[0m\tpochi v0.6.12\n\u001b[37m2026-06-09 02:08:21.678\u001b[39m\u001b[0m\u001b[0m\t\u001b[32m\u001b[1mDEBUG\u001b[22m\u001b[39m\u001b[0m\u001b[0m\t\u001b[37m$bunfs/root/pochi:521107\u001b[39m\u001b[0m\u001b[0m\u001b[1m\u001b[37m\tloadAgents\u001b[39m\u001b[22m\u001b[0m\u001b[0m\tLoaded 6 custom agents (6 valid, 0 invalid)\n\u001b[37m2026-06-09 02:08:21.680\u001b[39m\u001b[0m\u001b[0m\t\u001b[32m\u001b[1mDEBUG\u001b[22m\u001b[39m\u001b[0m\u001b[0m\t\u001b[37m$bunfs/root/pochi:521108\u001b[39m\u001b[0m\u001b[0m\u001b[1m\u001b[37m\tloadSkills\u001b[39m\u001b[22m\u001b[0m\u001b[0m\tLoaded 2 skills (2 valid, 0 invalid)\n\u001b[37m2026-06-09 02:08:21.846\u001b[39m\u001b[0m\u001b[0m\t\u001b[32m\u001b[1mDEBUG\u001b[22m\u001b[39m\u001b[0m\u001b[0m\t\u001b[37m$bunfs/root/pochi:448506\u001b[39m\u001b[0m\u001b[0m\u001b[1m\u001b[37m\tPochiVendor\u001b[39m\u001b[22m\u001b[0m\u001b[0m\tJWT is expiring or missing, fetching a new one\n\u001b[37m2026-06-09 02:08:23.448\u001b[39m\u001b[0m\u001b[0m\t\u001b[32m\u001b[1mDEBUG\u001b[22m\u001b[39m\u001b[0m\u001b[0m\t\u001b[37m$bunfs/root/pochi:419064\u001b[39m\u001b[0m\u001b[0m\u001b[1m\u001b[37m\tMCPHub\u001b[39m\u001b[22m\u001b[0m\u001b[0m\tMCP servers configuration changed via signal:\n\u001b[37m2026-06-09 02:08:23.449\u001b[39m\u001b[0m\u001b[0m\t\u001b[32m\u001b[1mDEBUG ... [truncated]\nstderr: None\n",
+        "occurred_at": "2026-06-09T02:13:21.929910"
+    },
+    "started_at": "2026-06-09T02:07:57.630849Z",
+    "finished_at": "2026-06-09T02:13:36.098272Z",
+    "environment_setup": {
+        "started_at": "2026-06-09T02:07:57.702258Z",
+        "finished_at": "2026-06-09T02:08:00.918129Z"
+    },
+    "agent_setup": {
+        "started_at": "2026-06-09T02:08:00.918212Z",
+        "finished_at": "2026-06-09T02:08:17.952628Z"
+    },
+    "agent_execution": {
+        "started_at": "2026-06-09T02:08:17.953363Z",
+        "finished_at": "2026-06-09T02:13:21.927310Z"
+    },
+    "verifier": {
+        "started_at": "2026-06-09T02:13:23.419766Z",
+        "finished_at": "2026-06-09T02:13:24.381414Z"
+    },
+    "step_results": null
+}

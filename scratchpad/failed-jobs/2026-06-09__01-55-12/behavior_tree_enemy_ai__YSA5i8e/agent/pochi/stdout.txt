@@ -1,0 +1,522 @@
+- Initializing MCP connections...
+You
+# Behavior Tree Enemy AI in Godot 4 GDScript ## Background You are extending a Godot 4 project with a reusable, pure-GDScript Behavior Tree (BT) library implemented entirely with custom `Resource` classes, plus a concrete enemy AI tree built on top of it. The library must be self-contained (no external addons, no scenes for tree nodes themselves) and must be driveable by a plain `Dictionary` blackboard that holds the AI's perception and side-effect state. The library will be exercised by an external test driver that constructs scenarios, mutates the blackboard between ticks, and asserts the tree's return statuses and side effects on the blackboard. ## Requirements - Implement the BT library as `Resource`-derived classes with the listed `class_name` identifiers. - The BT node base type must define three integer status constants: `SUCCESS = 0`, `FAILURE = 1`, `RUNNING = 2`, and a virtual instance method `tick(blackboard: Dictionary) -> int`. - Implement a composite node base concept holding an ordered list of children, plus the two listed composite kinds, the listed decorator, and the listed action base type. - Implement five concrete action node types that read from and write to the blackboard with the exact semantics described below. - Implement a factory class that builds the concrete enemy AI tree and returns its root. - The implementation must be deterministic: identical blackboard inputs across ticks must produce identical outputs and identical mutations. - Everything must run under Godot 4 in `--headless` mode without an editor session. ## Class and File Layout - Project path: `/home/user/myproject`. - The Godot project must declare a `project.godot` with `config_version=5` and any GDScript-only feature flags it needs. No scenes are required. - Source files live directly under `res://` (subdirectories are allowed but the `class_name` identifiers listed below are what matters; tests resolve everything by `class_name`). - Required `class_name` identifiers (each in its own `.gd` file extending `Resource` or a previously listed class): - `BTNode` (extends `Resource`) - `BTSelector` (extends `BTNode`) - `BTSequence` (extends `BTNode`) - `BTInverter` (extends `BTNode`) - `BTAction` (extends `BTNode`) - `IsHealthy` (extends `BTAction`) - `FleeAction` (extends `BTAction`) - `PatrolUntilSpotted` (extends `BTAction`) - `ChasePlayer` (extends `BTAction`) - `AttackIfInRange` (extends `BTAction`) - `BTFactory` (extends `RefCounted` or any plain script class) ## Status Constants and `tick` Signature - The three status constants `SUCCESS = 0`, `FAILURE = 1`, `RUNNING = 2` must be class constants on `BTNode` and resolvable as `BTNode.SUCCESS`, `BTNode.FAILURE`, and `BTNode.RUNNING` from any other script. - Every BT node class must implement (or inherit) an instance method with the exact signature `func tick(blackboard: Dictionary) -> int` that returns one of the three status constants. ## Composite, Decorator, and Action Semantics - `BTSelector` holds an ordered list of child `BTNode` instances. Its `tick` iterates children in order: on a child returning `SUCCESS` it returns `SUCCESS` immediately; on `RUNNING` it returns `RUNNING` immediately; on `FAILURE` it continues to the next child. If every child returned `FAILURE`, the selector returns `FAILURE`. - `BTSequence` holds an ordered list of child `BTNode` instances. Its `tick` iterates children in order: on a child returning `FAILURE` it returns `FAILURE` immediately; on `RUNNING` it returns `RUNNING` immediately; on `SUCCESS` it continues. If every child returned `SUCCESS`, the sequence returns `SUCCESS`. - `BTInverter` wraps exactly one child `BTNode`. `SUCCESS` becomes `FAILURE`, `FAILURE` becomes `SUCCESS`, and `RUNNING` stays `RUNNING`. - `BTAction` is the base for leaf action nodes; its default `tick` may return `FAILURE` and is meant to be overridden. - Action semantics (all read and mutate the same `blackboard: Dictionary`): - `IsHealthy`: returns `SUCCESS` if `blackboard["health"] >= blackboard["healthy_threshold"]`, otherwise `FAILURE`. Does not mutate the blackboard. - `FleeAction`: sets `blackboard["action"] = "flee"` and returns `SUCCESS`. - `PatrolUntilSpotted`: if `blackboard["player_spotted"]` is truthy, returns `SUCCESS` without mutating any other key. Otherwise it sets `blackboard["action"] = "patrol"`, increments `blackboard["patrol_steps"]` by 1, and returns `RUNNING`. - `ChasePlayer`: sets `blackboard["action"] = "chase"`. If `blackboard["distance_to_player"] <= blackboard["attack_range"]`, returns `SUCCESS` without mutating distance. Otherwise it subtracts `blackboard["chase_speed"]` from `blackboard["distance_to_player"]` and returns `RUNNING`. - `AttackIfInRange`: if `blackboard["distance_to_player"] <= blackboard["attack_range"]`, it sets `blackboard["action"] = "attack"`, sets `blackboard["last_attack_damage"] = blackboard["attack_damage"]`, and returns `SUCCESS`. Otherwise returns `FAILURE` and does not mutate the blackboard. ## Enemy AI Tree Topology - `BTFactory` must expose a static method `static func build_enemy_tree() -> BTNode` that returns a fully constructed root. - Topology returned by `build_enemy_tree()`: - Root is a `BTSelector` with exactly two children, in this order: 1. A `BTSequence` with exactly two children, in this order: - A `BTInverter` wrapping an `IsHealthy` action. - A `FleeAction`. 2. A `BTSequence` with exactly three children, in this order: - A `PatrolUntilSpotted` action. - A `ChasePlayer` action. - An `AttackIfInRange` action. ## Implementation Hints - Use `class_name` declarations so the test driver can resolve every BT node type globally without `preload` paths. - Custom `Resource` classes use `extends Resource` and live in `.gd` files. Composites should store children in a typed `Array[BTNode]`. - For the deterministic, stateless tree, the BT does not memoize the running child; each `tick` re-evaluates from the root using whatever state the caller leaves on the blackboard. - Run Godot headlessly with `godot --headless --path /home/user/myproject ...`. A script that extends `SceneTree` can be invoked with `--script res://.gd`. - No scenes, no nodes, and no input handling are required; all logic flows through `tick(blackboard)`. ## Acceptance Criteria - Project path: `/home/user/myproject`. - The Godot project must boot under `godot --headless --path /home/user/myproject` without errors. - A test driver script will be created by the verifier as `/home/user/myproject/zealt_bt_runner.gd`. It will be invoked exactly as `godot --headless --path /home/user/myproject --script res://zealt_bt_runner.gd`. The driver constructs its own blackboards, calls `BTFactory.build_enemy_tree()`, and ticks the resulting root. - The driver prints exactly one line beginning with the literal prefix `BT_RESULTS:` followed by a JSON array of per-step records. Each record has the shape `{"label": string, "status": int, "blackboard": object}` where `status` is one of `0`, `1`, or `2` and `blackboard` is the post-tick state of the dictionary passed to `tick`. - The verifier asserts the recorded `status` and `blackboard` values match the expected scenarios listed in `truth`. - All `class_name` identifiers listed above must be present in the project's global class index after a headless boot (verifiable with a probe script).   
+
+Pochi
+💭 Thinking for 241 characters   
+📋 Updating todo list (8 items) ✔ 
+💫 Executing mkdir -p /home/user/myproject ✔ 
+📋 Updating todo list (8 items) ✔ 
+✏️  Writing /home/user/myproject/project.godot ✖ "File has not been read yet. Please read the file before writing it."
+🔧 Applying diff to /home/user/myproject/project.godot ✖ "File has not been read yet. Please read the file before editing it."
+💫 Executing cat > /home/user/myproject/project.godot << 'HEREDOC'
+; Engine configuration file.
+; It's best edited using the editor UI and not directly,
+; but the file format allows this.
+;
+; Format:
+;   [section] ; section goes in []
+;   param=value ; assign values to parameters
+
+config_version=5
+
+[application]
+
+config/name="EnemyBT"
+config/features=PackedStringArray("4.0", "GDScript")
+HEREDOC ✔ 
+Now let me create all the GDScript files:   
+📋 Updating todo list (8 items) ✔ 
+💫 Executing cat > /home/user/myproject/BTNode.gd << 'HEREDOC'
+class_name BTNode
+extends Resource
+
+const SUCCESS: int = 0
+const FAILURE: int = 1
+const RUNNING: int = 2
+
+func tick(blackboard: Dictionary) -> int:
+	return FAILURE
+HEREDOC ✔ 
+📋 Updating todo list (7 items) ✔ 
+💫 Executing cat > /home/user/myproject/BTSelector.gd << 'HEREDOC'
+class_name BTSelector
+extends BTNode
+
+var children: Array[BTNode] = []
+
+func tick(blackboard: Dictionary) -> int:
+	for child in children:
+		var result: int = child.tick(blackboard)
+		if result == SUCCESS:
+			return SUCCESS
+		elif result == RUNNING:
+			return RUNNING
+		# FAILURE => continue to next child
+	return FAILURE
+HEREDOC ✔ 
+💫 Executing cat > /home/user/myproject/BTSequence.gd << 'HEREDOC'
+class_name BTSequence
+extends BTNode
+
+var children: Array[BTNode] = []
+
+func tick(blackboard: Dictionary) -> int:
+	for child in children:
+		var result: int = child.tick(blackboard)
+		if result == FAILURE:
+			return FAILURE
+		elif result == RUNNING:
+			return RUNNING
+		# SUCCESS => continue to next child
+	return SUCCESS
+HEREDOC ✔ 
+📋 Updating todo list (6 items) ✔ 
+💫 Executing cat > /home/user/myproject/BTInverter.gd << 'HEREDOC'
+class_name BTInverter
+extends BTNode
+
+var child: BTNode = null
+
+func tick(blackboard: Dictionary) -> int:
+	var result: int = child.tick(blackboard)
+	if result == SUCCESS:
+		return FAILURE
+	elif result == FAILURE:
+		return SUCCESS
+	return RUNNING
+HEREDOC ✔ 
+📋 Updating todo list (5 items) ✔ 
+💫 Executing cat > /home/user/myproject/BTAction.gd << 'HEREDOC'
+class_name BTAction
+extends BTNode
+
+func tick(blackboard: Dictionary) -> int:
+	return FAILURE
+HEREDOC ✔ 
+📋 Updating todo list (4 items) ✔ 
+💫 Executing cat > /home/user/myproject/IsHealthy.gd << 'HEREDOC'
+class_name IsHealthy
+extends BTAction
+
+func tick(blackboard: Dictionary) -> int:
+	if blackboard["health"] >= blackboard["healthy_threshold"]:
+		return SUCCESS
+	return FAILURE
+HEREDOC ✔ 
+💫 Executing cat > /home/user/myproject/FleeAction.gd << 'HEREDOC'
+class_name FleeAction
+extends BTAction
+
+func tick(blackboard: Dictionary) -> int:
+	blackboard["action"] = "flee"
+	return SUCCESS
+HEREDOC ✔ 
+💫 Executing cat > /home/user/myproject/PatrolUntilSpotted.gd << 'HEREDOC'
+class_name PatrolUntilSpotted
+extends BTAction
+
+func tick(blackboard: Dictionary) -> int:
+	if blackboard["player_spotted"]:
+		return SUCCESS
+	blackboard["action"] = "patrol"
+	blackboard["patrol_steps"] = blackboard["patrol_steps"] + 1
+	return RUNNING
+HEREDOC ✔ 
+💫 Executing cat > /home/user/myproject/ChasePlayer.gd << 'HEREDOC'
+class_name ChasePlayer
+extends BTAction
+
+func tick(blackboard: Dictionary) -> int:
+	blackboard["action"] = "chase"
+	if blackboard["distance_to_player"] <= blackboard["attack_range"]:
+		return SUCCESS
+	blackboard["distance_to_player"] = blackboard["distance_to_player"] - blackboard["chase_speed"]
+	return RUNNING
+HEREDOC ✔ 
+💫 Executing cat > /home/user/myproject/AttackIfInRange.gd << 'HEREDOC'
+class_name AttackIfInRange
+extends BTAction
+
+func tick(blackboard: Dictionary) -> int:
+	if blackboard["distance_to_player"] <= blackboard["attack_range"]:
+		blackboard["action"] = "attack"
+		blackboard["last_attack_damage"] = blackboard["attack_damage"]
+		return SUCCESS
+	return FAILURE
+HEREDOC ✔ 
+📋 Updating todo list (3 items) ✔ 
+💫 Executing cat > /home/user/myproject/BTFactory.gd << 'HEREDOC'
+class_name BTFactory
+extends RefCounted
+
+static func build_enemy_tree() -> BTNode:
+	# Branch 1: Flee when unhealthy
+	# BTInverter wrapping IsHealthy
+	var is_healthy := IsHealthy.new()
+	var inverter := BTInverter.new()
+	inverter.child = is_healthy
+
+	var flee := FleeAction.new()
+
+	var flee_sequence := BTSequence.new()
+	flee_sequence.children.append(inverter)
+	flee_sequence.children.append(flee)
+
+	# Branch 2: Patrol -> Chase -> Attack
+	var patrol := PatrolUntilSpotted.new()
+	var chase := ChasePlayer.new()
+	var attack := AttackIfInRange.new()
+
+	var engage_sequence := BTSequence.new()
+	engage_sequence.children.append(patrol)
+	engage_sequence.children.append(chase)
+	engage_sequence.children.append(attack)
+
+	# Root selector
+	var root := BTSelector.new()
+	root.children.append(flee_sequence)
+	root.children.append(engage_sequence)
+
+	return root
+HEREDOC ✔ 
+📋 Updating todo list (2 items) ✔ 
+Now let me verify the project structure and test boot:   
+💫 Executing ls -la /home/user/myproject/ ✔ 
+💫 Executing which godot || which godot4 || ls /usr/bin/godot* 2>/dev/null || ls /usr/local/bin/godot* 2>/dev/null || find / -name "godot*" -type f -executable 2>/dev/null | head -5 ✔ 
+💫 Executing godot --version ✔ 
+Good, Godot 4.3 is available. Now let's create a small probe script and test that the project boots correctly:   
+💫 Executing cat > /home/user/myproject/probe.gd << 'HEREDOC'
+extends SceneTree
+
+func _init():
+	# Test that all class names are resolvable and tree builds correctly
+	var root = BTFactory.build_enemy_tree()
+	print("BTFactory root type: ", root.get_class())
+	print("BTNode.SUCCESS=", BTNode.SUCCESS, " FAILURE=", BTNode.FAILURE, " RUNNING=", BTNode.RUNNING)
+	print("Probe OK")
+	quit(0)
+HEREDOC ✔ 
+💫 Executing godot --headless --path /home/user/myproject --script res://probe.gd 2>&1 ✖ "Command exited with code 1"
+The class_name global class index needs to be built. In Godot 4, running headlessly with `--script` on a project that has never been opened in the editor requires the class cache to be populated. Let me check if there's a way to force the class index rebuild, or if we need to use `--import` first:   
+💫 Executing godot --headless --path /home/user/myproject --import 2>&1; echo "Exit: $?" ✔ 
+💫 Executing ls -la /home/user/myproject/.godot/ 2>/dev/null || echo "No .godot dir" ✔ 
+💫 Executing cat /home/user/myproject/.godot/global_script_class_cache.cfg ✔ 
+All 11 classes are registered in the global class cache. Now let's run the probe again:   
+💫 Executing godot --headless --path /home/user/myproject --script res://probe.gd 2>&1 ✔ 
+The project boots and resolves all classes correctly. Let me now run a more comprehensive integration test to verify all action semantics work exactly as specified:   
+💫 Executing cat > /home/user/myproject/integration_test.gd << 'HEREDOC'
+extends SceneTree
+
+func _init():
+	var passed := 0
+	var failed := 0
+
+	# Helper
+	func assert_eq(label: String, got, expected):
+		if got == expected:
+			print("  PASS [", label, "]")
+			passed += 1
+		else:
+			print("  FAIL [", label, "] got=", got, " expected=", expected)
+			failed += 1
+
+	# --- IsHealthy ---
+	print("=== IsHealthy ===")
+	var is_healthy := IsHealthy.new()
+	var bb := {"health": 100, "healthy_threshold": 50}
+	assert_eq("healthy above threshold", is_healthy.tick(bb), BTNode.SUCCESS)
+	bb["health"] = 50
+	assert_eq("healthy at threshold", is_healthy.tick(bb), BTNode.SUCCESS)
+	bb["health"] = 49
+	assert_eq("below threshold", is_healthy.tick(bb), BTNode.FAILURE)
+	assert_eq("no mutation", bb.get("action", "NONE"), "NONE")
+
+	# --- FleeAction ---
+	print("=== FleeAction ===")
+	var flee := FleeAction.new()
+	bb = {}
+	var res := flee.tick(bb)
+	assert_eq("flee returns SUCCESS", res, BTNode.SUCCESS)
+	assert_eq("flee sets action", bb["action"], "flee")
+
+	# --- PatrolUntilSpotted ---
+	print("=== PatrolUntilSpotted ===")
+	var patrol := PatrolUntilSpotted.new()
+	bb = {"player_spotted": false, "patrol_steps": 0}
+	res = patrol.tick(bb)
+	assert_eq("patrol not spotted returns RUNNING", res, BTNode.RUNNING)
+	assert_eq("patrol sets action", bb["action"], "patrol")
+	assert_eq("patrol increments steps", bb["patrol_steps"], 1)
+	res = patrol.tick(bb)
+	assert_eq("patrol increments again", bb["patrol_steps"], 2)
+	bb["player_spotted"] = true
+	var steps_before := bb["patrol_steps"]
+	res = patrol.tick(bb)
+	assert_eq("patrol spotted returns SUCCESS", res, BTNode.SUCCESS)
+	assert_eq("patrol spotted no step increment", bb["patrol_steps"], steps_before)
+
+	# --- ChasePlayer ---
+	print("=== ChasePlayer ===")
+	var chase := ChasePlayer.new()
+	bb = {"distance_to_player": 10.0, "attack_range": 3.0, "chase_speed": 4.0}
+	res = chase.tick(bb)
+	assert_eq("chase sets action", bb["action"], "chase")
+	assert_eq("chase far returns RUNNING", res, BTNode.RUNNING)
+	assert_eq("chase reduces distance", bb["distance_to_player"], 6.0)
+	bb["distance_to_player"] = 3.0
+	var dist_before := bb["distance_to_player"]
+	res = chase.tick(bb)
+	assert_eq("chase in range returns SUCCESS", res, BTNode.SUCCESS)
+	assert_eq("chase in range no distance mutation", bb["distance_to_player"], dist_before)
+
+	# --- AttackIfInRange ---
+	print("=== AttackIfInRange ===")
+	var attack := AttackIfInRange.new()
+	bb = {"distance_to_player": 5.0, "attack_range": 3.0, "attack_damage": 25}
+	res = attack.tick(bb)
+	assert_eq("attack out of range returns FAILURE", res, BTNode.FAILURE)
+	assert_eq("attack out of range no action mutation", bb.has("action"), false)
+	bb["distance_to_player"] = 3.0
+	res = attack.tick(bb)
+	assert_eq("attack in range returns SUCCESS", res, BTNode.SUCCESS)
+	assert_eq("attack sets action", bb["action"], "attack")
+	assert_eq("attack sets damage", bb["last_attack_damage"], 25)
+
+	# --- Full tree: flee branch (unhealthy) ---
+	print("=== Full tree: flee branch ===")
+	var tree := BTFactory.build_enemy_tree()
+	bb = {
+		"health": 10, "healthy_threshold": 50,
+		"player_spotted": false, "patrol_steps": 0,
+		"distance_to_player": 100.0, "attack_range": 5.0,
+		"chase_speed": 10.0, "attack_damage": 20
+	}
+	res = tree.tick(bb)
+	assert_eq("flee branch returns SUCCESS", res, BTNode.SUCCESS)
+	assert_eq("flee branch sets action flee", bb["action"], "flee")
+
+	# --- Full tree: engage branch healthy, not spotted ---
+	print("=== Full tree: engage (not spotted) ===")
+	bb = {
+		"health": 100, "healthy_threshold": 50,
+		"player_spotted": false, "patrol_steps": 0,
+		"distance_to_player": 100.0, "attack_range": 5.0,
+		"chase_speed": 10.0, "attack_damage": 20
+	}
+	res = tree.tick(bb)
+	assert_eq("engage not spotted returns RUNNING", res, BTNode.RUNNING)
+	assert_eq("engage patrol action", bb["action"], "patrol")
+	assert_eq("engage patrol steps 1", bb["patrol_steps"], 1)
+
+	# --- Full tree: engage branch healthy, spotted, far ---
+	print("=== Full tree: engage (spotted, chasing) ===")
+	bb = {
+		"health": 100, "healthy_threshold": 50,
+		"player_spotted": true, "patrol_steps": 0,
+		"distance_to_player": 20.0, "attack_range": 5.0,
+		"chase_speed": 10.0, "attack_damage": 20
+	}
+	res = tree.tick(bb)
+	assert_eq("chase returns RUNNING", res, BTNode.RUNNING)
+	assert_eq("chase action", bb["action"], "chase")
+	assert_eq("chase distance reduced", bb["distance_to_player"], 10.0)
+
+	# --- Full tree: engage branch healthy, spotted, in range ---
+	print("=== Full tree: engage (spotted, in range) ===")
+	bb = {
+		"health": 100, "healthy_threshold": 50,
+		"player_spotted": true, "patrol_steps": 0,
+		"distance_to_player": 5.0, "attack_range": 5.0,
+		"chase_speed": 10.0, "attack_damage": 20
+	}
+	res = tree.tick(bb)
+	assert_eq("attack returns SUCCESS", res, BTNode.SUCCESS)
+	assert_eq("attack action", bb["action"], "attack")
+	assert_eq("attack damage", bb["last_attack_damage"], 20)
+
+	print("")
+	print("Results: ", passed, " passed, ", failed, " failed")
+	quit(0 if failed == 0 else 1)
+HEREDOC ✔ 
+💫 Executing godot --headless --path /home/user/myproject --script res://integration_test.gd 2>&1 ✖ "Command exited with code 1"
+💫 Executing cat > /home/user/myproject/integration_test.gd << 'HEREDOC'
+extends SceneTree
+
+var passed := 0
+var failed := 0
+
+func assert_eq(label: String, got, expected) -> void:
+	if got == expected:
+		print("  PASS [", label, "]")
+		passed += 1
+	else:
+		print("  FAIL [", label, "] got=", got, " expected=", expected)
+		failed += 1
+
+func _init():
+	# --- IsHealthy ---
+	print("=== IsHealthy ===")
+	var is_healthy := IsHealthy.new()
+	var bb := {"health": 100, "healthy_threshold": 50}
+	assert_eq("healthy above threshold", is_healthy.tick(bb), BTNode.SUCCESS)
+	bb["health"] = 50
+	assert_eq("healthy at threshold", is_healthy.tick(bb), BTNode.SUCCESS)
+	bb["health"] = 49
+	assert_eq("below threshold", is_healthy.tick(bb), BTNode.FAILURE)
+	assert_eq("no mutation", bb.has("action"), false)
+
+	# --- FleeAction ---
+	print("=== FleeAction ===")
+	var flee := FleeAction.new()
+	bb = {}
+	var res := flee.tick(bb)
+	assert_eq("flee returns SUCCESS", res, BTNode.SUCCESS)
+	assert_eq("flee sets action", bb["action"], "flee")
+
+	# --- PatrolUntilSpotted ---
+	print("=== PatrolUntilSpotted ===")
+	var patrol := PatrolUntilSpotted.new()
+	bb = {"player_spotted": false, "patrol_steps": 0}
+	res = patrol.tick(bb)
+	assert_eq("patrol not spotted returns RUNNING", res, BTNode.RUNNING)
+	assert_eq("patrol sets action", bb["action"], "patrol")
+	assert_eq("patrol increments steps", bb["patrol_steps"], 1)
+	res = patrol.tick(bb)
+	assert_eq("patrol increments again", bb["patrol_steps"], 2)
+	bb["player_spotted"] = true
+	var steps_before := bb["patrol_steps"]
+	res = patrol.tick(bb)
+	assert_eq("patrol spotted returns SUCCESS", res, BTNode.SUCCESS)
+	assert_eq("patrol spotted no step increment", bb["patrol_steps"], steps_before)
+
+	# --- ChasePlayer ---
+	print("=== ChasePlayer ===")
+	var chase := ChasePlayer.new()
+	bb = {"distance_to_player": 10.0, "attack_range": 3.0, "chase_speed": 4.0}
+	res = chase.tick(bb)
+	assert_eq("chase sets action", bb["action"], "chase")
+	assert_eq("chase far returns RUNNING", res, BTNode.RUNNING)
+	assert_eq("chase reduces distance", bb["distance_to_player"], 6.0)
+	bb["distance_to_player"] = 3.0
+	var dist_before := bb["distance_to_player"]
+	res = chase.tick(bb)
+	assert_eq("chase in range returns SUCCESS", res, BTNode.SUCCESS)
+	assert_eq("chase in range no distance mutation", bb["distance_to_player"], dist_before)
+
+	# --- AttackIfInRange ---
+	print("=== AttackIfInRange ===")
+	var attack := AttackIfInRange.new()
+	bb = {"distance_to_player": 5.0, "attack_range": 3.0, "attack_damage": 25}
+	res = attack.tick(bb)
+	assert_eq("attack out of range returns FAILURE", res, BTNode.FAILURE)
+	assert_eq("attack out of range no action mutation", bb.has("action"), false)
+	bb["distance_to_player"] = 3.0
+	res = attack.tick(bb)
+	assert_eq("attack in range returns SUCCESS", res, BTNode.SUCCESS)
+	assert_eq("attack sets action", bb["action"], "attack")
+	assert_eq("attack sets damage", bb["last_attack_damage"], 25)
+
+	# --- Full tree: flee branch (unhealthy) ---
+	print("=== Full tree: flee branch ===")
+	var tree := BTFactory.build_enemy_tree()
+	bb = {
+		"health": 10, "healthy_threshold": 50,
+		"player_spotted": false, "patrol_steps": 0,
+		"distance_to_player": 100.0, "attack_range": 5.0,
+		"chase_speed": 10.0, "attack_damage": 20
+	}
+	res = tree.tick(bb)
+	assert_eq("flee branch returns SUCCESS", res, BTNode.SUCCESS)
+	assert_eq("flee branch sets action flee", bb["action"], "flee")
+
+	# --- Full tree: engage branch healthy, not spotted ---
+	print("=== Full tree: engage (not spotted) ===")
+	bb = {
+		"health": 100, "healthy_threshold": 50,
+		"player_spotted": false, "patrol_steps": 0,
+		"distance_to_player": 100.0, "attack_range": 5.0,
+		"chase_speed": 10.0, "attack_damage": 20
+	}
+	res = tree.tick(bb)
+	assert_eq("engage not spotted returns RUNNING", res, BTNode.RUNNING)
+	assert_eq("engage patrol action", bb["action"], "patrol")
+	assert_eq("engage patrol steps 1", bb["patrol_steps"], 1)
+
+	# --- Full tree: engage branch healthy, spotted, far ---
+	print("=== Full tree: engage (spotted, chasing) ===")
+	bb = {
+		"health": 100, "healthy_threshold": 50,
+		"player_spotted": true, "patrol_steps": 0,
+		"distance_to_player": 20.0, "attack_range": 5.0,
+		"chase_speed": 10.0, "attack_damage": 20
+	}
+	res = tree.tick(bb)
+	assert_eq("chase returns RUNNING", res, BTNode.RUNNING)
+	assert_eq("chase action", bb["action"], "chase")
+	assert_eq("chase distance reduced", bb["distance_to_player"], 10.0)
+
+	# --- Full tree: engage branch healthy, spotted, in range ---
+	print("=== Full tree: engage (spotted, in range) ===")
+	bb = {
+		"health": 100, "healthy_threshold": 50,
+		"player_spotted": true, "patrol_steps": 0,
+		"distance_to_player": 5.0, "attack_range": 5.0,
+		"chase_speed": 10.0, "attack_damage": 20
+	}
+	res = tree.tick(bb)
+	assert_eq("attack returns SUCCESS", res, BTNode.SUCCESS)
+	assert_eq("attack action", bb["action"], "attack")
+	assert_eq("attack damage", bb["last_attack_damage"], 20)
+
+	print("")
+	print("Results: ", passed, " passed, ", failed, " failed")
+	quit(0 if failed == 0 else 1)
+HEREDOC ✔ 
+💫 Executing godot --headless --path /home/user/myproject --script res://integration_test.gd 2>&1 ✖ "Command exited with code 1"
+💫 Executing sed -i 's/var steps_before := bb\["patrol_steps"\]/var steps_before: int = bb["patrol_steps"]/' /home/user/myproject/integration_test.gd && sed -i 's/var dist_before := bb\["distance_to_player"\]/var dist_before: float = bb["distance_to_player"]/' /home/user/myproject/integration_test.gd ✔ 
+💫 Executing godot --headless --path /home/user/myproject --script res://integration_test.gd 2>&1 ✔ 
+All 33 tests pass. Let me clean up the test files (the verifier will place its own test script) and do a final clean boot check:   
+💫 Executing rm /home/user/myproject/probe.gd /home/user/myproject/integration_test.gd && ls /home/user/myproject/ ✔ 
+💫 Executing cat /home/user/myproject/.godot/global_script_class_cache.cfg ✔ 
+📋 Updating todo list (1 items) ✔ 
+🎉 Task Completed
+The Godot 4 Behavior Tree library is fully implemented at `/home/user/myproject`. Here's a summary of everything created:
+
+## Project Structure
+
+```
+/home/user/myproject/
+├── project.godot          # config_version=5, GDScript features
+├── BTNode.gd              # Base: SUCCESS=0, FAILURE=1, RUNNING=2 constants + tick()
+├── BTSelector.gd          # Composite: returns SUCCESS/RUNNING on first match, FAILURE if all fail
+├── BTSequence.gd          # Composite: returns FAILURE/RUNNING on first break, SUCCESS if all pass
+├── BTInverter.gd          # Decorator: inverts SUCCESS↔FAILURE, passes through RUNNING
+├── BTAction.gd            # Leaf base: default tick() returns FAILURE
+├── IsHealthy.gd           # health >= healthy_threshold → SUCCESS, else FAILURE (no mutation)
+├── FleeAction.gd          # Sets action="flee" → SUCCESS
+├── PatrolUntilSpotted.gd  # player_spotted? → SUCCESS; else action="patrol", patrol_steps++, RUNNING
+├── ChasePlayer.gd         # Sets action="chase"; in range → SUCCESS; else distance -= chase_speed, RUNNING
+└── AttackIfInRange.gd     # In range → action="attack", last_attack_damage=attack_damage, SUCCESS; else FAILURE
+```
+
+## Enemy AI Tree Topology (BTFactory.build_enemy_tree())
+
+```
+BTSelector (root)
+├── BTSequence  (flee when unhealthy)
+│   ├── BTInverter → IsHealthy
+│   └── FleeAction
+└── BTSequence  (engage loop)
+    ├── PatrolUntilSpotted
+    ├── ChasePlayer
+    └── AttackIfInRange
+```
+
+## Verification
+
+- All 11 `class_name` identifiers are registered in `.godot/global_script_class_cache.cfg`
+- The project runs under `godot --headless --path /home/user/myproject` without errors
+- 33/33 integration test cases passed covering all node semantics, edge cases (at-threshold boundary, no-mutation guarantees), and full-tree traversal scenarios
+- The verifier's `zealt_bt_runner.gd` script (placed at `res://zealt_bt_runner.gd`) will resolve all class names globally via the cached index and can call `BTFactory.build_enemy_tree()` directly   
+  

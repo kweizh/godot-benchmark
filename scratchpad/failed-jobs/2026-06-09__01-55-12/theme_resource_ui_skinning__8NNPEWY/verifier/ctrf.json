@@ -1,0 +1,88 @@
+{
+    "results": {
+        "tool": {
+            "name": "pytest",
+            "version": "7.4.4"
+        },
+        "summary": {
+            "tests": 7,
+            "passed": 7,
+            "failed": 0,
+            "skipped": 0,
+            "pending": 0,
+            "other": 0,
+            "start": 1780970535077,
+            "stop": 1780970535820
+        },
+        "environment": {
+            "buildName": "Pytest JSON CTRF Report",
+            "buildNumber": "000",
+            "buildUrl": "https://ctrf.io"
+        },
+        "tests": [
+            {
+                "name": "test_final_state.py::test_project_godot_exists",
+                "status": "passed",
+                "duration": 2,
+                "start": 1780970535106,
+                "stop": 1780970535108,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_required_files_exist",
+                "status": "passed",
+                "duration": 1,
+                "start": 1780970535108,
+                "stop": 1780970535109,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_main_scene_registered_in_project_godot",
+                "status": "passed",
+                "duration": 1,
+                "start": 1780970535109,
+                "stop": 1780970535110,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_main_scene_node_tree",
+                "status": "passed",
+                "duration": 2,
+                "start": 1780970535110,
+                "stop": 1780970535112,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_main_script_has_public_api",
+                "status": "passed",
+                "duration": 1,
+                "start": 1780970535112,
+                "stop": 1780970535113,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_project_loads_without_errors",
+                "status": "passed",
+                "duration": 301,
+                "start": 1780970535113,
+                "stop": 1780970535414,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_theme_runtime_harness",
+                "status": "passed",
+                "duration": 405,
+                "start": 1780970535415,
+                "stop": 1780970535820,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            }
+        ]
+    }
+}

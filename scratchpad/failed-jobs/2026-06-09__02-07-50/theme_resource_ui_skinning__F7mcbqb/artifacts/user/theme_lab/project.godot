@@ -1,0 +1,13 @@
+; Engine configuration file.
+; It's best edited using the editor UI and not directly,
+; but it can also be edited via script.
+
+[application]
+
+run/main_scene="res://scenes/main.tscn"
+config/name="Theme Lab"
+
+[display]
+
+window/size/viewport_width=800
+window/size/viewport_height=600

@@ -1,0 +1,27 @@
+============================= test session starts ==============================
+platform linux -- Python 3.12.3, pytest-7.4.4, pluggy-1.4.0
+rootdir: /tests
+plugins: json-ctrf-0.5.0
+collected 16 items
+
+tests/test_final_state.py ................                               [100%]
+
+==================================== PASSES ====================================
+=========================== short test summary info ============================
+PASSED tests/test_final_state.py::test_required_class_names_registered[BTNode]
+PASSED tests/test_final_state.py::test_required_class_names_registered[BTSelector]
+PASSED tests/test_final_state.py::test_required_class_names_registered[BTSequence]
+PASSED tests/test_final_state.py::test_required_class_names_registered[BTInverter]
+PASSED tests/test_final_state.py::test_required_class_names_registered[BTAction]
+PASSED tests/test_final_state.py::test_required_class_names_registered[IsHealthy]
+PASSED tests/test_final_state.py::test_required_class_names_registered[FleeAction]
+PASSED tests/test_final_state.py::test_required_class_names_registered[PatrolUntilSpotted]
+PASSED tests/test_final_state.py::test_required_class_names_registered[ChasePlayer]
+PASSED tests/test_final_state.py::test_required_class_names_registered[AttackIfInRange]
+PASSED tests/test_final_state.py::test_required_class_names_registered[BTFactory]
+PASSED tests/test_final_state.py::test_runner_records_have_all_labels
+PASSED tests/test_final_state.py::test_scenario_a_low_health_flees
+PASSED tests/test_final_state.py::test_scenario_b_patrol_and_engage
+PASSED tests/test_final_state.py::test_scenario_c_health_drop_forces_flee
+PASSED tests/test_final_state.py::test_runner_is_deterministic
+============================== 16 passed in 8.61s ==============================

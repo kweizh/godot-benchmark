@@ -1,0 +1,50 @@
+[gd_scene load_steps=2 format=3 uid="uid://b1234567890ab"]
+
+[ext_resource type="Script" path="res://scripts/main.gd" id="1_main"]
+
+[node name="Root" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+script = ExtResource("1_main")
+
+[node name="MainPanel" type="Panel" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+
+[node name="TitleLabel" type="Label" parent="MainPanel"]
+layout_mode = 1
+offset_left = 20.0
+offset_top = 20.0
+offset_right = 300.0
+offset_bottom = 50.0
+text = "Theme Lab"
+
+[node name="DefaultButton" type="Button" parent="MainPanel"]
+layout_mode = 1
+offset_left = 20.0
+offset_top = 60.0
+offset_right = 160.0
+offset_bottom = 90.0
+text = "Default"
+
+[node name="PrimaryButton" type="Button" parent="MainPanel"]
+layout_mode = 1
+offset_left = 20.0
+offset_top = 100.0
+offset_right = 160.0
+offset_bottom = 130.0
+text = "Primary"
+theme_type_variation = &"PrimaryButton"
+
+[node name="DangerButton" type="Button" parent="MainPanel"]
+layout_mode = 1
+offset_left = 20.0
+offset_top = 140.0
+offset_right = 160.0
+offset_bottom = 170.0
+text = "Danger"
+theme_type_variation = &"DangerButton"

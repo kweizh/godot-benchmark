@@ -1,0 +1,13 @@
+; Engine configuration file for the behavior_tree_enemy_ai task.
+; The executor must implement the BT library described in the task.
+
+config_version=5
+
+[application]
+
+config/name="behavior_tree_enemy_ai"
+config/features=PackedStringArray("4.3", "GDScript")
+
+[debug]
+
+gdscript/warnings/untyped_declaration=0

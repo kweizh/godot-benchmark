@@ -1,0 +1,10 @@
+[gd_scene load_steps=2 format=3 uid="uid://patrol_enemy"]
+
+[ext_resource type="Script" path="res://scripts/PatrolController.gd" id="1_patrol"]
+
+[node name="PatrolEnemy" type="Path2D"]
+script = ExtResource("1_patrol")
+
+[node name="PathFollow2D" type="PathFollow2D" parent="."]
+
+[node name="Enemy" type="Node2D" parent="PathFollow2D"]

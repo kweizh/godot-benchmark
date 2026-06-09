@@ -1,0 +1,17 @@
+[gd_scene load_steps=3 format=3]
+
+[ext_resource type="Script" path="res://scripts/PatrolController.gd" id="1_controller"]
+
+[sub_resource type="Curve2D" id="Curve2D_default"]
+_data = {
+"points": PackedVector2Array()
+}
+
+[node name="PatrolEnemy" type="Path2D"]
+curve = SubResource("Curve2D_default")
+script = ExtResource("1_controller")
+
+[node name="PathFollow2D" type="PathFollow2D" parent="."]
+loop = false
+
+[node name="Enemy" type="Node2D" parent="PathFollow2D"]
